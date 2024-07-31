@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { ImageBackground, ScrollView, Text, TextComponent, View } from "react-native";
-import styles from "./TrainingCalculatorMainStyles"
+import { Button, ImageBackground, ScrollView, View } from "react-native";
+import training_calculator_styles from "./TrainingCalculatorMainStyles"
 
-function TrainingCalculatorMain(): React.JSX.Element {
+function TrainingCalculatorMain({ navigation }: any): React.JSX.Element {
     const backgroundImageUri = require("../../../public/img/utills/pagesBackgroundImg.jpg")
     const [calculationResults, setCalculationResults] = useState(0)
 
@@ -11,10 +11,12 @@ function TrainingCalculatorMain(): React.JSX.Element {
     }
 
     return(
-        <ScrollView contentContainerStyle = {styles.scrollViewStyles}>
-            <View style = {styles.training_calculator_main_wrapper}>
-                <ImageBackground source = {backgroundImageUri} resizeMode = "cover"  style = {styles.img}>
-                    <Text style = {styles.textBasic}> {"Home Screen"} </Text>
+        <ScrollView contentContainerStyle = {training_calculator_styles.scrollViewStyles}>
+            <View style = {training_calculator_styles.wrapper}>
+                <ImageBackground source = {backgroundImageUri} resizeMode = "cover"  style = {training_calculator_styles.background_img}>
+                    <Button title = "Go Home" onPress = {() => {
+                        navigation.goBack()
+                    }}/>
                 </ImageBackground>
             </View>
         </ScrollView>

@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 
-const styles = StyleSheet.create(
+const training_calculator_styles = StyleSheet.create(
     {
-        training_calculator_main_wrapper: {
+        wrapper: {
             height: "100%",
             width: "100%",
 
@@ -22,21 +22,12 @@ const styles = StyleSheet.create(
             width:"100%",
         },
         
-        img: {
+        background_img: {
             flex: 1,
             width: "100%" ,
             height: "100%",
         },
-
-        textBasic: {
-            textAlign: "center",
-            width: "100%",
-            height: "10%",
-            fontSize: 22,
-            color: "#5f9ea4",
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-        }
     }
 );
 
-export default styles
+export default training_calculator_styles
