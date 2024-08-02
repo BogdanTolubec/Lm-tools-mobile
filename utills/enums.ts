@@ -1,6 +1,6 @@
 export enum ScreensEnum {
     home = "HomeScreen",
-    calculator = "TrainingCalculator",
+    calculator = "TrainingCalculatorScreen",
     dresser = "DresserScreen",
     addNewPiece = "AddNewPieceScreen",
 }

@@ -7,9 +7,8 @@
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import TrainingCalculatorMain from './Screens/TrainingCalculatorScreen/TrainingCalculatorMain/TrainingCalculatorMain';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './Screens/HomeScreen/Screen/HomeScreen';
+import { RootNavigator } from './Screens/navigation';
 
 function App(): React.JSX.Element {
   
@@ -17,10 +16,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-       <Stack.Screen name = 'HomeScreen' component = {HomeScreen}/>
-       <Stack.Screen name = 'TrainingCalculatorScreen' component = {TrainingCalculatorMain}/>                    
-      </Stack.Navigator>
+      <RootNavigator/>
     </NavigationContainer>
   );
 }

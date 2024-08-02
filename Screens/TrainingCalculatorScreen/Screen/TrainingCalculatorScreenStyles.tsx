@@ -11,7 +11,10 @@ const training_calculator_styles = StyleSheet.create(
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-between",
-            flexWrap: "wrap",
+
+            position: "absolute",
+            
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
         },
 
         scrollViewStyles:{

@@ -9,6 +9,8 @@ const homeScreenStyles = StyleSheet.create(
 
             flex: 1,
             flexDirection: "column",
+            
+            justifyContent: "space-between",
         },
 })
 
