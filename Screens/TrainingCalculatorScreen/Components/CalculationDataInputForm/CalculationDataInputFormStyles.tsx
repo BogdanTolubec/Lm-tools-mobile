@@ -5,7 +5,7 @@ const calculation_data_input_form = StyleSheet.create({
     wrapper: {
         flex: 1,
         flexDirection: "column",
-        maxHeight: "50%",
+        maxHeight: "60%",
         minWidth: "100%",
 
         justifyContent: "space-between",
@@ -35,7 +35,7 @@ const calculation_data_input_form = StyleSheet.create({
 
     check_label_off: {
         flex: 1,
-        height: "90%",
+        height: "70%",
         maxWidth: "22%",
         marginBottom: 5,
     
@@ -46,11 +46,13 @@ const calculation_data_input_form = StyleSheet.create({
         borderRadius: 5,
 
         textAlign: "center",
-        justifyContent: "center",
+        textAlignVertical: "center",
+
+        fontWeight: "bold",
     },
 
     check_label_on: {
-        height: "90%",
+        height: "70%",
         width: "22%",
         marginBottom: 5,
     

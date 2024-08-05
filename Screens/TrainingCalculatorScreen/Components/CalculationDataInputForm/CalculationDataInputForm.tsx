@@ -6,6 +6,8 @@ import SubmitButton from "../../../../Components/SubmitButton/SubmitButton";
 
 function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
 
+    const refInput = React.useRef<Text>(null);
+
     const calculationResults: Record<string, number> = {
         foodCount: 0,
         stoneCount: 0,
@@ -25,16 +27,6 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
     const[currentStyle, setCurrentStyle] = useState<React.CSSProperties>()
 
         //functions zone
-    const setOnStylesOnCurrentElementByClick = (element: any, /*currentElementState: string,*/
-         setCurrentFunction: any, /*styleOnName: React.CSSProperties, styleOffName: React.CSSProperties*/) => {
-        //if(currentElementState !== ""){ //set previous selected element to off mode
-        //    element.props.style = styleOffName
-        //}
-
-        setCurrentFunction(element)
-
-        //element.props.style = styleOnName // change element mode to on
-    }
 
     const setMaterialsCount = (calculationDataArmyTypeRss: Array<number>, trainingTime: Array<number>) => {
         
@@ -48,8 +40,8 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
     }
 
     const calculateMaterials = () => {
-        console.log("army type selected: " + currentArmyTypeSelect)
-        if(currentArmyTypeSelect == null || currentTierSelect == null){
+
+        if(currentArmyTypeSelect === (null || undefined) || currentTierSelect === (null || undefined)){
             return Alert.alert("Set up all values before calculating!")
         }
 
@@ -190,46 +182,48 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
         <View style = {calculation_data_input_form.wrapper}>
             <View style = {calculation_data_input_form.select_section}>
                 <Text style = {calculation_data_input_form.check_label_off}
-                onPress = {(text) => {
-                    setCurrentArmyTypeSelect(text.toString())
-                    console.log("text: " + text)
+                onPress = {(e) => {
+                    setCurrentArmyTypeSelect("infantry")
                 }}> infantry </Text>
 
-                <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(text) => () => {
-                    setCurrentArmyTypeSelect(text.toString())
+                <Text ref = {refInput} style = {calculation_data_input_form.check_label_off} 
+                onPress = {(e) => {
+                    if(refInput.current !== null){
+                    refInput.current.focus()
+                    }
+                    setCurrentArmyTypeSelect("ranged")
                 }}> ranged </Text>
 
                 <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(text) => () => {
-                    setCurrentArmyTypeSelect(text.toString())
+                onPress = {(e) => {
+                    setCurrentArmyTypeSelect("cavalry")
                 }}> cavalry </Text>
 
                 <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(text) => () => {
-                    setCurrentArmyTypeSelect(text.toString())
+                onPress = {(e) => {
+                    setCurrentArmyTypeSelect("siege")
                 }}> siege </Text>
             </View>
 
             <View style = {calculation_data_input_form.select_section}>
                 <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(text) => () => {
-                    setCurrentTierSelect(text.toString())
+                onPress = {(e) => {
+                    setCurrentTierSelect("t1")
                 }}> t1 </Text>
 
                 <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(text) => () => {
-                    setCurrentTierSelect(text.toString())
+                onPress = {(e) => {
+                    setCurrentTierSelect("t2")
                 }}> t2 </Text>
 
                 <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(text) => () => {
-                    setCurrentTierSelect(text.toString())
+                onPress = {(e) => {
+                    setCurrentTierSelect("t3")
                 }}> t3 </Text>
 
                 <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(text) => () => {
-                    setCurrentTierSelect(text.toString())
+                onPress = {(e) => {
+                    setCurrentTierSelect("t4")
                 }}> t4 </Text>
             </View>
 

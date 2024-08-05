@@ -7,7 +7,7 @@ import DresserScreen from "./DresserScreen/Screen/DresserScreen";
 import AddNewPieceScreen from "./AddNewPieceScreen/Screen/AddNewPieceScreen";
 
 export type RootStackParamList = {
-    Onboarding: NavigatorScreenParams<OnboardingStackParamList>
+    Onboarding: NavigatorScreenParams<OnboardingStackParamList >
 }
 
 export type OnboardingStackParamList = {
@@ -22,7 +22,9 @@ const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>()
 
 const OnboardingNavigator = () => {
     return(
-        <OnboardingStack.Navigator >
+        <OnboardingStack.Navigator screenOptions = {
+            {headerShown: false}
+            }>
             <OnboardingStack.Screen name = {ScreensEnum.home} component = {HomeScreen}/>
             <OnboardingStack.Screen name = {ScreensEnum.calculator} component = {TrainingCalculatorScreen}/>
             <OnboardingStack.Screen name = {ScreensEnum.dresser} component = {DresserScreen}/>
