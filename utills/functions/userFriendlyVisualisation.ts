@@ -1,7 +1,9 @@
 export function userFriendlyBigNumbersVisualisation(number: number): string{
     if(!number){
-        return "0"
+        return ""
     }
+
+    number = Math.round(number)
 
     let i: number = number.toString().length
     let numberLength: number = number.toString().length

@@ -3,6 +3,8 @@ import { calculationDataT1, calculationDataT2, calculationDataT3, calculationDat
 import { Alert, GestureResponderEvent, Text, TextInput,  View } from "react-native";
 import calculation_data_input_form from "./CalculationDataInputFormStyles";
 import SubmitButton from "../../../../Components/SubmitButton/SubmitButton";
+import { validateInputTypeNumber } from "../../../../utills/functions/validationFunctions";
+import NumericInput from "../../../../Components/NumericInput/NumericInput";
 
 function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
 
@@ -21,8 +23,8 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
     const [trainingSpeed, setTrainingSpeed] = useState<number>(0)
     const [subsidy, setSubsidy] = useState<number>(0)
 
-    const[currentArmyTypeSelect, setCurrentArmyTypeSelect] = useState<string>("")
-    const[currentTierSelect, setCurrentTierSelect] = useState<string>("")
+    const[currentArmyTypeSelect, setCurrentArmyTypeSelect] = useState<string>("infantry")
+    const[currentTierSelect, setCurrentTierSelect] = useState<string>("t1")
 
     const[currentStyle, setCurrentStyle] = useState<React.CSSProperties>()
 
@@ -228,19 +230,16 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
             </View>
 
             <Text style = {calculation_data_input_form.text_input_labels}>Training speed (%): </Text>
-            <TextInput placeholder = "100" style = {calculation_data_input_form.text_input} onChangeText = {(text: string) => {
-                setTrainingSpeed(Number(text))
-            }}></TextInput>
+            <NumericInput placeholder = "100" styles = {calculation_data_input_form.text_input}
+             minValue = {0} maxValue = {999} setParentElementState = {(state) => {setTrainingSpeed(state)}}/>
 
             <Text style = {calculation_data_input_form.text_input_labels}> Army count: </Text>
-            <TextInput placeholder = "100.000" style = {calculation_data_input_form.text_input} onChangeText = {(text: string) => {
-                setArmyCount(Number(text))
-            }}></TextInput>
+            <NumericInput placeholder = "100.000" styles = {calculation_data_input_form.text_input} 
+             minValue = {0} maxValue = {999_999_999} setParentElementState = {(state) => {setArmyCount(state)}}/>
 
             <Text style = {calculation_data_input_form.text_input_labels}> Subsidy (%): </Text>
-            <TextInput placeholder = "40" style = {calculation_data_input_form.text_input} onChangeText = {(text: string) => {
-                setSubsidy(Number(text))
-            }}></TextInput>
+            <NumericInput placeholder = "40" styles = {calculation_data_input_form.text_input}
+            minValue = {0} maxValue = {40} maxLength = {3} setParentElementState = {(state) => {setSubsidy(state)}}/>
 
             <SubmitButton onPress = {(e: GestureResponderEvent) => {calculateAndSendData()}} title = "Calculate"/>
         </View>
