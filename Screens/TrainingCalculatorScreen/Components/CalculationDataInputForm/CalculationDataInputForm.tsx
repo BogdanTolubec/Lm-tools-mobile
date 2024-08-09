@@ -1,14 +1,12 @@
 import React, { Component, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { calculationDataT1, calculationDataT2, calculationDataT3, calculationDataT4 } from "../../../../utills/CalculationConsts";
-import { Alert, GestureResponderEvent, Text, TextInput,  View } from "react-native";
+import { Alert, GestureResponderEvent, Pressable, Text, TextInput,  View } from "react-native";
 import calculation_data_input_form from "./CalculationDataInputFormStyles";
 import SubmitButton from "../../../../Components/SubmitButton/SubmitButton";
-import { validateInputTypeNumber } from "../../../../utills/functions/validationFunctions";
 import NumericInput from "../../../../Components/NumericInput/NumericInput";
+import CheckLabel from "../CheckLabel/CheckLabel";
 
 function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
-
-    const refInput = React.useRef<Text>(null);
 
     const calculationResults: Record<string, number> = {
         foodCount: 0,
@@ -19,6 +17,9 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
         trainingTime: 0,
     }
 
+    const armyTypeLabelsInfo = [{ id: 1, text: "infantry"}, { id: 2, text: "ranged"}, { id: 3, text: "cavalry"}, { id:4, text: "siege"}]
+    const tierLabelsInfo = [{ id: 1, text: "t1"}, { id: 2, text: "t2"}, { id: 3, text: "t3"}, { id:4, text: "t4"}]
+
     const [armyCount, setArmyCount] = useState<number>(0)
     const [trainingSpeed, setTrainingSpeed] = useState<number>(0)
     const [subsidy, setSubsidy] = useState<number>(0)
@@ -26,10 +27,10 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
     const[currentArmyTypeSelect, setCurrentArmyTypeSelect] = useState<string>("infantry")
     const[currentTierSelect, setCurrentTierSelect] = useState<string>("t1")
 
-    const[currentStyle, setCurrentStyle] = useState<React.CSSProperties>()
+    const[selectedArmyTypeId, setSelectedArmyTypeId] = useState<number>(0)
+    const[selectedTierId, setSelectedTierId] = useState<number>(0)
 
-        //functions zone
-
+    //functions zone
     const setMaterialsCount = (calculationDataArmyTypeRss: Array<number>, trainingTime: Array<number>) => {
         
         calculationResults.foodCount = armyCount * (calculationDataArmyTypeRss[0] * (1 - subsidy / 100))
@@ -177,56 +178,26 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
     const calculateAndSendData = () => {
         calculateMaterials()
         childToParent(calculationResults)
-        console.log("Result: ", calculationResults)
     }
     
     return(
         <View style = {calculation_data_input_form.wrapper}>
             <View style = {calculation_data_input_form.select_section}>
-                <Text style = {calculation_data_input_form.check_label_off}
-                onPress = {(e) => {
-                    setCurrentArmyTypeSelect("infantry")
-                }}> infantry </Text>
 
-                <Text ref = {refInput} style = {calculation_data_input_form.check_label_off} 
-                onPress = {(e) => {
-                    if(refInput.current !== null){
-                    refInput.current.focus()
-                    }
-                    setCurrentArmyTypeSelect("ranged")
-                }}> ranged </Text>
+                {armyTypeLabelsInfo.map((label) => 
+                    <CheckLabel key = {label.id} itemId = {label.id} text = {label.text} selectedId = {selectedArmyTypeId}
+                    setStateFunction = {setCurrentArmyTypeSelect} setSelectedFunction = {setSelectedArmyTypeId}/>
+                )}
 
-                <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(e) => {
-                    setCurrentArmyTypeSelect("cavalry")
-                }}> cavalry </Text>
-
-                <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(e) => {
-                    setCurrentArmyTypeSelect("siege")
-                }}> siege </Text>
             </View>
 
             <View style = {calculation_data_input_form.select_section}>
-                <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(e) => {
-                    setCurrentTierSelect("t1")
-                }}> t1 </Text>
 
-                <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(e) => {
-                    setCurrentTierSelect("t2")
-                }}> t2 </Text>
+                {tierLabelsInfo.map((label) => 
+                    <CheckLabel  key = {label.id} itemId = {label.id} text = {label.text} selectedId = {selectedTierId}
+                    setStateFunction = {setCurrentTierSelect} setSelectedFunction = {setSelectedTierId}/>
+                )}
 
-                <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(e) => {
-                    setCurrentTierSelect("t3")
-                }}> t3 </Text>
-
-                <Text style = {calculation_data_input_form.check_label_off} 
-                onPress = {(e) => {
-                    setCurrentTierSelect("t4")
-                }}> t4 </Text>
             </View>
 
             <Text style = {calculation_data_input_form.text_input_labels}>Training speed (%): </Text>

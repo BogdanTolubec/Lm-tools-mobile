@@ -32,36 +32,6 @@ const calculation_data_input_form = StyleSheet.create({
         justifyContent: "space-between",
         margin: 0,
     },
-
-    check_label_off: {
-        flex: 1,
-        height: "70%",
-        maxWidth: "22%",
-        marginBottom: 5,
-    
-        backgroundColor: "rgb(35, 67, 88)",
-        borderWidth: 2,
-        borderStyle: "solid",
-        borderColor: "rgb(0,0,0)",
-        borderRadius: 5,
-
-        textAlign: "center",
-        textAlignVertical: "center",
-
-        fontWeight: "bold",
-    },
-
-    check_label_on: {
-        height: "70%",
-        width: "22%",
-        marginBottom: 5,
-    
-        backgroundColor: "rgb(40, 73, 92s)",
-        borderWidth: 2,
-        borderStyle: "solid",
-        borderColor: "rgb(0,0,0)",
-        borderRadius: 5,
-    }
 })
 
 export default calculation_data_input_form
