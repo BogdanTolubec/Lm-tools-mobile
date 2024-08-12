@@ -7,11 +7,6 @@ export enum ScreensEnum {
     addNewPiece = "AddNewPieceScreen",
 }
 
-export enum IconsPathsConsts{
-    foodIcon = require("../public/img/Icons/materials/food.jpg"),
-    stoneIcon = require("../public/img/Icons/materials/stone.jpg"),
-    woodIcon = require("../public/img/Icons/materials/wood.jpg"),
-    oreIcon = require("../public/img/Icons/materials/ore.jpg"),
-    goldIcon = require("../public/img/Icons/materials/gold.jpg"),
-    speedUpIcon = require("../public/img/Icons/materials/speedUp.jpg"),
+export enum ImgPathConsts{
+    backgroundImage = require("../public/img/utills/pagesBackgroundImg.jpg")
 }

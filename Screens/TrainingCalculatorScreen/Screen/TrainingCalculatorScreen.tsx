@@ -3,11 +3,10 @@ import { Button, ImageBackground, ScrollView, View } from "react-native";
 import training_calculator_styles from "./TrainingCalculatorScreenStyles"
 import CalculationDataInputForm from "../Components/CalculationDataInputForm/CalculationDataInputForm";
 import CalculationDataOutputForm from "../Components/CalculationDataOutputForm/CalculationDataOutputForm";
+import { ImgPathConsts } from "../../../utills/enums";
 
-function TrainingCalculatorMain({ navigation }: any): React.JSX.Element {
+function TrainingCalculatorMain(): React.JSX.Element {
 
-
-    const backgroundImageUri = require("../../../public/img/utills/pagesBackgroundImg.jpg")
     const [calculationResults, setCalculationResults] = useState<Record<string, number>>({
         foodCount: 0,
         stoneCount: 0,
@@ -24,7 +23,7 @@ function TrainingCalculatorMain({ navigation }: any): React.JSX.Element {
     return(
         <ScrollView contentContainerStyle = {training_calculator_styles.scrollViewStyles}>
             <View style = {training_calculator_styles.wrapper}>
-                <ImageBackground source = {backgroundImageUri} resizeMode = "cover"  style = {training_calculator_styles.background_img}>
+                <ImageBackground source = {ImgPathConsts.backgroundImage} resizeMode = "cover"  style = {training_calculator_styles.background_img}>
                     
                     <CalculationDataInputForm childToParent = {childToParent}/>
                     <CalculationDataOutputForm calculationResults = {calculationResults}/>

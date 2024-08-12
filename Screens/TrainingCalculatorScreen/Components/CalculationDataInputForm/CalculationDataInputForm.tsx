@@ -153,7 +153,7 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
                     }
 
                     case "cavalry": {
-                        setMaterialsCount(calculationDataT4.cavalryRssT4, calculationDataT3.secondsTrainingSpeedT4)
+                        setMaterialsCount(calculationDataT4.cavalryRssT4, calculationDataT4.secondsTrainingSpeedT4)
                         break;
                     }
 
