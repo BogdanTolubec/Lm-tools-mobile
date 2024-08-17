@@ -2,9 +2,14 @@ import React from "react"
 import { ColorValue, Image, ImageSourcePropType, Text, View } from "react-native";
 import tab_icon from "./TabIconStyles";
 
-function TabIcon (obj: { icon: ImageSourcePropType | undefined, color: ColorValue | undefined, name: string, focused: boolean }): React.JSX.Element {
+type Props = {
+  icon: ImageSourcePropType | undefined,
+  color: ColorValue | undefined, 
+  name: string, 
+  focused: boolean 
+}
 
-    const {icon, color, name, focused} = obj
+function TabIcon ({ icon, color, name, focused}: Props): React.JSX.Element {
 
     return (
       <View style = {tab_icon.wrapper}>

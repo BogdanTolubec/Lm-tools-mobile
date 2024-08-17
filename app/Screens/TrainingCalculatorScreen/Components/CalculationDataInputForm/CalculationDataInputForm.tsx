@@ -6,7 +6,9 @@ import { calculationDataT1, calculationDataT2, calculationDataT3, calculationDat
 import NumericInput from "../../../../../Components/NumericInput/NumericInput";
 import SubmitButton from "../../../../../Components/SubmitButton/SubmitButton";
 
-function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
+type Props = {childToParent: (calculationResults: Record<string, number>) => void}
+
+function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element {
 
     const calculationResults: Record<string, number> = {
         foodCount: 0,

@@ -3,9 +3,12 @@ import { GestureResponderEvent, Text, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import submit_button from "./SubmitButtonStyles";
 
-function SubmitButton(obj: {onPress: ((event: GestureResponderEvent) => void) | undefined, title: string}): React.JSX.Element {
+type Props = {
+    onPress: ((event: GestureResponderEvent) => void) | undefined,
+    title: string
+}
 
-    const {onPress, title} = obj
+function SubmitButton( {onPress, title}: Props ): React.JSX.Element {
 
     return(
         <TouchableOpacity onPress = {onPress} style = {submit_button.wrapper}>

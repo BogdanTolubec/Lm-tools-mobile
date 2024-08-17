@@ -3,9 +3,11 @@ import { Text, View } from "react-native";
 import calculation_data_output_form_styles from "./CalculationDataOutputFormStyles";
 import { userFriendlyBigNumbersVisualisation } from "../../../../../utills/functions/userFriendlyVisualisation";
 
-function CalculationDataOutputForm(obj: { calculationResults: Record<string, number>}): React.JSX.Element {
+type Props = {
+    calculationResults: Record<string, number>
+}
 
-    const {calculationResults} = obj 
+function CalculationDataOutputForm( {calculationResults}: Props ): React.JSX.Element {
 
     const[foodCount, setFoodCount] = useState(0)
     const[stoneCount, setStoneCount] = useState(0)

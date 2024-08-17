@@ -3,9 +3,12 @@ import { Image, ImageBackground, ImageSourcePropType, View } from "react-native"
 import piece from "./PieceStyles";
 import { ImgPathConsts } from "../../../../../utills/enums";
 
-function Piece(obj: {pieceImgPath: ImageSourcePropType | undefined, juewelsImgsPathArray?: Array<ImageSourcePropType | undefined>}): React.JSX.Element {
+type Props = {
+    pieceImgPath: ImageSourcePropType | undefined, 
+    juewelsImgsPathArray?: Array<ImageSourcePropType | undefined>
+}
 
-    const {pieceImgPath, juewelsImgsPathArray} = obj
+function Piece({pieceImgPath, juewelsImgsPathArray}: Props): React.JSX.Element {
 
     return(
         <View style = {piece.wrapper}>

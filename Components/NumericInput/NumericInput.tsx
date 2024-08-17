@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import { StyleProp, TextInput, TextStyle } from "react-native";
 import { validateInputTypeNumber } from "../../utills/functions/validationFunctions";
 
-function NumericInput(obj: {minValue: number, maxValue: number,
-    placeholder?: string | undefined, styles: StyleProp<TextStyle>,
-    setParentElementState: ((state: number) => void), maxLength?: number | undefined}): React.JSX.Element {
+type Props = {
+    minValue: number, 
+    maxValue: number,
+    placeholder?: string | undefined, 
+    styles: StyleProp<TextStyle>,
+    setParentElementState: ((state: number) => void), 
+    maxLength?: number | undefined
+}
 
-    const {styles, maxLength, minValue, maxValue, setParentElementState} = obj
+function NumericInput({minValue, maxValue, placeholder, styles, setParentElementState, maxLength}: Props): React.JSX.Element {
+
     const[inputValue, setInputValue] = useState<string>("")
     
     useEffect(() => {

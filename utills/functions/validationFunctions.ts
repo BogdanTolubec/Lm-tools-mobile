@@ -22,8 +22,7 @@ export function validateInputTypeNumber(value: string, minValue: number, maxValu
         }
 }
 
-export const validateInputStringBySymbols = (value: string, setStateFunction: React.Dispatch<React.SetStateAction<string>>,
-     inputRef: TextInput | null) => { // string validation on special symbols
+export const validateInputStringBySymbols = (value: string, setStateFunction: React.Dispatch<React.SetStateAction<string>>,) => { // string validation on special symbols
 
     const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
@@ -31,6 +30,6 @@ export const validateInputStringBySymbols = (value: string, setStateFunction: Re
         setStateFunction(value)
     }
     else{
-        inputRef?.setState(0)
+        setStateFunction("")
     }
 }
