@@ -16,15 +16,15 @@ function Piece({pieceImgPath, juewelsImgsPathArray}: Props): React.JSX.Element {
             {
             juewelsImgsPathArray !== undefined ? (
                 <View style = {piece.juewels_wrapper}>
-                    <Image style = {piece.juewels_img} source = {juewelsImgsPathArray[0]} alt="" />
-                    <Image style = {piece.juewels_img} source = {juewelsImgsPathArray[1]} alt="" />
-                    <Image style = {piece.juewels_img} source= {juewelsImgsPathArray[2]} alt="" />
+                    <Image style = {piece.juewels_img} source = {juewelsImgsPathArray[0]}/>
+                    <Image style = {piece.juewels_img} source = {juewelsImgsPathArray[1]}/>
+                    <Image style = {piece.juewels_img} source= {juewelsImgsPathArray[2]}/>
                 </View>) :
 
                 (<View style = {piece.juewels_wrapper}>
-                    <Image style = {piece.juewels_img} source = {ImgPathConsts.placeholderImage} alt="" />
-                    <Image style = {piece.juewels_img} source = {ImgPathConsts.placeholderImage} alt="" />
-                    <Image style = {piece.juewels_img} source = {ImgPathConsts.placeholderImage} alt="" />
+                    <Image style = {piece.juewels_img} source = {ImgPathConsts.placeholderImage}/>
+                    <Image style = {piece.juewels_img} source = {ImgPathConsts.placeholderImage}/>
+                    <Image style = {piece.juewels_img} source = {ImgPathConsts.placeholderImage}/>
                 </View>)
             }
             </ImageBackground>
