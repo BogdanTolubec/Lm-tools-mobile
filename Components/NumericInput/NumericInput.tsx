@@ -11,7 +11,7 @@ function NumericInput(obj: {minValue: number, maxValue: number,
     
     useEffect(() => {
         setParentElementState(Number(inputValue))
-    },[])
+    },[inputValue])
 
     return(
         <TextInput value = {inputValue} keyboardType = "numeric" style = {styles} maxLength = {maxLength}

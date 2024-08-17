@@ -178,6 +178,7 @@ function CalculationDataInputForm( { childToParent }: any): React.JSX.Element {
     const calculateAndSendData = () => {
         calculateMaterials()
         childToParent(calculationResults)
+        console.log("Results: " + JSON.stringify(calculationResults))
     }
     
     return(

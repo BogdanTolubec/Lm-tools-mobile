@@ -1,10 +1,8 @@
-import { Text, View } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { IconPathConsts, ScreensEnum } from '../../utills/enums';
 import HomeScreen from '../Screens/HomeScreen/Screen/HomeScreen';
-import TrainingCalculatorMain from '../Screens/TrainingCalculatorScreen/Screen/TrainingCalculatorScreen';
 import TrainingCalculatorScreen from '../Screens/TrainingCalculatorScreen/Screen/TrainingCalculatorScreen';
 import DresserScreen from '../Screens/DresserScreen/Screen/DresserScreen';
 import AddNewPieceScreen from '../Screens/AddNewPieceScreen/Screen/AddNewPieceScreen';
