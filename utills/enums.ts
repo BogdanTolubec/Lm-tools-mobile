@@ -13,8 +13,15 @@ export enum ImgPathConsts{
 }
 
 export enum IconPathConsts{
-    homeIcon = require("../public/img/Icons/home.png"),
-    plusIcon = require("../public/img/Icons/plus.png"),
-    calculatorIcon = require("../public/img/Icons/calculator.png"),
-    gearIcon = require("../public/img/Icons/gear.png")
+    homeIcon = require("../public/Icons/home.png"),
+    plusIcon = require("../public/Icons/plus.png"),
+    calculatorIcon = require("../public/Icons/calculator.png"),
+    gearIcon = require("../public/Icons/gear.png")
+}
+
+export enum tableNames {
+    pieces = "Pieces",
+    juewels = "Juewels",
+    stats = "Stats",
+    gear_sets = "Gear_Sets",
 }
