@@ -17,7 +17,7 @@ function SetOfPieces ({title = "SET 1", gearSet}: Props): React.JSX.Element {
 
     if(gearSet){
         
-    const path = `aset:/img${gearSet.helmet.image_path}`
+    const path = `asset:/img${gearSet.helmet.image_path}`
 
     console.log("path: " + path)
     
