@@ -11,7 +11,7 @@ export const getDBConnection = async () => {
 export const getPieces = async (db: SQLiteDatabase): Promise<[Pieces[]]> => {
     try{
         const piecesArray: Pieces[] = []
-        const sqlQuery: string = `SELECT * FROM ${tableNames.pieces} WHERE id = 2`//, ${tableNames.stats} WHERE ${tableNames.stats}.id = ${tableNames.pieces}.stats_id`
+        const sqlQuery: string = `SELECT * FROM ${tableNames.pieces}, ${tableNames.stats} WHERE ${tableNames.stats}.id = ${tableNames.pieces}.stats_id`
         
         const pieces = await db.executeSql(sqlQuery)
 
@@ -20,8 +20,6 @@ export const getPieces = async (db: SQLiteDatabase): Promise<[Pieces[]]> => {
                 piecesArray.push(piece.rows.item(i))
             }
         });
-                
-        console.log("Pieces: " + pieces.length)
 
         return [piecesArray]
     }

@@ -96,7 +96,7 @@ function AddNewPieceScreen(): React.JSX.Element {
     
     return(
         <View style = {add_new_piece.wrapper}>
-            <ImageBackground style = {add_new_piece.backgroundImg} source = {ImgPathConsts.backgroundImage} resizeMode = "cover">
+            <ImageBackground style = {add_new_piece.backgroundImg} source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover">
 
             <View style = {add_new_piece.form}>
                 <View style = {add_new_piece.question}>

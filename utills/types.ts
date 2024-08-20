@@ -2,7 +2,8 @@ export type Pieces = {
     id: number,
     name: string,
     rareness: string,
-    imagePath: string,
+    type: string,
+    image_path: string,
 
     armyAtk?: number,
     armyHp?: number,
@@ -39,4 +40,16 @@ export type gearStats = {
     cavalryAtk?: number,
     cavalryHp?: number,
     cavalryDeff?: number,
+}
+
+export type gearSet = {
+    id: number,
+    mainHand: Pieces,
+    helmet: Pieces,
+    plate: Pieces,
+    boots: Pieces,
+    secondHand: Pieces,
+    accessory1: Pieces,
+    accessory2: Pieces,
+    accessory3: Pieces,
 }

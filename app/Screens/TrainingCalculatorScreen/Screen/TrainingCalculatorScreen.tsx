@@ -23,7 +23,7 @@ function TrainingCalculatorScreen(): React.JSX.Element {
     return(
         <ScrollView contentContainerStyle = {training_calculator_styles.scrollViewStyles}>
             <View style = {training_calculator_styles.wrapper}>
-                <ImageBackground source = {ImgPathConsts.backgroundImage} resizeMode = "cover"  style = {training_calculator_styles.background_img}>
+                <ImageBackground source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover"  style = {training_calculator_styles.background_img}>
                     
                     <CalculationDataInputForm childToParent = {childToParent}/>
                     <CalculationDataOutputForm calculationResults = {calculationResults}/>

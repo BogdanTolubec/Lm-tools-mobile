@@ -8,15 +8,15 @@ export enum ScreensEnum {
 }
 
 export enum ImgPathConsts{
-    backgroundImage = require("../public/img/utills/pagesBackgroundImg.jpg"),
-    placeholderImage = require("../public/img/utills/No-Image-Placeholder.jpg"),
+    backgroundImage = "asset:/img/utills/pages_background_img.jpg",
+    placeholderImage = "asset:/img/utills/no_image_placeholder.jpg",
 }
 
 export enum IconPathConsts{
-    homeIcon = require("../public/Icons/home.png"),
-    plusIcon = require("../public/Icons/plus.png"),
-    calculatorIcon = require("../public/Icons/calculator.png"),
-    gearIcon = require("../public/Icons/gear.png")
+    homeIcon = "asset:/img/Icons/home.png",
+    plusIcon = "asset:/img/Icons/plus.png",
+    calculatorIcon = "asset:/img/Icons/calculator.png",
+    gearIcon = "asset:/img/Icons/gear.png"
 }
 
 export enum tableNames {

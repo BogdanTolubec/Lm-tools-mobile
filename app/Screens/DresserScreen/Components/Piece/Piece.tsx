@@ -22,9 +22,9 @@ function Piece({pieceImgPath, juewelsImgsPathArray}: Props): React.JSX.Element {
                 </View>) :
 
                 (<View style = {piece.juewels_wrapper}>
-                    <Image style = {piece.juewels_img} source = {ImgPathConsts.placeholderImage}/>
-                    <Image style = {piece.juewels_img} source = {ImgPathConsts.placeholderImage}/>
-                    <Image style = {piece.juewels_img} source = {ImgPathConsts.placeholderImage}/>
+                    <Image style = {piece.juewels_img} source = {{uri: ImgPathConsts.placeholderImage}}/>
+                    <Image style = {piece.juewels_img} source = {{uri: ImgPathConsts.placeholderImage}}/>
+                    <Image style = {piece.juewels_img} source = {{uri: ImgPathConsts.placeholderImage}}/>
                 </View>)
             }
             </ImageBackground>

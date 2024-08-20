@@ -8,7 +8,7 @@ function HomeScreen(): React.JSX.Element {
     
     return(
         <View style = {training_calculator_styles.wrapper}>
-            <ImageBackground source = {ImgPathConsts.backgroundImage} resizeMode = "cover" style = {training_calculator_styles.background_img}>
+            <ImageBackground source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover" style = {training_calculator_styles.background_img}>
                 <ErrorPage/>
             </ImageBackground>
         </View>

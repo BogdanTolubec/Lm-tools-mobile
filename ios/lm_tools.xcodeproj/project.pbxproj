@@ -14,6 +14,18 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-lm_tools-lm_toolsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-lm_tools-lm_toolsTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		838885BF8446409897A66460 /* bumblehelm_common.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EC77760EB2D4513A9EC8150 /* bumblehelm_common.jpg */; };
+		CA88C5CCBBF04EFD81BB60C6 /* bumblehelm_epic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD307C7E2DBC4C14A7B0BD88 /* bumblehelm_epic.jpg */; };
+		6B234CFE0B6347729A2AF7A8 /* bumblehelm_legendary.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D0974DFF68B5452E9CD7AC54 /* bumblehelm_legendary.jpg */; };
+		1F6F3E5CC0E04AA3A9FACCB5 /* bumblehelm_mythic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ABB807C732A241F3B8AF31D6 /* bumblehelm_mythic.jpg */; };
+		F1DB6FD39A4B4C87A602982C /* bumblehelm_rare.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 73977D782D014D2B9161CD55 /* bumblehelm_rare.jpg */; };
+		ED11905DF94F4077928354FF /* bumblehelm_uncommon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7A0F9902F53547D580490CBC /* bumblehelm_uncommon.jpg */; };
+		F23C461313D94F0AABCFE57C /* calculator.png in Resources */ = {isa = PBXBuildFile; fileRef = 640E226DE0AB432EB54F7BA4 /* calculator.png */; };
+		86608DC9482042F68D748AEB /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E7A250F026E49DE8F6FF270 /* gear.png */; };
+		1909C3EB07C747DBACFD00EB /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = F50D23E5BB2A4762AD779814 /* home.png */; };
+		48EBFA1280474F0CAC66543D /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = C52884C220B642B5A1BC0C87 /* plus.png */; };
+		556BA8D1D9704B199D4244A8 /* No-Image-Placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 242EDB7AABD74575A81302F9 /* No-Image-Placeholder.jpg */; };
+		8D027E80DCB94416A4AB4FDB /* pagesBackgroundImg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 960BF5EA51E94A7A81A52663 /* pagesBackgroundImg.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +48,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = lm_tools/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = lm_tools/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = lm_tools/main.m; sourceTree = "<group>"; };
-	    13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = lm_tools/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = lm_tools/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-lm_tools-lm_toolsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lm_tools-lm_toolsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-lm_tools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lm_tools.debug.xcconfig"; path = "Target Support Files/Pods-lm_tools/Pods-lm_tools.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-lm_tools.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lm_tools.release.xcconfig"; path = "Target Support Files/Pods-lm_tools/Pods-lm_tools.release.xcconfig"; sourceTree = "<group>"; };
@@ -45,6 +57,18 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = lm_tools/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-lm_tools-lm_toolsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lm_tools-lm_toolsTests.release.xcconfig"; path = "Target Support Files/Pods-lm_tools-lm_toolsTests/Pods-lm_tools-lm_toolsTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		0EC77760EB2D4513A9EC8150 /* bumblehelm_common.jpg */ = {isa = PBXFileReference; name = "bumblehelm_common.jpg"; path = "../android/app/src/main/assets/img/gearImages/helmet/bumblehelm/bumblehelm_common.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CD307C7E2DBC4C14A7B0BD88 /* bumblehelm_epic.jpg */ = {isa = PBXFileReference; name = "bumblehelm_epic.jpg"; path = "../android/app/src/main/assets/img/gearImages/helmet/bumblehelm/bumblehelm_epic.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D0974DFF68B5452E9CD7AC54 /* bumblehelm_legendary.jpg */ = {isa = PBXFileReference; name = "bumblehelm_legendary.jpg"; path = "../android/app/src/main/assets/img/gearImages/helmet/bumblehelm/bumblehelm_legendary.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ABB807C732A241F3B8AF31D6 /* bumblehelm_mythic.jpg */ = {isa = PBXFileReference; name = "bumblehelm_mythic.jpg"; path = "../android/app/src/main/assets/img/gearImages/helmet/bumblehelm/bumblehelm_mythic.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		73977D782D014D2B9161CD55 /* bumblehelm_rare.jpg */ = {isa = PBXFileReference; name = "bumblehelm_rare.jpg"; path = "../android/app/src/main/assets/img/gearImages/helmet/bumblehelm/bumblehelm_rare.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7A0F9902F53547D580490CBC /* bumblehelm_uncommon.jpg */ = {isa = PBXFileReference; name = "bumblehelm_uncommon.jpg"; path = "../android/app/src/main/assets/img/gearImages/helmet/bumblehelm/bumblehelm_uncommon.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		640E226DE0AB432EB54F7BA4 /* calculator.png */ = {isa = PBXFileReference; name = "calculator.png"; path = "../android/app/src/main/assets/img/Icons/calculator.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1E7A250F026E49DE8F6FF270 /* gear.png */ = {isa = PBXFileReference; name = "gear.png"; path = "../android/app/src/main/assets/img/Icons/gear.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F50D23E5BB2A4762AD779814 /* home.png */ = {isa = PBXFileReference; name = "home.png"; path = "../android/app/src/main/assets/img/Icons/home.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C52884C220B642B5A1BC0C87 /* plus.png */ = {isa = PBXFileReference; name = "plus.png"; path = "../android/app/src/main/assets/img/Icons/plus.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		242EDB7AABD74575A81302F9 /* No-Image-Placeholder.jpg */ = {isa = PBXFileReference; name = "No-Image-Placeholder.jpg"; path = "../android/app/src/main/assets/img/utills/No-Image-Placeholder.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		960BF5EA51E94A7A81A52663 /* pagesBackgroundImg.jpg */ = {isa = PBXFileReference; name = "pagesBackgroundImg.jpg"; path = "../android/app/src/main/assets/img/utills/pagesBackgroundImg.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +148,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				11B969D5C43143878AF972FF /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -149,6 +174,26 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		11B969D5C43143878AF972FF /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				0EC77760EB2D4513A9EC8150 /* bumblehelm_common.jpg */,
+				CD307C7E2DBC4C14A7B0BD88 /* bumblehelm_epic.jpg */,
+				D0974DFF68B5452E9CD7AC54 /* bumblehelm_legendary.jpg */,
+				ABB807C732A241F3B8AF31D6 /* bumblehelm_mythic.jpg */,
+				73977D782D014D2B9161CD55 /* bumblehelm_rare.jpg */,
+				7A0F9902F53547D580490CBC /* bumblehelm_uncommon.jpg */,
+				640E226DE0AB432EB54F7BA4 /* calculator.png */,
+				1E7A250F026E49DE8F6FF270 /* gear.png */,
+				F50D23E5BB2A4762AD779814 /* home.png */,
+				C52884C220B642B5A1BC0C87 /* plus.png */,
+				242EDB7AABD74575A81302F9 /* No-Image-Placeholder.jpg */,
+				960BF5EA51E94A7A81A52663 /* pagesBackgroundImg.jpg */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -245,6 +290,18 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				838885BF8446409897A66460 /* bumblehelm_common.jpg in Resources */,
+				CA88C5CCBBF04EFD81BB60C6 /* bumblehelm_epic.jpg in Resources */,
+				6B234CFE0B6347729A2AF7A8 /* bumblehelm_legendary.jpg in Resources */,
+				1F6F3E5CC0E04AA3A9FACCB5 /* bumblehelm_mythic.jpg in Resources */,
+				F1DB6FD39A4B4C87A602982C /* bumblehelm_rare.jpg in Resources */,
+				ED11905DF94F4077928354FF /* bumblehelm_uncommon.jpg in Resources */,
+				F23C461313D94F0AABCFE57C /* calculator.png in Resources */,
+				86608DC9482042F68D748AEB /* gear.png in Resources */,
+				1909C3EB07C747DBACFD00EB /* home.png in Resources */,
+				48EBFA1280474F0CAC66543D /* plus.png in Resources */,
+				556BA8D1D9704B199D4244A8 /* No-Image-Placeholder.jpg in Resources */,
+				8D027E80DCB94416A4AB4FDB /* pagesBackgroundImg.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
