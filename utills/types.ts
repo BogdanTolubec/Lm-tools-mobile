@@ -44,12 +44,12 @@ export type gearStats = {
 
 export type gearSet = {
     id: number,
-    mainHand: Pieces,
-    helmet: Pieces,
-    plate: Pieces,
-    boots: Pieces,
-    secondHand: Pieces,
-    accessory1: Pieces,
-    accessory2: Pieces,
-    accessory3: Pieces,
+    mainHand?: Pieces,
+    helmet?: Pieces,
+    plate?: Pieces,
+    boots?: Pieces,
+    secondHand?: Pieces,
+    accessory1?: Pieces,
+    accessory2?: Pieces,
+    accessory3?: Pieces,
 }

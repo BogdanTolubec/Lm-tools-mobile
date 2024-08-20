@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, ImageBackground, ImageSourcePropType, View } from "react-native";
+import { Image, ImageBackground, ImageSourcePropType, TouchableOpacity, View } from "react-native";
 import piece from "./PieceStyles";
 import { ImgPathConsts } from "../../../../../utills/enums";
 
@@ -11,7 +11,7 @@ type Props = {
 function Piece({pieceImgPath, juewelsImgsPathArray}: Props): React.JSX.Element {
 
     return(
-        <View style = {piece.wrapper}>
+        <TouchableOpacity style = {piece.wrapper}>
             <ImageBackground style = {piece.piece_img} source = {pieceImgPath}>
             {
             juewelsImgsPathArray !== undefined ? (
@@ -22,13 +22,13 @@ function Piece({pieceImgPath, juewelsImgsPathArray}: Props): React.JSX.Element {
                 </View>) :
 
                 (<View style = {piece.juewels_wrapper}>
-                    <Image style = {piece.juewels_img} source = {{uri: ImgPathConsts.placeholderImage}}/>
-                    <Image style = {piece.juewels_img} source = {{uri: ImgPathConsts.placeholderImage}}/>
-                    <Image style = {piece.juewels_img} source = {{uri: ImgPathConsts.placeholderImage}}/>
+                    <Image style = {piece.juewels_img} source = {{uri: ImgPathConsts.juewelsPlaceHolderImage}}/>
+                    <Image style = {piece.juewels_img} source = {{uri: ImgPathConsts.juewelsPlaceHolderImage}}/>
+                    <Image style = {piece.juewels_img} source = {{uri: ImgPathConsts.juewelsPlaceHolderImage}}/>
                 </View>)
             }
             </ImageBackground>
-        </View>
+        </TouchableOpacity>
     );
 }
 

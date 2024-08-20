@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 
 const piece = StyleSheet.create({
     wrapper: {
-        height: 80,
-        width: 80,
+        height: 90,
+        width: 90,
 
         borderRadius: 10,
         borderStyle: "solid",
@@ -22,10 +22,12 @@ const piece = StyleSheet.create({
     juewels_wrapper: {
         flexDirection: "row",
 
-        height: "33%",
+        height: "25%",
         width: "100%",
     
         borderRadius: 10,
+
+        opacity: 0.7,
     },
     
     juewels_img: {        

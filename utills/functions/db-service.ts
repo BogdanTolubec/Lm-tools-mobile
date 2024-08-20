@@ -1,5 +1,5 @@
 import { openDatabase, enablePromise, SQLiteDatabase } from "react-native-sqlite-storage";
-import { gearStats, Pieces } from "../types";
+import { gearSet, gearStats, Pieces } from "../types";
 import { tableNames } from "../enums";
 
 enablePromise(true);
@@ -29,15 +29,51 @@ export const getPieces = async (db: SQLiteDatabase): Promise<[Pieces[]]> => {
     }
 }
 
+export const getPieceById = async (db: SQLiteDatabase, piece_id: number): Promise<Pieces> => {
+    try{
+        const sqlQuery: string = `SELECT * FROM ${tableNames.pieces} WHERE ${piece_id} = ${tableNames.pieces}.id`
+        
+        const piece = await db.executeSql(sqlQuery)
+
+        return piece[0].rows.item(0)
+    }
+
+    catch(e){
+        throw Error('Piece loading failed...');
+    }
+}
+
 export const getStatsById = async (db: SQLiteDatabase, stats_id: number): Promise<gearStats> => {
     try{
-    let stats: gearStats = {}
+    let stats: gearStats
 
     const pieceStats = await db.executeSql(`SELECT * FROM ${tableNames.stats} WHERE id = ${stats_id}`)
     stats = pieceStats[0].rows.item(0)
 
     return stats
     } catch(e){
-        throw Error("Stats loading failed!")
+        throw Error("Stats loading failed...")
+    }
+}
+
+export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Promise<gearSet>=> {
+    try{
+        let gearSet: gearSet = {id: gearSetId}
+        const sqlQuery = `SELECT * FROM ${tableNames.gear_sets} WHERE ${gearSetId} = Gear_sets.id`
+
+        const currentGearSet = await db.executeSql(sqlQuery)
+            
+        gearSet.mainHand = await getPieceById(db, currentGearSet[0].rows.item(0)?.mainHand)
+        gearSet.helmet = await getPieceById(db, currentGearSet[0].rows.item(0)?.helmet)
+        gearSet.plate = await getPieceById(db, currentGearSet[0].rows.item(0)?.plate)
+        gearSet.boots = await getPieceById(db, currentGearSet[0].rows.item(0)?.boots)
+        gearSet.secondHand = await getPieceById(db, currentGearSet[0].rows.item(0)?.secondHand)
+        gearSet.accessory1 = await getPieceById(db, currentGearSet[0].rows.item(0)?.accessory1)
+        gearSet.accessory2 = await getPieceById(db, currentGearSet[0].rows.item(0)?.accessory2)
+        gearSet.accessory3 = await getPieceById(db, currentGearSet[0].rows.item(0)?.accessory3)
+
+        return gearSet
+    } catch (e){
+        throw Error("Gear set loading failed...")
     }
 }
