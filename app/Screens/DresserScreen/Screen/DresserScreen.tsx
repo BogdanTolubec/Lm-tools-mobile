@@ -14,7 +14,6 @@ function DresserScreen(): React.JSX.Element{
 
     const childToParent = (returnData: any): void => {
         setCurrentGearSetData(returnData)
-        console.log("Current: " + JSON.stringify(currentGearSetData))
     }
 
     const loadDataCallback = useCallback(async () => {

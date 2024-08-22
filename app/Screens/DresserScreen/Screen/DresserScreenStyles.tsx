@@ -5,6 +5,8 @@ const dresser_screen = StyleSheet.create({
         wrapper: {
             height: "100%",
             width: "100%",
+            display: "flex",
+            flexShrink: 1
         },
 
         backgroundImg: {

@@ -10,25 +10,28 @@ const swapper = StyleSheet.create({
 
         alignItems: "center",
         justifyContent: "center",
-        padding: 3,
     },
 
     centerComponent: {
         height: "100%",
-        width: "90%",
+        width: "85%",
     },
 
     icon_wrapper: {
         height: "10%",
-        width: "100%",
+        width: "7%",
 
-        backgroundColor: "black"
+        borderWidth: 2,
+        borderColor: "black",
+        borderStyle: "solid",
+
+        justifyContent: "center",
+        backgroundColor: "black",
     },
 
     icon: {
-        height: "100%",
-        width: "100%",
-        resizeMode: "stretch",
+        height: 20,
+        width: 18
     }
 })
 

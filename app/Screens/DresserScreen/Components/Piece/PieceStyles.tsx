@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 
 const piece = StyleSheet.create({
     wrapper: {
-        height: 90,
-        width: 90,
+        height: 85,
+        width: 85,
 
         borderRadius: 10,
         borderStyle: "solid",
