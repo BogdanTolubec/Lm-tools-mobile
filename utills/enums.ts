@@ -18,7 +18,10 @@ export enum IconPathConsts{
     homeIcon = "asset:/img/Icons/home.png",
     plusIcon = "asset:/img/Icons/plus.png",
     calculatorIcon = "asset:/img/Icons/calculator.png",
-    gearIcon = "asset:/img/Icons/gear.png"
+    gearIcon = "asset:/img/Icons/gear.png",
+
+    leftArrowIcon = "asset:/img/Icons/left_arrow.png",
+    rightArrowIcon = "asset:/img/Icons/right_arrow.png",
 }
 
 export enum tableNames {

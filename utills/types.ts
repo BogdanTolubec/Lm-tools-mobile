@@ -22,28 +22,9 @@ export type Pieces = {
     cavalryDeff?: number,
 }
 
-export type gearStats = {
-    id?: number,
-
-    armyAtk?: number,
-    armyHp?: number,
-    armyDeff?: number,
-
-    infantryAtk?: number,
-    infantryHp?: number,
-    infantryDeff?: number,
-    
-    rangedAtk?: number,
-    rangedHp?: number,
-    rangedDeff?: number,
-
-    cavalryAtk?: number,
-    cavalryHp?: number,
-    cavalryDeff?: number,
-}
-
 export type gearSet = {
     id: number,
+    title?: string,
     mainHand?: Pieces,
     helmet?: Pieces,
     plate?: Pieces,
@@ -52,4 +33,9 @@ export type gearSet = {
     accessory1?: Pieces,
     accessory2?: Pieces,
     accessory3?: Pieces,
+}
+
+export type gearSetData = {
+    id: number, 
+    title: string,
 }

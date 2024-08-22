@@ -1,18 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Piece from "../Piece/Piece";
 import { Text, View } from "react-native";
 import set_of_pieces from "./SetOfPieceStyles";
-import { gearSet, gearStats} from "../../../../../utills/types";
+import { gearSet} from "../../../../../utills/types";
 import { ImgPathConsts } from "../../../../../utills/enums";
+import { getDBConnection, getGearSetById } from "../../../../../utills/functions/db-service";
 
 type Props = {
     title: string,
-    gearSet: gearSet | undefined
+    gearSetId: number | undefined
 }
 
-function SetOfPieces ({title = "SET 1", gearSet}: Props): React.JSX.Element {
+function SetOfPieces ({title = "SET 1", gearSetId}: Props): React.JSX.Element {
 
-    const [gearsStats, setGearsStats] = useState<gearStats[]>()
+    const [gearSet, setGearSet] = useState<gearSet>()
+
+    const loadDataCallback = useCallback(async () => {
+        try{
+            const db = await getDBConnection()
+            const setOfPieces = await getGearSetById(db, gearSetId || 1)
+
+            setGearSet(setOfPieces)
+        }
+        catch(e){
+            console.error(e)
+        }
+    }, [gearSetId])
+
+    useEffect(() => {
+        loadDataCallback()
+    }, [loadDataCallback])
 
     function setGearPath(image_path: string | undefined): string{
         return  `asset:/img` + (image_path !== undefined ? image_path : ImgPathConsts.piecePlaceholderImage.substring(10))

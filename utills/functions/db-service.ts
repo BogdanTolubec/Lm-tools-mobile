@@ -1,5 +1,5 @@
 import { openDatabase, enablePromise, SQLiteDatabase } from "react-native-sqlite-storage";
-import { gearSet, gearStats, Pieces } from "../types";
+import { gearSet, Pieces } from "../types";
 import { tableNames } from "../enums";
 
 enablePromise(true);
@@ -43,19 +43,6 @@ export const getPieceById = async (db: SQLiteDatabase, piece_id: number): Promis
     }
 }
 
-export const getStatsById = async (db: SQLiteDatabase, stats_id: number): Promise<gearStats> => {
-    try{
-    let stats: gearStats
-
-    const pieceStats = await db.executeSql(`SELECT * FROM ${tableNames.stats} WHERE id = ${stats_id}`)
-    stats = pieceStats[0].rows.item(0)
-
-    return stats
-    } catch(e){
-        throw Error("Stats loading failed...")
-    }
-}
-
 export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Promise<gearSet>=> {
     try{
         let gearSet: gearSet = {id: gearSetId}
@@ -75,5 +62,25 @@ export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Pro
         return gearSet
     } catch (e){
         throw Error("Gear set loading failed...")
+    }
+}
+
+export const getAllGearSets = async (db: SQLiteDatabase): Promise<[{id: number, title: string, }]> => {
+    try{
+        const sqlQuery: string = `SELECT id, title FROM ${tableNames.gear_sets} ORDER BY id`
+        let result: any = []
+
+        const gearSets = await db.executeSql(sqlQuery)
+
+        gearSets.forEach(gearSet =>  {
+            for (let i = 0; i < gearSet.rows.length; i++) {
+                result.push(gearSet.rows.item(i))
+            }
+        });
+
+        return result
+
+    } catch(e){
+        throw Error("All gear sets loading failed...")
     }
 }

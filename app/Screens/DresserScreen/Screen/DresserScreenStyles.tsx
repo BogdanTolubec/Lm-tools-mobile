@@ -9,12 +9,9 @@ const dresser_screen = StyleSheet.create({
 
         backgroundImg: {
             display: "flex",
-            flexDirection: "column",
             width: "100%" ,
             height: "100%",
-
-            justifyContent: "space-between"
-,        }
+        }
     }
 )
 
