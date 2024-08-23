@@ -1,15 +1,18 @@
-import React, { Component, Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert, GestureResponderEvent, Pressable, Text, TextInput,  View } from "react-native";
 import calculation_data_input_form from "./CalculationDataInputFormStyles";
 import CheckLabel from "../CheckLabel/CheckLabel";
 import { calculationDataT1, calculationDataT2, calculationDataT3, calculationDataT4 } from "../../../../../utills/consts";
 import NumericInput from "../../../../../Components/NumericInput/NumericInput";
 import SubmitButton from "../../../../../Components/SubmitButton/SubmitButton";
+import { armyTypes } from "../../../../../utills/enums";
+import { calculationData } from "../../../../../utills/types";
 
 type Props = {childToParent: (calculationResults: Record<string, number>) => void}
 
 function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element {
 
+    //constants
     const calculationResults: Record<string, number> = {
         foodCount: 0,
         stoneCount: 0,
@@ -19,7 +22,9 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
         trainingTime: 0,
     }
 
-    const armyTypeLabelsInfo = [{ id: 1, text: "infantry"}, { id: 2, text: "ranged"}, { id: 3, text: "cavalry"}, { id:4, text: "siege"}]
+    const armyTypeLabelsInfo = [{ id: 1, text: "infantry"}, { id: 2, text: "ranged"},
+    { id: 3, text: "cavalry"}, { id:4, text: "siege"}]
+
     const tierLabelsInfo = [{ id: 1, text: "t1"}, { id: 2, text: "t2"}, { id: 3, text: "t3"}, { id:4, text: "t4"}]
 
     const [armyCount, setArmyCount] = useState<number>(0)
@@ -32,8 +37,8 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
     const[selectedArmyTypeId, setSelectedArmyTypeId] = useState<number>(0)
     const[selectedTierId, setSelectedTierId] = useState<number>(0)
 
-    //functions zone
-    const setMaterialsCount = (calculationDataArmyTypeRss: Array<number>, trainingTime: Array<number>) => {
+    //functions
+    const setMaterialsCount = (calculationDataArmyTypeRss: Array<number>, trainingTime: number) => {
         
         calculationResults.foodCount = armyCount * (calculationDataArmyTypeRss[0] * (1 - subsidy / 100))
         calculationResults.stoneCount = armyCount * (calculationDataArmyTypeRss[1] * (1 - subsidy / 100))
@@ -41,7 +46,7 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
         calculationResults.oreCount = armyCount * (calculationDataArmyTypeRss[3] * (1 - subsidy / 100))
         calculationResults.goldCount = armyCount * (calculationDataArmyTypeRss[4] * (1 - subsidy / 100))
 
-        calculationResults.trainingTime = (armyCount * trainingTime[0]) / (1 + trainingSpeed / 100)
+        calculationResults.trainingTime = (armyCount * trainingTime) / (1 + trainingSpeed / 100)
     }
 
     const calculateMaterials = () => {
@@ -52,135 +57,28 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
 
         const tier = currentTierSelect.replaceAll(" ", "") // important! delete all " " from text
         const armyType = currentArmyTypeSelect.replaceAll(" ", "")
+        let calculationData: calculationData
 
-        switch (tier) {
+        switch (tier){
+            case "t1": {calculationData = calculationDataT1; break}
+            case "t2": {calculationData = calculationDataT2; break}
+            case "t3": {calculationData = calculationDataT3; break}
+            case "t4": {calculationData = calculationDataT4; break}
+            default: calculationData = calculationDataT1
+        }
 
-            case "t1": {
-                switch(armyType){
-                    case "infantry": {
-                        setMaterialsCount(calculationDataT1.infantryRssT1, calculationDataT1.secondsTrainingSpeedT1)
-                        break;
-                    }
-
-                    case "ranged": {
-                        setMaterialsCount(calculationDataT1.rangedRssT1, calculationDataT1.secondsTrainingSpeedT1)
-                        break;
-                    }
-
-                    case "cavalry": {
-                        setMaterialsCount(calculationDataT1.cavalryRssT1, calculationDataT1.secondsTrainingSpeedT1)
-                        break;
-                    }
-
-                    case "siege": {
-                        setMaterialsCount(calculationDataT1.siegeRssT1, calculationDataT1.secondsTrainingSpeedT1)
-                        break;
-                    }
-
-                    default: {
-                        break;
-                    }
-                }
-                break;
-            }
-
-            case "t2": {
-                switch(armyType){
-                    case "infantry": {
-                        setMaterialsCount(calculationDataT2.infantryRssT2, calculationDataT2.secondsTrainingSpeedT2)
-                        break;
-                    }
-
-                    case "ranged": {
-                        setMaterialsCount(calculationDataT2.rangedRssT2, calculationDataT2.secondsTrainingSpeedT2)
-                        break;
-                    }
-
-                    case "cavalry": {
-                        setMaterialsCount(calculationDataT2.cavalryRssT2, calculationDataT2.secondsTrainingSpeedT2)
-                        break;
-                    }
-
-                    case "siege": {
-                        setMaterialsCount(calculationDataT2.siegeRssT2, calculationDataT2.secondsTrainingSpeedT2)
-                        break;
-                    }
-
-                    default: {
-                        break;
-                    }
-                }
-                break;
-            }
-
-            case "t3": {
-                switch(armyType){
-                    case "infantry": {
-                        setMaterialsCount(calculationDataT3.infantryRssT3, calculationDataT3.secondsTrainingSpeedT3)
-                        break;
-                    }
-
-                    case "ranged": {
-                        setMaterialsCount(calculationDataT3.rangedRssT3, calculationDataT3.secondsTrainingSpeedT3)
-                        break;
-                    }
-
-                    case "cavalry": {
-                        setMaterialsCount(calculationDataT3.cavalryRssT3, calculationDataT3.secondsTrainingSpeedT3)
-                        break;
-                    }
-
-                    case "siege": {
-                        setMaterialsCount(calculationDataT3.siegeRssT3, calculationDataT3.secondsTrainingSpeedT3)
-                        break;
-                    }
-
-                    default: {
-                        break;
-                    }
-                }
-                break;
-            }
-
-            case "t4": {
-                switch(armyType){
-                    case "infantry": {
-                        setMaterialsCount(calculationDataT4.infantryRssT4, calculationDataT4.secondsTrainingSpeedT4)
-                        break;
-                    }
-
-                    case "ranged": {
-                        setMaterialsCount(calculationDataT4.rangedRssT4, calculationDataT4.secondsTrainingSpeedT4)
-                        break;
-                    }
-
-                    case "cavalry": {
-                        setMaterialsCount(calculationDataT4.cavalryRssT4, calculationDataT4.secondsTrainingSpeedT4)
-                        break;
-                    }
-
-                    case "siege": {
-                        setMaterialsCount(calculationDataT4.siegeRssT4, calculationDataT4.secondsTrainingSpeedT4)
-                        break;
-                    }
-
-                    default: {
-                        break;
-                    }
-                }
-                break;
-            }
-
-            default: {
-                break;
-            }
+        switch (armyType){
+            case armyTypes.infantry: {setMaterialsCount(calculationData.infantryRss, calculationData.secondsTrainingSpeed); break}
+            case armyTypes.ranged: {setMaterialsCount(calculationData.rangedRss, calculationData.secondsTrainingSpeed); break}
+            case armyTypes.cavalry: {setMaterialsCount(calculationData.cavalryRss, calculationData.secondsTrainingSpeed); break}
+            case armyTypes.siege: {setMaterialsCount(calculationData.siegeRss, calculationData.secondsTrainingSpeed); break}
+            default: setMaterialsCount(calculationData.infantryRss, calculationData.secondsTrainingSpeed)
         }
     }
 
     const calculateAndSendData = () => {
         calculateMaterials()
         childToParent(calculationResults)
-        console.log("Results: " + JSON.stringify(calculationResults))
     }
     
     return(

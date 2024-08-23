@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import error_page from "./ErrorScreenStyles";
 
-function ErrorPage (): React.JSX.Element {
+function ErrorScreen (): React.JSX.Element {
     return(
         <View style = {error_page.not_found}>
             <View style = {error_page.center_block}>
@@ -19,4 +19,4 @@ function ErrorPage (): React.JSX.Element {
     );
 }
 
-export default ErrorPage
+export default ErrorScreen

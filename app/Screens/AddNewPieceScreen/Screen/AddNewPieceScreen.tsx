@@ -4,6 +4,7 @@ import add_new_piece from "./AddNewPieceScreenStyles";
 import { ImgPathConsts } from "../../../../utills/enums";
 import NumericInput from "../../../../Components/NumericInput/NumericInput";
 import TextInputForms from "../../../../Components/TextInputForms/TextInputForms";
+import ErrorScreen from "../../ErrorScreen/ErrorScreen";
 //import ErrorPage from "../../ErrorPage/ErrorPage";
 
 function AddNewPieceScreen(): React.JSX.Element {
@@ -95,10 +96,10 @@ function AddNewPieceScreen(): React.JSX.Element {
     }
     
     return(
-        <View style = {add_new_piece.wrapper}>
+        <ErrorScreen>
+        {/*<View style = {add_new_piece.wrapper}>
             <ImageBackground style = {add_new_piece.backgroundImg} source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover">
-
-            <View style = {add_new_piece.form}>
+            *<View style = {add_new_piece.form}>
                 <View style = {add_new_piece.question}>
                     <Text style = {add_new_piece.label}> Name </Text>
                     <TextInputForms styles = {add_new_piece.input} setParentElementState = {setPieceName} maxLength = {80}/>
@@ -107,12 +108,11 @@ function AddNewPieceScreen(): React.JSX.Element {
                 <View>
                     <Text style = {add_new_piece.label}> Rareness </Text>
                 </View>
-            </View>
-
-               
+            </View> *             
 
             </ImageBackground>
-        </View>
+        </View>*/}
+        </ErrorScreen>
     );
 }
 

@@ -1,6 +1,6 @@
 import { openDatabase, enablePromise, SQLiteDatabase } from "react-native-sqlite-storage";
 import { gearSet, Pieces } from "../types";
-import { tableNames } from "../enums";
+import { pieceTypes, tableNames } from "../enums";
 
 enablePromise(true);
 
@@ -8,8 +8,8 @@ export const getDBConnection = async () => {
   return openDatabase({name: 'lm_dresser.db', createFromLocation: "~lm_dresser.db", location: "Library"});
 };
 
-export const getPieces = async (db: SQLiteDatabase): Promise<[Pieces[]]> => {
-    try{
+export const getAllPieces = async (db: SQLiteDatabase): Promise<Pieces[]> => {
+   try{
         const piecesArray: Pieces[] = []
         const sqlQuery: string = `SELECT * FROM ${tableNames.pieces}, ${tableNames.stats} WHERE ${tableNames.stats}.id = ${tableNames.pieces}.stats_id`
         
@@ -21,12 +21,12 @@ export const getPieces = async (db: SQLiteDatabase): Promise<[Pieces[]]> => {
             }
         });
 
-        return [piecesArray]
+        return piecesArray
     }
 
     catch(e){
         throw Error('Pieces loading failed...');
-    }
+    } 
 }
 
 export const getPieceById = async (db: SQLiteDatabase, piece_id: number): Promise<Pieces> => {
@@ -42,6 +42,33 @@ export const getPieceById = async (db: SQLiteDatabase, piece_id: number): Promis
         throw Error('Piece loading failed...');
     }
 }
+
+export const getAllPiecesByType = async (db: SQLiteDatabase, type: string): Promise<Pieces[]> => {
+    try{
+        if(type in pieceTypes){
+            const piecesArray: Pieces[] = []
+            const sqlQuery: string = `SELECT * FROM ${tableNames.pieces}, ${tableNames.stats} WHERE 
+            (${tableNames.stats}.id = ${tableNames.pieces}.stats_id) AND (${tableNames.pieces}.type = ${type})`
+            
+            const pieces = await db.executeSql(sqlQuery)
+    
+            pieces.forEach(piece =>  {
+                for (let i = 0; i < piece.rows.length; i++) {
+                    piecesArray.push(piece.rows.item(i))
+                }
+            });
+    
+            return piecesArray
+        }
+        else{
+            throw Error("Got 'type' prop that isn't matching 'pieces types'");
+        }
+     }
+ 
+     catch(e){
+        throw Error('Pieces loading failed...');
+     } 
+} 
 
 export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Promise<gearSet>=> {
     try{
