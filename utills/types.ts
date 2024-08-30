@@ -1,5 +1,5 @@
 export type Pieces = {
-    id: number,
+    id?: number,
     name: string,
     rareness: string,
     type: string,

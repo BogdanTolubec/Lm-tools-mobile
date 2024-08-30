@@ -1,17 +1,18 @@
 import React from "react";
-import { Image, ImageBackground, ImageSourcePropType, TouchableOpacity, View } from "react-native";
+import { GestureResponderEvent, Image, ImageBackground, ImageSourcePropType, TouchableOpacity, View } from "react-native";
 import piece from "./PieceStyles";
 import { ImgPathConsts } from "../../../../../utills/enums";
 
 type Props = {
     pieceImgPath: ImageSourcePropType | undefined, 
-    juewelsImgsPathArray?: Array<ImageSourcePropType | undefined>
+    juewelsImgsPathArray?: Array<ImageSourcePropType | undefined>,
+    onPress?: (event: GestureResponderEvent) => void, 
 }
 
-function Piece({pieceImgPath, juewelsImgsPathArray}: Props): React.JSX.Element {
+function Piece({pieceImgPath, juewelsImgsPathArray, onPress}: Props): React.JSX.Element {
 
     return(
-        <TouchableOpacity style = {piece.wrapper}>
+        <TouchableOpacity onPress = {onPress} style = {piece.wrapper}>
             <ImageBackground style = {piece.piece_img} source = {pieceImgPath}>
             {
             juewelsImgsPathArray !== undefined ? (

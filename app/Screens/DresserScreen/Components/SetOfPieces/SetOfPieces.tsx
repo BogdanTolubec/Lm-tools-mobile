@@ -3,15 +3,17 @@ import Piece from "../Piece/Piece";
 import { Text, View } from "react-native";
 import set_of_pieces from "./SetOfPieceStyles";
 import { gearSet} from "../../../../../utills/types";
-import { ImgPathConsts } from "../../../../../utills/enums";
+import { ImgPathConsts, pieceTypes } from "../../../../../utills/enums";
 import { getDBConnection, getGearSetById } from "../../../../../utills/functions/db-service";
+import ModalComponent from "../../../../../Components/ModalComponent/ModalComponent";
 
 type Props = {
     title: string,
-    gearSetId: number | undefined
+    gearSetId: number | undefined,
+    onPieceSelected: (pieceType: string) => void
 }
 
-function SetOfPieces ({title = "SET 1", gearSetId}: Props): React.JSX.Element {
+function SetOfPieces ({title = "SET 1", gearSetId, onPieceSelected}: Props): React.JSX.Element {
 
     const [gearSet, setGearSet] = useState<gearSet>()
 
@@ -32,10 +34,8 @@ function SetOfPieces ({title = "SET 1", gearSetId}: Props): React.JSX.Element {
     }, [loadDataCallback])
 
     function setGearPath(image_path: string | undefined): string{
-        return  `asset:/img` + (image_path !== undefined ? image_path : ImgPathConsts.piecePlaceholderImage.substring(10))
+        return  ImgPathConsts.rootAssetsImgPath + (image_path !== undefined ? image_path : ImgPathConsts.piecePlaceholderImage.substring(10))
     }
-        
-    const rootAssetsPath = `asset:/img`
     
     return(
         <View style = {set_of_pieces.wrapper}>
@@ -44,8 +44,11 @@ function SetOfPieces ({title = "SET 1", gearSetId}: Props): React.JSX.Element {
                 <Text style = {set_of_pieces.title}> {title} </Text>
 
                 <View style = {set_of_pieces.start_of_set}>
-                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.mainHand?.image_path)}}/>
-                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.secondHand?.image_path)}}/>
+                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.mainHand?.image_path)}} 
+                    onPress = {() => onPieceSelected(pieceTypes.mainHand)}/>
+
+                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.secondHand?.image_path)}}
+                    onPress = {() => onPieceSelected(pieceTypes.secondHand)}/>
                 </View>
 
                 <View style = {set_of_pieces.center_of_set_wrapper}>

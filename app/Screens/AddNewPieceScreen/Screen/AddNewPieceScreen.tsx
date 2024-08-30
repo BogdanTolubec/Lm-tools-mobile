@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Alert, GestureResponderEvent, ImageBackground, Text, TextInput, View } from "react-native";
+import { Alert, GestureResponderEvent, ImageBackground, Text, TextInput, TouchableOpacity, View } from "react-native";
 import add_new_piece from "./AddNewPieceScreenStyles";
-import { ImgPathConsts } from "../../../../utills/enums";
+import { ImgPathConsts, pieceTypes } from "../../../../utills/enums";
 import NumericInput from "../../../../Components/NumericInput/NumericInput";
 import TextInputForms from "../../../../Components/TextInputForms/TextInputForms";
 import ErrorScreen from "../../ErrorScreen/ErrorScreen";
+import { addPiece, getDBConnection } from "../../../../utills/functions/db-service";
+import { Pieces } from "../../../../utills/types";
 //import ErrorPage from "../../ErrorPage/ErrorPage";
 
 function AddNewPieceScreen(): React.JSX.Element {
@@ -31,7 +33,7 @@ function AddNewPieceScreen(): React.JSX.Element {
 
     const [pieceIcon, setPieceIcon] = useState('')
 
-    const addPiece = () => {
+    /*const addPiece = () => {
 
         if(pieceIcon === '')
         return Alert.alert("Image is invalid. Please check it")
@@ -61,8 +63,25 @@ function AddNewPieceScreen(): React.JSX.Element {
             formData.append("cavalryDeff", cavalryDeff)
 
         } catch(e){
-            return (<View></View>/*(<ErrorScreen/>)*/)
+            return (<View></View>(<ErrorScreen/>))
         }
+    }*/
+
+    const setPiece = async () => {
+        const db = await getDBConnection()
+        const piece: Pieces = {
+            name: "Frostwing sword",
+            rareness: "common",
+            type: pieceTypes.mainHand,
+            image_path: ImgPathConsts.rootAssetsImgPath + "/gearImages/mainHand/frostwing_sword/frostwing_sword_common.jpg",
+        
+            infantryAtk: 3,
+
+            rangedAtk: 2,
+        
+            cavalryAtk: 3,
+        }
+        addPiece(db, piece)
     }
 
     /*function dropHandler(ev: GestureResponderEvent) {
@@ -96,23 +115,23 @@ function AddNewPieceScreen(): React.JSX.Element {
     }
     
     return(
-        <ErrorScreen>
-        {/*<View style = {add_new_piece.wrapper}>
-            <ImageBackground style = {add_new_piece.backgroundImg} source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover">
-            *<View style = {add_new_piece.form}>
-                <View style = {add_new_piece.question}>
-                    <Text style = {add_new_piece.label}> Name </Text>
-                    <TextInputForms styles = {add_new_piece.input} setParentElementState = {setPieceName} maxLength = {80}/>
-                </View>
+        <TouchableOpacity onPress = {() => {setPiece()}} style = {add_new_piece.wrapper}>
+            {/*<View style = {add_new_piece.wrapper}>
+                <ImageBackground style = {add_new_piece.backgroundImg} source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover">
+                *<View style = {add_new_piece.form}>
+                    <View style = {add_new_piece.question}>
+                        <Text style = {add_new_piece.label}> Name </Text>
+                        <TextInputForms styles = {add_new_piece.input} setParentElementState = {setPieceName} maxLength = {80}/>
+                    </View>
 
-                <View>
-                    <Text style = {add_new_piece.label}> Rareness </Text>
-                </View>
-            </View> *             
+                    <View>
+                        <Text style = {add_new_piece.label}> Rareness </Text>
+                    </View>
+                </View> *             
 
-            </ImageBackground>
-        </View>*/}
-        </ErrorScreen>
+                </ImageBackground>
+            </View>*/}
+        </TouchableOpacity>
     );
 }
 

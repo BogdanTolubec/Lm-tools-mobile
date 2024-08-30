@@ -80,6 +80,11 @@ const set_of_pieces = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+
+    modal_content: {
+        borderColor: "black",
+        backgroundColor: "white"
+    },
 })
 
 export default set_of_pieces

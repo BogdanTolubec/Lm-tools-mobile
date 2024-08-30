@@ -68,7 +68,27 @@ export const getAllPiecesByType = async (db: SQLiteDatabase, type: string): Prom
      catch(e){
         throw Error('Pieces loading failed...');
      } 
-} 
+}
+
+export const addPiece = async (db: SQLiteDatabase, piece: Pieces): Promise<void> => {
+    const sqlQueryStats = `INSERT INTO ${tableNames.stats} (armyAtk, armyHp, armyDeff, infantryAtk, infantryHp, infantryDeff,
+    rangedAtk, rangedHp, rangedDeff, cavalryAtk, cavalryHp, cavalryDeff)
+
+    VALUES (${piece.armyAtk || null}, ${piece.armyHp || null}, ${piece.armyDeff || null}, ${piece.infantryAtk || null},
+    ${piece.infantryHp || null}, ${piece.infantryDeff || null}, ${piece.rangedAtk || null}, ${piece.rangedHp || null},
+    ${piece.rangedDeff || null}, ${piece.cavalryAtk || null}, ${piece.cavalryHp || null}, ${piece.cavalryDeff || null})`
+
+    const sqlQueryGetStatsId = `SELECT id FROM ${tableNames.stats} WHERE id = (SELECT max(id) FROM ${tableNames.stats})`
+
+    const resultStats = await db.executeSql(sqlQueryStats)
+
+    const stats_id = await db.executeSql(sqlQueryGetStatsId)
+
+    const sqlQueryPieces = `INSERT INTO ${tableNames.pieces} (name, type, rareness, image_path, stats_id) 
+    VALUES('${piece.name}', '${piece.type}', '${piece.rareness}', '${piece.image_path}', ${stats_id[0].rows.item(0).id})`
+
+    const resultPiece = await db.executeSql(sqlQueryPieces)
+}
 
 export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Promise<gearSet>=> {
     try{
