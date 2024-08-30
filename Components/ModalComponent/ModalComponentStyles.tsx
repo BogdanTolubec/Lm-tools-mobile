@@ -1,17 +1,25 @@
 import Reat from 'react'
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 const modal_component = StyleSheet.create({
     wrapper: {
-        display: "flex",
+        position: 'absolute',
+        zIndex: 100,
     },
 
     background: {
         height: "100%",
         width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
+
         backgroundColor: "rgba(0, 0, 0, 0.6)"
+    },
+
+    content: {
+        height: "100%",
+        width: "100%",
+        position: 'absolute',
+        left: "10%",
+        top: "10%",
     }
 })
 

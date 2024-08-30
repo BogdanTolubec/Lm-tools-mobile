@@ -7,6 +7,7 @@ import { getAllGearSets, getDBConnection } from "../../../../utills/functions/db
 import Swapper from "../../../../Components/Swapper/Swapper";
 import { gearSetData } from "../../../../utills/types";
 import ModalComponent from "../../../../Components/ModalComponent/ModalComponent";
+import PieceSelector from "../Components/PieceSelector/PieceSelector";
 
 function DresserScreen(): React.JSX.Element{
 
@@ -24,7 +25,6 @@ function DresserScreen(): React.JSX.Element{
         if(type in pieceTypes){
             setIsModalActive(!isModalActive)
             setCurrentGearTypeSelected(type)
-            console.log("Is modal active?: " + isModalActive)
         }
     }
 
@@ -50,9 +50,7 @@ function DresserScreen(): React.JSX.Element{
                 <ImageBackground style = {dresser_screen.backgroundImg} source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover">
 
                     <ModalComponent visible = {isModalActive} setVisible = {setIsModalActive} children = {
-                        <View>
-                            <Text> I'm modal </Text>
-                        </View>
+                        <PieceSelector/>
                     }/>
                     
                     <Swapper centerComponent = {

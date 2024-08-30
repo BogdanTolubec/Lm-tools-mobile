@@ -1,4 +1,5 @@
 import React from "react";
+import { Dimensions } from "react-native";
 
 export enum ScreensEnum {
     home = "HomeScreen",
@@ -21,6 +22,15 @@ export enum rareness {
     epic = "epic",
     legendary = "legendary",
     mythic = "mythic",
+}
+
+export enum rarenessColors {
+    common = "grey",
+    uncommon = "#228b22",
+    rare = "dodgerblue",
+    epic = "blueviolet",
+    legendary = "#FFA001",
+    mythic = "#e7760d",
 }
 
 export enum armyTypes {
@@ -59,4 +69,9 @@ export enum IconPathConsts{
 
     leftArrowIcon = rootAssetsconsPath + "/left_arrow.png",
     rightArrowIcon = rootAssetsconsPath + "/right_arrow.png",
+}
+
+export enum ScreenParams{
+    height = Dimensions.get("screen").height - 155, // -155 is because of tabs bar height
+    width = Dimensions.get("screen").width
 }
