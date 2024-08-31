@@ -73,7 +73,7 @@ function AddNewPieceScreen(): React.JSX.Element {
             name: "Frostwing sword",
             rareness: "common",
             type: pieceTypes.mainHand,
-            image_path: ImgPathConsts.rootAssetsImgPath + "/gearImages/mainHand/frostwing_sword/frostwing_sword_common.jpg",
+            image_path: "/gearImages/mainHand/frostwing_sword/frostwing_sword_common.jpg",
         
             infantryAtk: 3,
 

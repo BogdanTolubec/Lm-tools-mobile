@@ -5,22 +5,21 @@ import set_of_pieces from "./SetOfPieceStyles";
 import { gearSet} from "../../../../../utills/types";
 import { ImgPathConsts, pieceTypes } from "../../../../../utills/enums";
 import { getDBConnection, getGearSetById } from "../../../../../utills/functions/db-service";
-import ModalComponent from "../../../../../Components/ModalComponent/ModalComponent";
 
 type Props = {
     title: string,
     gearSetId: number | undefined,
-    onPieceSelected: (pieceType: string) => void
+    onPieceSelected: (pieceType: pieceTypes) => void
 }
 
-function SetOfPieces ({title = "SET 1", gearSetId, onPieceSelected}: Props): React.JSX.Element {
+function SetOfPieces ({title = "SET 1", gearSetId = 1, onPieceSelected}: Props): React.JSX.Element {
 
     const [gearSet, setGearSet] = useState<gearSet>()
 
     const loadDataCallback = useCallback(async () => {
         try{
             const db = await getDBConnection()
-            const setOfPieces = await getGearSetById(db, gearSetId || 1)
+            const setOfPieces = await getGearSetById(db, gearSetId)
 
             setGearSet(setOfPieces)
         }
@@ -34,7 +33,8 @@ function SetOfPieces ({title = "SET 1", gearSetId, onPieceSelected}: Props): Rea
     }, [loadDataCallback])
 
     function setGearPath(image_path: string | undefined): string{
-        return  ImgPathConsts.rootAssetsImgPath + (image_path !== undefined ? image_path : ImgPathConsts.piecePlaceholderImage.substring(10))
+        return  ImgPathConsts.rootAssetsImgPath + (image_path !== undefined ? image_path :
+            ImgPathConsts.piecePlaceholderImage.substring(10))
     }
     
     return(
@@ -54,20 +54,26 @@ function SetOfPieces ({title = "SET 1", gearSetId, onPieceSelected}: Props): Rea
                 <View style = {set_of_pieces.center_of_set_wrapper}>
 
                     <View style = {set_of_pieces.center_of_set}>           
-                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.helmet?.image_path)}}/>
-                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory1?.image_path)}}/>
+                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.helmet?.image_path)}}
+                        onPress = {() => onPieceSelected(pieceTypes.helmet)}/>
+                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory1?.image_path)}}
+                        onPress = {() => onPieceSelected(pieceTypes.accessory)}/>
                     </View>
 
                     <View style = {set_of_pieces.center_of_set}>
-                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.plate?.image_path)}}/>
-                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory2?.image_path)}}/>
+                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.plate?.image_path)}}
+                        onPress = {() => onPieceSelected(pieceTypes.plate)}/>
+                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory2?.image_path)}}
+                        onPress = {() => onPieceSelected(pieceTypes.accessory)}/>
                     </View>
 
                 </View>
                 
                 <View style = {set_of_pieces.end_of_set}>           
-                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.boots?.image_path)}}/>
-                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory3?.image_path)}}/>
+                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.boots?.image_path)}}
+                    onPress = {() => onPieceSelected(pieceTypes.boots)}/>
+                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory3?.image_path)}}
+                    onPress = {() => onPieceSelected(pieceTypes.accessory)}/>
                 </View>
             </View>
         </View>

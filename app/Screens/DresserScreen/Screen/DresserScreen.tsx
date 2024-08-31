@@ -15,17 +15,15 @@ function DresserScreen(): React.JSX.Element{
     const [allGearSetsData, setAllGearsSetsData] = useState<gearSetData[]>([currentGearSetData])
 
     const [isModalActive, setIsModalActive] = useState<boolean>(false)
-    const [currentTypeOfGearSelected, setCurrentGearTypeSelected] = useState<string>(pieceTypes.mainHand)
+    const [currentTypeOfGearSelected, setCurrentGearTypeSelected] = useState<pieceTypes>(pieceTypes.mainHand)
 
-    const childToParent = (returnData: any): void => {
-        setCurrentGearSetData(returnData)
+    const childToParent = (id: any): void => {
+        setCurrentGearSetData(allGearSetsData[id])
     }
 
-    function onPieceSelected(type: string): void{
-        if(type in pieceTypes){
-            setIsModalActive(!isModalActive)
-            setCurrentGearTypeSelected(type)
-        }
+    function onPieceSelected(type: pieceTypes): void{
+        setIsModalActive(!isModalActive)
+        setCurrentGearTypeSelected(type)
     }
 
     const loadDataCallback = useCallback(async () => {
@@ -50,12 +48,12 @@ function DresserScreen(): React.JSX.Element{
                 <ImageBackground style = {dresser_screen.backgroundImg} source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover">
 
                     <ModalComponent visible = {isModalActive} setVisible = {setIsModalActive} children = {
-                        <PieceSelector/>
+                        <PieceSelector pieceType = {currentTypeOfGearSelected}/>
                     }/>
                     
                     <Swapper centerComponent = {
                         <SetOfPieces title = {currentGearSetData.title} gearSetId = {currentGearSetData.id} onPieceSelected = {onPieceSelected}/>
-                    } componentDataArray = {allGearSetsData} childToParent = {childToParent}/>
+                    } componentsCount = {allGearSetsData.length} childToParent = {childToParent}/>
                             
                 </ImageBackground>
             </View>

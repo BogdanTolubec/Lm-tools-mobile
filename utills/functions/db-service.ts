@@ -48,7 +48,7 @@ export const getAllPiecesByType = async (db: SQLiteDatabase, type: string): Prom
         if(type in pieceTypes){
             const piecesArray: Pieces[] = []
             const sqlQuery: string = `SELECT * FROM ${tableNames.pieces}, ${tableNames.stats} WHERE 
-            (${tableNames.stats}.id = ${tableNames.pieces}.stats_id) AND (${tableNames.pieces}.type = ${type})`
+            (${tableNames.stats}.id = ${tableNames.pieces}.stats_id) AND (${tableNames.pieces}.type = "${type}")`
             
             const pieces = await db.executeSql(sqlQuery)
     

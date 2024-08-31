@@ -1,24 +1,25 @@
-import React, { useState } from "react";
-import { Image, ImageBackground, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Image, TouchableOpacity, View } from "react-native";
 import { IconPathConsts } from "../../utills/enums";
 import swapper from "./SwapperStyles";
 
 type Props = {
-    componentDataArray: any[]
+    componentsCount: number
     centerComponent: React.JSX.Element,
-    childToParent: (returnData: any) => void,
+    childToParent: (id: number) => void,
 }
 
-function Swapper({centerComponent, componentDataArray, childToParent}: Props): React.JSX.Element {
+function Swapper({centerComponent, componentsCount, childToParent}: Props): React.JSX.Element {
 
     const[swapperIterator, setSwapperIterator] = useState<number>(0)
 
     return(
         <View style = {swapper.wrapper}>
             <TouchableOpacity style = {swapper.icon_wrapper} onPress = {() => {
-                if(swapperIterator < componentDataArray.length - 1){
-                    setSwapperIterator(swapperIterator + 1)
-                    childToParent(componentDataArray[swapperIterator])
+                if(swapperIterator > 0){
+                    setSwapperIterator(swapperIterator - 1)
+                    childToParent(swapperIterator)
+                    console.log("left click")
                 }
             }}>
                 <Image source = {{uri: IconPathConsts.leftArrowIcon}} style = {swapper.icon} resizeMode = "cover"/>
@@ -29,9 +30,10 @@ function Swapper({centerComponent, componentDataArray, childToParent}: Props): R
                 </View>
 
             <TouchableOpacity style = {swapper.icon_wrapper} onPress = {() => {
-                if(swapperIterator > 0){
-                    setSwapperIterator(swapperIterator - 1)
-                    childToParent(componentDataArray[swapperIterator])
+                if(swapperIterator < (componentsCount - 1)){
+                    setSwapperIterator(swapperIterator + 1)
+                    childToParent(swapperIterator)
+                    console.log("right click" + swapperIterator + "<= " + (componentsCount -  1))
                 }
             }}>
                 <Image source = {{uri: IconPathConsts.rightArrowIcon}} style = {swapper.icon}/>
