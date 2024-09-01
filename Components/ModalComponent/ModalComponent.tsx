@@ -12,7 +12,7 @@ function ModalComponent({visible, children, setVisible}: Props): React.JSX.Eleme
 
     return(
         <View style = {[modal_component.wrapper,
-        visible ? {height: "100%", width: "100%"} : {height: 0, width: 0}]}>
+        visible ? {height: "100%", width: "100%", zIndex: 100} : {height: 0, width: 0, zIndex: -1}]}>
             <TouchableOpacity style = {modal_component.background} onPress = {() => {setVisible(false)}}/>
             <View style = {modal_component.content}>
                 {children}

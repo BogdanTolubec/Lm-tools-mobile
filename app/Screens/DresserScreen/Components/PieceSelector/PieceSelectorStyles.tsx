@@ -5,6 +5,8 @@ const piece_selector = StyleSheet.create({
     wrapper: {
         display: "flex",
         flexDirection: "column",
+
+        justifyContent: "space-between",
         
         height: "80%",
         width: "80%",
@@ -19,6 +21,7 @@ const piece_selector = StyleSheet.create({
     filter_wrapper: {
         display: "flex",
         flexDirection: "row",
+
         justifyContent: "space-between",
 
         height: "7%",

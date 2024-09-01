@@ -17,9 +17,9 @@ function Piece({pieceImgPath, juewelsImgsPathArray, onPress}: Props): React.JSX.
             {
             juewelsImgsPathArray !== undefined ? (
                 <View style = {piece.juewels_wrapper}>
-                    <Image style = {piece.juewels_img} source = {juewelsImgsPathArray[0]}/>
-                    <Image style = {piece.juewels_img} source = {juewelsImgsPathArray[1]}/>
-                    <Image style = {piece.juewels_img} source= {juewelsImgsPathArray[2]}/>
+                        <Image style = {piece.juewels_img} source = {juewelsImgsPathArray[0]}/>
+                        <Image style = {piece.juewels_img} source = {juewelsImgsPathArray[1]}/>
+                        <Image style = {piece.juewels_img} source = {juewelsImgsPathArray[2]}/>
                 </View>) :
 
                 (<View style = {piece.juewels_wrapper}>

@@ -22,3 +22,13 @@ export function userFriendlyBigNumbersVisualisation(number: number): string{
 
     return result.split("").reverse().join("") //reverses string
 }
+
+export function firstLetterCapitalizer(string: string): string{
+    if(!string)
+    return ""
+
+    if(string.length < 1)
+    return ""
+
+    return string[0].toUpperCase() + string.slice(1)
+}

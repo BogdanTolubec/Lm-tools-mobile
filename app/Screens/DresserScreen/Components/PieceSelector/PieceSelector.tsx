@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import piece_selector from "./PieceSelectorStyles";
 import PieceRarenessChooseLabel from "../PieceRarenessChooseLabel/PieceRarenessChooseLabel";
 import { pieceTypes, rareness } from "../../../../../utills/enums";
@@ -32,13 +32,13 @@ function PieceSelector({pieceType}: Props): React.JSX.Element {
 
     return(
         <View style = {piece_selector.wrapper}>
-            <ScrollView>
+            <View>
                 {
                     piecesByTypeAndRareness.map((piece) => 
                         <PieceInList key = {piece.id} pieceData = {piece}/>
                     )
                 }
-            </ScrollView>
+            </View>
             
             <View style = {piece_selector.filter_wrapper}>
                 <PieceRarenessChooseLabel labelRareness = {rareness.common} setStateFunction = {setCurrentRarenessSelected}/>

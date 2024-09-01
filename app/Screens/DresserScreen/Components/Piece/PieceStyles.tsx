@@ -13,9 +13,10 @@ const piece = StyleSheet.create({
     },
 
     piece_img: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'contain',
         justifyContent: "flex-end",
     },
 
@@ -29,16 +30,12 @@ const piece = StyleSheet.create({
 
         opacity: 0.7,
     },
-    
-    juewels_img: {        
-        maxHeight: "100%",
-        width: "33.3%",
-        borderWidth: 2,
-        borderStyle: "solid",
-        borderColor: "rgb(94, 92, 92)",
-        borderRadius: 5,
 
-        resizeMode: "stretch",
+    juewels_img: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'contain',
     }
 })
 

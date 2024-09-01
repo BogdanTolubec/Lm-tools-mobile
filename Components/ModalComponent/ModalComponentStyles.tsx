@@ -1,10 +1,9 @@
-import Reat from 'react'
+import React from 'react'
 import { StyleSheet } from 'react-native'
 
 const modal_component = StyleSheet.create({
     wrapper: {
         position: 'absolute',
-        zIndex: 100,
     },
 
     background: {
