@@ -1,6 +1,6 @@
 import { openDatabase, enablePromise, SQLiteDatabase } from "react-native-sqlite-storage";
 import { gearSet, Pieces } from "../types";
-import { pieceTypes, tableNames } from "../enums";
+import { pieceTypes, rareness, tableNames } from "../enums";
 
 enablePromise(true);
 
@@ -43,12 +43,13 @@ export const getPieceById = async (db: SQLiteDatabase, piece_id: number): Promis
     }
 }
 
-export const getAllPiecesByType = async (db: SQLiteDatabase, type: string): Promise<Pieces[]> => {
+export const getAllPiecesByTypeAndRareness = async (db: SQLiteDatabase, type: string, rareness: rareness): Promise<Pieces[]> => {
     try{
         if(type in pieceTypes){
             const piecesArray: Pieces[] = []
             const sqlQuery: string = `SELECT * FROM ${tableNames.pieces}, ${tableNames.stats} WHERE 
-            (${tableNames.stats}.id = ${tableNames.pieces}.stats_id) AND (${tableNames.pieces}.type = "${type}")`
+            (${tableNames.stats}.id = ${tableNames.pieces}.stats_id) AND (${tableNames.pieces}.type = "${type}")
+            AND (${tableNames.pieces}.rareness = "${rareness}")`
             
             const pieces = await db.executeSql(sqlQuery)
     

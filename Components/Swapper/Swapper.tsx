@@ -19,7 +19,6 @@ function Swapper({centerComponent, componentsCount, childToParent}: Props): Reac
                 if(swapperIterator > 0){
                     setSwapperIterator(swapperIterator - 1)
                     childToParent(swapperIterator)
-                    console.log("left click")
                 }
             }}>
                 <Image source = {{uri: IconPathConsts.leftArrowIcon}} style = {swapper.icon} resizeMode = "cover"/>
@@ -33,7 +32,6 @@ function Swapper({centerComponent, componentsCount, childToParent}: Props): Reac
                 if(swapperIterator < (componentsCount - 1)){
                     setSwapperIterator(swapperIterator + 1)
                     childToParent(swapperIterator)
-                    console.log("right click" + swapperIterator + "<= " + (componentsCount -  1))
                 }
             }}>
                 <Image source = {{uri: IconPathConsts.rightArrowIcon}} style = {swapper.icon}/>

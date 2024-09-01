@@ -3,8 +3,9 @@ import { ScrollView, Text, View } from "react-native";
 import piece_selector from "./PieceSelectorStyles";
 import PieceRarenessChooseLabel from "../PieceRarenessChooseLabel/PieceRarenessChooseLabel";
 import { pieceTypes, rareness } from "../../../../../utills/enums";
-import { getAllPiecesByType, getDBConnection } from "../../../../../utills/functions/db-service";
+import { getAllPiecesByTypeAndRareness , getDBConnection } from "../../../../../utills/functions/db-service";
 import { Pieces } from "../../../../../utills/types";
+import PieceInList from "../PieceInList/PieceInList";
 
 type Props = {
     pieceType: pieceTypes
@@ -13,17 +14,17 @@ type Props = {
 function PieceSelector({pieceType}: Props): React.JSX.Element {
 
     const [currentRarenessSelected, setCurrentRarenessSelected] = useState<rareness>(rareness.common)
-    const [piecesByType, setPiecesByType] = useState<Pieces[]>([])
-
+    const [piecesByTypeAndRareness, setPiecesByType] = useState<Pieces[]>([])
+ 
     const loadDataCallback = useCallback(async () => {
         try{
             const db = await getDBConnection()
-            setPiecesByType(await getAllPiecesByType(db, pieceType))
+            setPiecesByType(await getAllPiecesByTypeAndRareness(db, pieceType, currentRarenessSelected))
         }
         catch(e){
             console.error(e)
         }
-    }, [pieceType])
+    }, [pieceType, currentRarenessSelected])
 
     useEffect(() => {
         loadDataCallback()
@@ -33,8 +34,8 @@ function PieceSelector({pieceType}: Props): React.JSX.Element {
         <View style = {piece_selector.wrapper}>
             <ScrollView>
                 {
-                    piecesByType.map((piece) => 
-                        <Text key = {piece.id}> Name: {piece.name}, Type: {piece.type}</Text>
+                    piecesByTypeAndRareness.map((piece) => 
+                        <PieceInList key = {piece.id} pieceData = {piece}/>
                     )
                 }
             </ScrollView>

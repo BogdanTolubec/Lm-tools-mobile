@@ -3,6 +3,9 @@ import { StyleSheet } from "react-native";
 
 const piece_selector = StyleSheet.create({
     wrapper: {
+        display: "flex",
+        flexDirection: "column",
+        
         height: "80%",
         width: "80%",
 
