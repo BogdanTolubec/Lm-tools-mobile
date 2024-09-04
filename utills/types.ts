@@ -35,7 +35,16 @@ export type gearSet = {
     accessory1?: Pieces,
     accessory2?: Pieces,
     accessory3?: Pieces,
-    rarenessArray: (rareness | undefined) [],
+    rarenessArray: {
+        mainHandRareness: rareness | undefined,
+        helmetRareness: rareness | undefined,
+        plateRareness: rareness | undefined,
+        bootsRareness: rareness | undefined,
+        secondHandRareness: rareness | undefined,
+        accessory1Rarenes: rareness | undefined,
+        accessory2Rareness: rareness | undefined,
+        accessory3Rareness: rareness | undefined,
+    },
 }
 
 export type gearSetData = {

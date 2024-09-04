@@ -93,9 +93,24 @@ export const addPiece = async (db: SQLiteDatabase, piece: Pieces): Promise<void>
 
 export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Promise<gearSet>=> {
     try{
-        let gearSet: gearSet = {id: gearSetId, rarenessArray: []}
-        const sqlQueryGetGearSet = `SELECT * FROM ${tableNames.gear_sets} WHERE ${gearSetId} = Gear_sets.id`
-        const sqlQueryGetRareness = `SELECT * FROM ${tableNames.gear_set_pieces_rareness} WHERE `
+        let gearSet: gearSet = {id: gearSetId, rarenessArray: {
+            mainHandRareness: undefined,
+            helmetRareness: undefined,
+            plateRareness: undefined,
+            bootsRareness: undefined,
+            secondHandRareness: undefined,
+            accessory1Rarenes: undefined,
+            accessory2Rareness: undefined,
+            accessory3Rareness: undefined,}
+        }
+        const sqlQueryGetGearSet = `SELECT * FROM ${tableNames.gear_sets} WHERE ${gearSetId} = ${tableNames.gear_sets}.id`
+        const sqlQueryGetRareness = `SELECT ${tableNames.gear_set_pieces_rareness}.mainHand_rareness,
+        ${tableNames.gear_set_pieces_rareness}.helmet_rareness, ${tableNames.gear_set_pieces_rareness}.plate_rareness,
+        ${tableNames.gear_set_pieces_rareness}.boots_rareness, ${tableNames.gear_set_pieces_rareness}.secondHand_rareness,
+        ${tableNames.gear_set_pieces_rareness}.accessory1_rareness, ${tableNames.gear_set_pieces_rareness}.accessory2_rareness,
+        ${tableNames.gear_set_pieces_rareness}.accessory3_rareness FROM ${tableNames.gear_set_pieces_rareness} WHERE 
+        (SELECT ${tableNames.gear_sets}.gear_set_pieces_rareness_id FROM ${tableNames.gear_sets} WHERE ${tableNames.gear_sets}.id = 1)
+        = ${tableNames.gear_set_pieces_rareness}.id `
 
         const currentGearSet = await db.executeSql(sqlQueryGetGearSet)
             
@@ -108,11 +123,20 @@ export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Pro
         gearSet.accessory2 = await getPieceById(db, currentGearSet[0].rows.item(0)?.accessory2)
         gearSet.accessory3 = await getPieceById(db, currentGearSet[0].rows.item(0)?.accessory3)
         
+        const rarenessArray = await db.executeSql(sqlQueryGetRareness)
 
+        gearSet.rarenessArray.mainHandRareness = rarenessArray[0].rows.item(0).mainHand_rareness
+        gearSet.rarenessArray.helmetRareness = rarenessArray[0].rows.item(0).helmet_rareness
+        gearSet.rarenessArray.plateRareness = rarenessArray[0].rows.item(0).plate_rareness
+        gearSet.rarenessArray.bootsRareness = rarenessArray[0].rows.item(0).boots_rareness
+        gearSet.rarenessArray.secondHandRareness = rarenessArray[0].rows.item(0).secondHand_rareness
+        gearSet.rarenessArray.accessory1Rarenes = rarenessArray[0].rows.item(0).accessory1_rareness
+        gearSet.rarenessArray.accessory2Rareness = rarenessArray[0].rows.item(0).accessory2_rareness
+        gearSet.rarenessArray.accessory3Rareness = rarenessArray[0].rows.item(0).accessory3_rareness
 
         return gearSet
     } catch (e){
-        throw Error("Gear set loading failed...")
+        throw Error("Gear set loading failed..." + JSON.stringify(e))
     }
 }
 
