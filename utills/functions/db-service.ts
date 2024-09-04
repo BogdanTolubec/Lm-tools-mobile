@@ -11,7 +11,7 @@ export const getDBConnection = async () => {
 export const getAllPieces = async (db: SQLiteDatabase): Promise<Pieces[]> => {
    try{
         const piecesArray: Pieces[] = []
-        const sqlQuery: string = `SELECT * FROM ${tableNames.pieces}, ${tableNames.stats} WHERE ${tableNames.stats}.id = ${tableNames.pieces}.stats_id`
+        const sqlQuery: string = `SELECT * FROM ${tableNames.pieces}, ${tableNames.stats} WHERE ${tableNames.stats}.id = ${tableNames.pieces}.id`
         
         const pieces = await db.executeSql(sqlQuery)
 
@@ -43,31 +43,31 @@ export const getPieceById = async (db: SQLiteDatabase, piece_id: number): Promis
     }
 }
 
-export const getAllPiecesByTypeAndRareness = async (db: SQLiteDatabase, type: string, rareness: rareness): Promise<Pieces[]> => {
+export const getAllPiecesByTypeAndRareness = async (db: SQLiteDatabase, type: pieceTypes, rareness: rareness): Promise<Pieces[]> => {
     try{
-        if(type in pieceTypes){
-            const piecesArray: Pieces[] = []
-            const sqlQuery: string = `SELECT * FROM ${tableNames.pieces}, ${tableNames.stats} WHERE 
-            (${tableNames.stats}.id = ${tableNames.pieces}.stats_id) AND (${tableNames.pieces}.type = "${type}")
-            AND (${tableNames.pieces}.rareness = "${rareness}")`
+        const piecesArray: Pieces[] = []
+        const sqlQuery: string = `SELECT ${tableNames.pieces}.name, ${tableNames.pieces}.type, ${tableNames.pieces}.image_path,
+            ${tableNames.stats}.armyAtk, ${tableNames.stats}.armyDeff, 
+            ${tableNames.stats}.infantryAtk, ${tableNames.stats}.infantryDeff,${tableNames.stats}.infantryHp,
+            ${tableNames.stats}.rangedAtk, ${tableNames.stats}.rangedDeff, ${tableNames.stats}.rangedHp,
+            ${tableNames.stats}.cavalryAtk, ${tableNames.stats}.cavalryDeff, ${tableNames.stats}.cavalryHp
+            FROM ${tableNames.pieces}, ${tableNames.rareness_stats}, ${tableNames.stats} WHERE  
+            (${tableNames.pieces}.type = "${type}") AND (${tableNames.pieces}.rareness_stats_id = ${tableNames.rareness_stats}.id)
+            AND (${tableNames.stats}.id = ${tableNames.rareness_stats}.rare_stats_id) ORDER BY ${tableNames.pieces}.id`
             
-            const pieces = await db.executeSql(sqlQuery)
+        const pieces = await db.executeSql(sqlQuery)
     
-            pieces.forEach(piece =>  {
-                for (let i = 0; i < piece.rows.length; i++) {
-                    piecesArray.push(piece.rows.item(i))
-                }
-            });
+        pieces.forEach(piece =>  {
+            for (let i = 0; i < piece.rows.length; i++) {
+                piecesArray.push(piece.rows.item(i))
+            }
+        });
     
             return piecesArray
-        }
-        else{
-            throw Error("Got 'type' prop that isn't matching 'pieces types'");
-        }
      }
  
      catch(e){
-        throw Error('Pieces loading failed...');
+        throw Error('Pieces loading failed...' + JSON.stringify(e));
      } 
 }
 
@@ -85,18 +85,19 @@ export const addPiece = async (db: SQLiteDatabase, piece: Pieces): Promise<void>
 
     const stats_id = await db.executeSql(sqlQueryGetStatsId)
 
-    const sqlQueryPieces = `INSERT INTO ${tableNames.pieces} (name, type, rareness, image_path, stats_id) 
-    VALUES('${piece.name}', '${piece.type}', '${piece.rareness}', '${piece.image_path}', ${stats_id[0].rows.item(0).id})`
+    const sqlQueryPieces = `INSERT INTO ${tableNames.pieces} (id, name, type, rareness, image_path) 
+    VALUES(${stats_id[0].rows.item(0).id ,'${piece.name}', '${piece.type}', '${piece.rareness}', '${piece.image_path}'})`
 
     const resultPiece = await db.executeSql(sqlQueryPieces)
 }
 
 export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Promise<gearSet>=> {
     try{
-        let gearSet: gearSet = {id: gearSetId}
-        const sqlQuery = `SELECT * FROM ${tableNames.gear_sets} WHERE ${gearSetId} = Gear_sets.id`
+        let gearSet: gearSet = {id: gearSetId, rarenessArray: []}
+        const sqlQueryGetGearSet = `SELECT * FROM ${tableNames.gear_sets} WHERE ${gearSetId} = Gear_sets.id`
+        const sqlQueryGetRareness = `SELECT * FROM ${tableNames.gear_set_pieces_rareness} WHERE `
 
-        const currentGearSet = await db.executeSql(sqlQuery)
+        const currentGearSet = await db.executeSql(sqlQueryGetGearSet)
             
         gearSet.mainHand = await getPieceById(db, currentGearSet[0].rows.item(0)?.mainHand)
         gearSet.helmet = await getPieceById(db, currentGearSet[0].rows.item(0)?.helmet)
@@ -106,6 +107,8 @@ export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Pro
         gearSet.accessory1 = await getPieceById(db, currentGearSet[0].rows.item(0)?.accessory1)
         gearSet.accessory2 = await getPieceById(db, currentGearSet[0].rows.item(0)?.accessory2)
         gearSet.accessory3 = await getPieceById(db, currentGearSet[0].rows.item(0)?.accessory3)
+        
+
 
         return gearSet
     } catch (e){

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Pieces} from "../../../../../utills/types"
 import { FlatList, Text, View } from "react-native";
+import stats_list from "./StatsListStyles";
 
 type Props = {
     piece: Pieces,
@@ -26,14 +27,14 @@ function StatsList({piece}: Props): React.JSX.Element {
 
     return(
         <View>
-            <FlatList data = {listData} 
-            renderItem = {(item) =>
             {
-                if(item.item.stat != undefined)
+            listData.map((item) =>
+            {
+                if(item.stat != undefined)
                 {
                 return(
-                    <View>
-                        <Text> {item.item.text} {item.item.stat}</Text>
+                    <View key = {piece.id} style = {stats_list.stat_wrapper}>
+                        <Text> {item.text}: {item.stat}</Text>
                     </View>
                 )
                 }
@@ -41,8 +42,8 @@ function StatsList({piece}: Props): React.JSX.Element {
                 else{
                     return(<></>)
                 }
+            })
             }
-            }/>
         </View>
     );
 }

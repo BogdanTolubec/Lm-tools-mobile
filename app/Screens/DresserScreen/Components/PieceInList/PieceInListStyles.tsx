@@ -13,6 +13,13 @@ const piece_in_list = StyleSheet.create({
         borderWidth: 2,
     },
 
+    rareness_background_img_wrapper: {
+        height: 50,
+        width: 50,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
     first_row: {
         display: "flex",
         flexDirection: "row",
@@ -23,7 +30,7 @@ const piece_in_list = StyleSheet.create({
 
     img_wrapper: {
         height: "90%",
-        width: "20%",
+        width: "90%",
     },
 
     image: {

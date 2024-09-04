@@ -12,6 +12,21 @@ const piece = StyleSheet.create({
         borderWidth: 2,        
     },
 
+    rareness_background_img_wrapper: {
+        height: "100%",
+        width: "100%"
+    },
+
+    rareness_background_img: {
+        height: "100%",
+        width: "100%"
+    },
+
+    piece_img_wrapper: {
+        height: "90%",
+        width: "90%",
+    },
+
     piece_img: {
         flex: 1,
         width: null,

@@ -13,6 +13,8 @@ export enum tableNames {
     juewels = "Juewels",
     stats = "Stats",
     gear_sets = "Gear_Sets",
+    rareness_stats = "Rareness_Stats",
+    gear_set_pieces_rareness = "Gear_set_pieces_rareness"
 }
 
 export enum rareness {
@@ -22,6 +24,7 @@ export enum rareness {
     epic = "epic",
     legendary = "legendary",
     mythic = "mythic",
+    tempered = "tempered"
 }
 
 export enum rarenessColors {
@@ -54,6 +57,14 @@ export enum ImgPathConsts{
     rootAssetsImgPath = "asset:/img",
 
     backgroundImage = rootAssetsImgPath + "/utills/pages_background_img.jpg",
+    commonPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/common_piece_background.jpg",
+    uncommonPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/uncommon_piece_background.jpg",
+    rarePieceBackgroundImage = rootAssetsImgPath + "/utills/gears/rare_piece_background.jpg",
+    epicPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/epic_piece_background.jpg",
+    legendaryPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/legendary_piece_background.jpg",
+    mythicPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/mythic_piece_background.jpg",
+    temperedPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/tempered_piece_background.jpg",
+    
     placeholderImage = rootAssetsImgPath + "/utills/no_image_placeholder.jpg",
     juewelsPlaceHolderImage = rootAssetsImgPath + "/utills/no_juewels_placeholder.jpg",
     piecePlaceholderImage = rootAssetsImgPath + "/utills/no_piece_placeholder.jpg",

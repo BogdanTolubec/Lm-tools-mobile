@@ -32,13 +32,13 @@ function PieceSelector({pieceType}: Props): React.JSX.Element {
 
     return(
         <View style = {piece_selector.wrapper}>
-            <View>
+            <ScrollView style = {piece_selector.selector}>
                 {
                     piecesByTypeAndRareness.map((piece) => 
-                        <PieceInList key = {piece.id} pieceData = {piece}/>
+                        <PieceInList key = {piece.id || Math.random()} pieceData = {piece} pieceRareness = {currentRarenessSelected}/>
                     )
                 }
-            </View>
+            </ScrollView>
             
             <View style = {piece_selector.filter_wrapper}>
                 <PieceRarenessChooseLabel labelRareness = {rareness.common} setStateFunction = {setCurrentRarenessSelected}/>

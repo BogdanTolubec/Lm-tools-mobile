@@ -5,8 +5,6 @@ const piece_selector = StyleSheet.create({
     wrapper: {
         display: "flex",
         flexDirection: "column",
-
-        justifyContent: "space-between",
         
         height: "80%",
         width: "80%",
@@ -16,11 +14,21 @@ const piece_selector = StyleSheet.create({
         borderWidth: 2,
         borderStyle: "solid",
         padding: 2,
+
+        overflow: "scroll"
+    },
+
+    selector: {
+        flex: 1,
+        maxHeight: "92%",
+        width: "100%",
     },
 
     filter_wrapper: {
         display: "flex",
         flexDirection: "row",
+        top: "95%",
+        position: "absolute",
 
         justifyContent: "space-between",
 

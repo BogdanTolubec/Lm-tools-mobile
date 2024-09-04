@@ -1,3 +1,5 @@
+import { rareness } from "./enums"
+
 export type Pieces = {
     id?: number,
     name: string,
@@ -33,6 +35,7 @@ export type gearSet = {
     accessory1?: Pieces,
     accessory2?: Pieces,
     accessory3?: Pieces,
+    rarenessArray: (rareness | undefined) [],
 }
 
 export type gearSetData = {

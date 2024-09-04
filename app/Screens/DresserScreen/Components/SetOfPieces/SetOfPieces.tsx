@@ -15,6 +15,7 @@ type Props = {
 function SetOfPieces ({title = "SET 1", gearSetId = 1, onPieceSelected}: Props): React.JSX.Element {
 
     const [gearSet, setGearSet] = useState<gearSet>()
+    const pieceImageSize = {height: 85, width: 85}
 
     const loadDataCallback = useCallback(async () => {
         try{
@@ -45,38 +46,41 @@ function SetOfPieces ({title = "SET 1", gearSetId = 1, onPieceSelected}: Props):
 
                 <View style = {set_of_pieces.start_of_set}>
                     <Piece pieceImgPath = {{uri: setGearPath(gearSet?.mainHand?.image_path)}} 
-                    onPress = {() => onPieceSelected(pieceTypes.mainHand)}/>
+                    onPress = {() => onPieceSelected(pieceTypes.mainHand)} pieceRareness = {gearSet?.rarenessArray[0]}/>
 
                     <Piece pieceImgPath = {{uri: setGearPath(gearSet?.secondHand?.image_path)}}
-                    onPress = {() => onPieceSelected(pieceTypes.secondHand)}/>
+                    onPress = {() => onPieceSelected(pieceTypes.secondHand)} pieceRareness = {gearSet?.rarenessArray[4]}/>
                 </View>
 
                 <View style = {set_of_pieces.center_of_set_wrapper}>
 
                     <View style = {set_of_pieces.center_of_set}>           
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.helmet?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.helmet)}/>
+                        onPress = {() => onPieceSelected(pieceTypes.helmet)} pieceRareness = {gearSet?.rarenessArray[1]}/>
+
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory1?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.accessory)}/>
+                        onPress = {() => onPieceSelected(pieceTypes.accessory)} pieceRareness = {gearSet?.rarenessArray[5]}/>
                     </View>
 
                     <View style = {set_of_pieces.center_of_set}>
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.plate?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.plate)}/>
+                        onPress = {() => onPieceSelected(pieceTypes.plate)} pieceRareness = {gearSet?.rarenessArray[2]}/>
+
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory2?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.accessory)}/>
+                        onPress = {() => onPieceSelected(pieceTypes.accessory)} pieceRareness = {gearSet?.rarenessArray[6]}/>
                     </View>
 
                 </View>
                 
-                <View style = {set_of_pieces.end_of_set}>           
-                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.boots?.image_path)}}
-                    onPress = {() => onPieceSelected(pieceTypes.boots)}/>
-                    <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory3?.image_path)}}
-                    onPress = {() => onPieceSelected(pieceTypes.accessory)}/>
+                    <View style = {set_of_pieces.end_of_set}>           
+                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.boots?.image_path)}}
+                        onPress = {() => onPieceSelected(pieceTypes.boots)} pieceRareness = {gearSet?.rarenessArray[3]}/>
+
+                        <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory3?.image_path)}}
+                        onPress = {() => onPieceSelected(pieceTypes.accessory)} pieceRareness = {gearSet?.rarenessArray[7]}/>
+                    </View>
                 </View>
             </View>
-        </View>
     );
 }
 
