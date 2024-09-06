@@ -4,22 +4,23 @@ import piece_selector from "./PieceSelectorStyles";
 import PieceRarenessChooseLabel from "../PieceRarenessChooseLabel/PieceRarenessChooseLabel";
 import { pieceTypes, rareness } from "../../../../../utills/enums";
 import { getAllPiecesByTypeAndRareness , getDBConnection } from "../../../../../utills/functions/db-service";
-import { Pieces } from "../../../../../utills/types";
+import { gearSet, Pieces } from "../../../../../utills/types";
 import PieceInList from "../PieceInList/PieceInList";
 
 type Props = {
-    pieceType: pieceTypes
+    pieceType: pieceTypes,
+    gearSet?: gearSet,
 }
 
-function PieceSelector({pieceType}: Props): React.JSX.Element {
+function PieceSelector({pieceType, gearSet}: Props): React.JSX.Element {
 
     const [currentRarenessSelected, setCurrentRarenessSelected] = useState<rareness>(rareness.common)
-    const [piecesByTypeAndRareness, setPiecesByType] = useState<Pieces[]>([])
+    const [piecesByTypeAndRareness, setPiecesByTypeAndRareness] = useState<Pieces[]>([])
  
     const loadDataCallback = useCallback(async () => {
         try{
             const db = await getDBConnection()
-            setPiecesByType(await getAllPiecesByTypeAndRareness(db, pieceType, currentRarenessSelected))
+            setPiecesByTypeAndRareness(await getAllPiecesByTypeAndRareness(db, pieceType, currentRarenessSelected))
         }
         catch(e){
             console.error(e)
@@ -34,8 +35,9 @@ function PieceSelector({pieceType}: Props): React.JSX.Element {
         <View style = {piece_selector.wrapper}>
             <ScrollView style = {piece_selector.selector}>
                 {
-                    piecesByTypeAndRareness.map((piece) => 
-                        <PieceInList key = {piece.id || Math.random()} pieceData = {piece} pieceRareness = {currentRarenessSelected}/>
+                    piecesByTypeAndRareness.map((piece, index) => 
+                        <PieceInList key = {index} pieceData = {piece} pieceRareness = {currentRarenessSelected}
+                        pieceType = {pieceType}    gearSet = {gearSet}/>
                     )
                 }
             </ScrollView>

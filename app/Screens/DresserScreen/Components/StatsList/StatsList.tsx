@@ -28,12 +28,11 @@ function StatsList({piece}: Props): React.JSX.Element {
     return(
         <View>
             {
-            listData.map((item) =>
-            {
+            listData.map((item, index) => {
                 if(item.stat != undefined)
                 {
                 return(
-                    <View key = {piece.id} style = {stats_list.stat_wrapper}>
+                    <View key = {index} style = {stats_list.stat_wrapper}>
                         <Text> {item.text}: {item.stat}</Text>
                     </View>
                 )

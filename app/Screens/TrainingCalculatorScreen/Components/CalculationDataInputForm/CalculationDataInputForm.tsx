@@ -85,8 +85,8 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
         <View style = {calculation_data_input_form.wrapper}>
             <View style = {calculation_data_input_form.select_section}>
 
-                {armyTypeLabelsInfo.map((label) => 
-                    <CheckLabel key = {label.id} itemId = {label.id} text = {label.text} selectedId = {selectedArmyTypeId}
+                {armyTypeLabelsInfo.map((label, index) => 
+                    <CheckLabel key = {index} itemId = {label.id} text = {label.text} selectedId = {selectedArmyTypeId}
                     setStateFunction = {setCurrentArmyTypeSelect} setSelectedFunction = {setSelectedArmyTypeId}/>
                 )}
 
@@ -94,8 +94,8 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
 
             <View style = {calculation_data_input_form.select_section}>
 
-                {tierLabelsInfo.map((label) => 
-                    <CheckLabel  key = {label.id} itemId = {label.id} text = {label.text} selectedId = {selectedTierId}
+                {tierLabelsInfo.map((label, index) => 
+                    <CheckLabel  key = {index} itemId = {label.id} text = {label.text} selectedId = {selectedTierId}
                     setStateFunction = {setCurrentTierSelect} setSelectedFunction = {setSelectedTierId}/>
                 )}
 
@@ -113,7 +113,7 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
             <NumericInput placeholder = "40" styles = {calculation_data_input_form.text_input}
             minValue = {0} maxValue = {40} maxLength = {3} setParentElementState = {(state) => {setSubsidy(state)}}/>
 
-            <SubmitButton onPress = {(e: GestureResponderEvent) => {calculateAndSendData()}} title = "Calculate"/>
+            <SubmitButton onPress = {() => {calculateAndSendData()}} title = "Calculate"/>
         </View>
     );
 }

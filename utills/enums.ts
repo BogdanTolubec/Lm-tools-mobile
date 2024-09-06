@@ -50,6 +50,9 @@ export enum pieceTypes {
     boots = "boots",
     secondHand = "secondHand",
     accessory = "accessory",
+    accessory1 = "accessory1",
+    accessory2 = "accessory2",
+    accessory3 = "accessory3",
 }
 
 //paths consts

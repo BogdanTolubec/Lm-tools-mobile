@@ -2,6 +2,7 @@ import React from "react";
 import { GestureResponderEvent, Image, ImageBackground, ImageSourcePropType, TouchableOpacity, View } from "react-native";
 import piece from "./PieceStyles";
 import { ImgPathConsts, rareness } from "../../../../../utills/enums";
+import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/imagesFunctions";
 
 type Props = {
     pieceImgPath: ImageSourcePropType | undefined, 
@@ -12,18 +13,7 @@ type Props = {
 
 function Piece({pieceImgPath, juewelsImgsPathArray, onPress, pieceRareness = rareness.common}: Props): React.JSX.Element {
 
-    let piece_rareness_background_image_path = ""
-
-    switch (pieceRareness){
-        case rareness.common: {piece_rareness_background_image_path = ImgPathConsts.commonPieceBackgroundImage; break}
-        case rareness.uncommon: {piece_rareness_background_image_path = ImgPathConsts.uncommonPieceBackgroundImage; break}
-        case rareness.rare: {piece_rareness_background_image_path = ImgPathConsts.rarePieceBackgroundImage; break}
-        case rareness.epic: {piece_rareness_background_image_path = ImgPathConsts.epicPieceBackgroundImage; break}
-        case rareness.legendary: {piece_rareness_background_image_path = ImgPathConsts.legendaryPieceBackgroundImage; break}
-        case rareness.mythic: {piece_rareness_background_image_path = ImgPathConsts.mythicPieceBackgroundImage; break}
-        case rareness.tempered: {piece_rareness_background_image_path = ImgPathConsts.temperedPieceBackgroundImage; break}
-        default: {piece_rareness_background_image_path = ImgPathConsts.commonPieceBackgroundImage}
-    }
+    let piece_rareness_background_image_path = setGearImageBackgroundByRareness(pieceRareness)
     
     return(
         <TouchableOpacity onPress = {onPress} style = {piece.wrapper}>

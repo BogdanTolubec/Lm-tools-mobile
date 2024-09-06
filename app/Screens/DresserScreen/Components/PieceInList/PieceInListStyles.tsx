@@ -11,6 +11,7 @@ const piece_in_list = StyleSheet.create({
         borderColor: "black",
         borderStyle: "solid",
         borderWidth: 2,
+        marginBottom: 2,
     },
 
     rareness_background_img_wrapper: {

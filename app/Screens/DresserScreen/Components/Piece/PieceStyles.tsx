@@ -3,18 +3,15 @@ import { StyleSheet } from "react-native";
 
 const piece = StyleSheet.create({
     wrapper: {
-        height: 85,
-        width: 85,
-
-        borderRadius: 10,
-        borderStyle: "solid",
-        borderColor: "rgb(255, 255, 255)",
-        borderWidth: 2,        
+        height: 80,
+        width: 80,       
     },
 
     rareness_background_img_wrapper: {
         height: "100%",
-        width: "100%"
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
     },
 
     rareness_background_img: {
