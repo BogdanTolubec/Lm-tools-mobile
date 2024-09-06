@@ -83,37 +83,48 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
     
     return(
         <View style = {calculation_data_input_form.wrapper}>
-            <View style = {calculation_data_input_form.select_section}>
 
-                {armyTypeLabelsInfo.map((label, index) => 
-                    <CheckLabel key = {index} itemId = {label.id} text = {label.text} selectedId = {selectedArmyTypeId}
-                    setStateFunction = {setCurrentArmyTypeSelect} setSelectedFunction = {setSelectedArmyTypeId}/>
-                )}
+            <View style = {calculation_data_input_form.check_labels_wrapper}>
+                <View style = {calculation_data_input_form.select_section}>
 
+                    {armyTypeLabelsInfo.map((label, index) => 
+                        <View key = {index} style = {calculation_data_input_form.check_label_wrapper}>
+                            <CheckLabel  itemId = {label.id} text = {label.text} selectedId = {selectedArmyTypeId}
+                            setStateFunction = {setCurrentArmyTypeSelect} setSelectedFunction = {setSelectedArmyTypeId}/>
+                        </View>
+                    )}
+
+                </View>
+
+                <View style = {calculation_data_input_form.select_section}>
+
+                    {tierLabelsInfo.map((label, index) => 
+                        <View key = {index} style = {calculation_data_input_form.check_label_wrapper}>
+                            <CheckLabel  key = {index} itemId = {label.id} text = {label.text} selectedId = {selectedTierId}
+                            setStateFunction = {setCurrentTierSelect} setSelectedFunction = {setSelectedTierId}/>
+                        </View>
+                    )}
+
+                </View>
             </View>
 
-            <View style = {calculation_data_input_form.select_section}>
+            <View style = {calculation_data_input_form.inputs_wrapper}>
+                <Text style = {calculation_data_input_form.text_input_labels}>Training speed (%): </Text>
+                <NumericInput placeholder = "100" styles = {calculation_data_input_form.text_input}
+                minValue = {0} maxValue = {999} setParentElementState = {(state) => {setTrainingSpeed(state)}}/>
 
-                {tierLabelsInfo.map((label, index) => 
-                    <CheckLabel  key = {index} itemId = {label.id} text = {label.text} selectedId = {selectedTierId}
-                    setStateFunction = {setCurrentTierSelect} setSelectedFunction = {setSelectedTierId}/>
-                )}
+                <Text style = {calculation_data_input_form.text_input_labels}> Army count: </Text>
+                <NumericInput placeholder = "100.000" styles = {calculation_data_input_form.text_input} 
+                minValue = {0} maxValue = {999_999_999} setParentElementState = {(state) => {setArmyCount(state)}}/>
 
+                <Text style = {calculation_data_input_form.text_input_labels}> Subsidy (%): </Text>
+                <NumericInput placeholder = "40" styles = {calculation_data_input_form.text_input}
+                minValue = {0} maxValue = {40} maxLength = {3} setParentElementState = {(state) => {setSubsidy(state)}}/>
             </View>
 
-            <Text style = {calculation_data_input_form.text_input_labels}>Training speed (%): </Text>
-            <NumericInput placeholder = "100" styles = {calculation_data_input_form.text_input}
-             minValue = {0} maxValue = {999} setParentElementState = {(state) => {setTrainingSpeed(state)}}/>
-
-            <Text style = {calculation_data_input_form.text_input_labels}> Army count: </Text>
-            <NumericInput placeholder = "100.000" styles = {calculation_data_input_form.text_input} 
-             minValue = {0} maxValue = {999_999_999} setParentElementState = {(state) => {setArmyCount(state)}}/>
-
-            <Text style = {calculation_data_input_form.text_input_labels}> Subsidy (%): </Text>
-            <NumericInput placeholder = "40" styles = {calculation_data_input_form.text_input}
-            minValue = {0} maxValue = {40} maxLength = {3} setParentElementState = {(state) => {setSubsidy(state)}}/>
-
-            <SubmitButton onPress = {() => {calculateAndSendData()}} title = "Calculate"/>
+            <View style = {calculation_data_input_form.button_wrapper}>
+                <SubmitButton onPress = {() => {calculateAndSendData()}} title = "Calculate"/>
+            </View>
         </View>
     );
 }

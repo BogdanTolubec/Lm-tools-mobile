@@ -3,10 +3,10 @@ import { StyleSheet } from "react-native";
 
 const check_label = StyleSheet.create({
     wrapper: {
-        flex: 1,
-        height: "70%",
-        maxWidth: "22%",
-        marginBottom: 5,
+        display: "flex",
+        
+        height: "100%",
+        width: "100%",
     
         borderWidth: 2,
         borderStyle: "solid",

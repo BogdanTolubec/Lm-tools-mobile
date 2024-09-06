@@ -76,6 +76,8 @@ export enum ImgPathConsts{
 export enum IconPathConsts{
     rootAssetsconsPath = "asset:/img/Icons",
 
+    menuIcon = rootAssetsconsPath + "/menu.png",
+
     homeIcon = rootAssetsconsPath + "/home.png",
     plusIcon = rootAssetsconsPath + "/plus.png",
     calculatorIcon = rootAssetsconsPath + "/calculator.png",

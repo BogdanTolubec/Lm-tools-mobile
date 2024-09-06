@@ -1,18 +1,19 @@
 import React from "react";
 import Piece from "../Piece/Piece";
-import { Text, View } from "react-native";
+import { GestureResponderEvent, Text, View } from "react-native";
 import set_of_pieces from "./SetOfPieceStyles";
 import { gearSet} from "../../../../../utills/types";
 import { ImgPathConsts, pieceTypes } from "../../../../../utills/enums";
-import SubmitButton from "../../../../../Components/SubmitButton/SubmitButton";
+import MenuIcon from "../../../../../Components/MenuIcon/MenuIcon";
 
 type Props = {
     title: string,
     gearSet?: gearSet,
-    onPieceSelected: (pieceType: pieceTypes) => void
+    onPieceSelected: (pieceType: pieceTypes) => void,
+    onMenuClicked: () => void,
 }
 
-function SetOfPieces ({gearSet, title,onPieceSelected}: Props): React.JSX.Element {
+function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked}: Props): React.JSX.Element {
 
     function setGearPath(image_path: string | undefined): string{
         return  ImgPathConsts.rootAssetsImgPath + (image_path !== undefined ? image_path :
@@ -23,7 +24,10 @@ function SetOfPieces ({gearSet, title,onPieceSelected}: Props): React.JSX.Elemen
         <View style = {set_of_pieces.wrapper}>
             <View style = {set_of_pieces.gear_box}>
 
-                <Text style = {set_of_pieces.title}> {title} </Text>
+                <View style = {set_of_pieces.first_row}>
+                    <MenuIcon onPress = {() => {onMenuClicked()}}/>
+                    <Text style = {set_of_pieces.title}> {title} </Text>
+                </View>
 
                 <View style = {set_of_pieces.start_of_set}>
                     <Piece pieceImgPath = {{uri: setGearPath(gearSet?.mainHand?.image_path)}} 

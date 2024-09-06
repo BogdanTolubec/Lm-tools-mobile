@@ -11,6 +11,14 @@ const set_of_pieces = StyleSheet.create({
         alignItems: "center",
     },
 
+    first_row: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+
+        width: "100%",
+    },
+
     title: {
         margin: 0,
         letterSpacing: 3,

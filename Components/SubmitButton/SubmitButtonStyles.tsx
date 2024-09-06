@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 
 const submit_button = StyleSheet.create({
     wrapper: {
-        minHeight: 42,
-        minWidth: "90%",
+        height: "100%",
+        width: "100%",
         borderColor: "rgb(0,0,0)",
         borderWidth: 3,
         borderRadius: 5,

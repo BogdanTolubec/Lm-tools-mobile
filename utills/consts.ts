@@ -1,6 +1,6 @@
 //Training calculator consts
 
-import { calculationData } from "./types"
+import { calculationData, gearSet } from "./types"
 
 //t1
 export const calculationDataT1: calculationData = {
@@ -40,4 +40,28 @@ export const calculationDataT4: calculationData = {
     siegeRss: [1000, 1000, 1000, 1000, 500],
 
     secondsTrainingSpeed: 120,
+}
+
+export const gearSetPlaceHolder: gearSet = {
+    id: 1,
+    title: "MIX",
+    mainHand: undefined,
+    helmet: undefined,
+    plate: undefined,
+    boots: undefined,
+    secondHand: undefined,
+    accessory1: undefined,
+    accessory2: undefined,
+    accessory3: undefined,
+    rarenessArray: {
+        mainHandRareness: undefined,
+        helmetRareness: undefined,
+        plateRareness: undefined,
+        bootsRareness: undefined,
+        secondHandRareness: undefined,
+        accessory1Rarenes: undefined,
+        accessory2Rareness: undefined,
+        accessory3Rareness: undefined,
+    },
+
 }
