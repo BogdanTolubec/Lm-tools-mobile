@@ -39,7 +39,7 @@ function StatsList({piece}: Props): React.JSX.Element {
                 }
 
                 else{
-                    return(<></>)
+                    return(<View key = {index}></View>)
                 }
             })
             }

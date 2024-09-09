@@ -33,7 +33,6 @@ function DresserScreen(): React.JSX.Element{
 
     function onMenuClicked(): void {
         setIsMenuModalActive(!isMenuModalActive)
-        console.log("Menu active? : " + isMenuModalActive)
     }
 
     const loadGearSetsDataCallback = useCallback(async () => {

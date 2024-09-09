@@ -58,10 +58,10 @@ function PieceInList({pieceData, pieceRareness, pieceType, gearSet}: Props): Rea
     }
 
     return(
-        <View style = {piece_in_list.wrapper}>
+        <View key={pieceData.id} style = {piece_in_list.wrapper}>
             <TouchableOpacity style = {piece_in_list.first_row} onPress = {() => {updateGearSet()}}>
                 <View style = {piece_in_list.rareness_background_img_wrapper}>
-                    <ImageBackground source = {{uri: piece_rareness_background_image_path}} style = {piece_in_list.rareness_background_img_wrapper}>
+                    <ImageBackground  source = {{uri: piece_rareness_background_image_path}} style = {piece_in_list.rareness_background_img_wrapper}>
                         <View style = {piece_in_list.img_wrapper}>
                             <Image source = { {uri: ImgPathConsts.rootAssetsImgPath + pieceData.image_path || ImgPathConsts.piecePlaceholderImage}}
                                 style = {piece_in_list.image}/>
@@ -72,7 +72,7 @@ function PieceInList({pieceData, pieceRareness, pieceType, gearSet}: Props): Rea
                 <Text> {firstLetterCapitalizer(pieceData.name)} </Text>
             </TouchableOpacity>
 
-            <StatsList piece = {pieceData}/>
+            <StatsList key = {pieceData.id} piece = {pieceData}/>
         </View>
     );
 }

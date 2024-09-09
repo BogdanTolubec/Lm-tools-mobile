@@ -49,8 +49,8 @@ export const getAllPiecesByTypeAndRareness = async (db: SQLiteDatabase, type: pi
             type = pieceTypes.accessory
         }
         const piecesArray: Pieces[] = []
-        const sqlQuery: string = `SELECT ${tableNames.pieces}.name, ${tableNames.pieces}.type, ${tableNames.pieces}.image_path,
-            ${tableNames.stats}.armyAtk, ${tableNames.stats}.armyDeff, 
+        const sqlQuery: string = `SELECT ${tableNames.pieces}.id, ${tableNames.pieces}.name, ${tableNames.pieces}.type,
+            ${tableNames.pieces}.image_path, ${tableNames.stats}.armyAtk, ${tableNames.stats}.armyDeff, ${tableNames.stats}.armyHp,
             ${tableNames.stats}.infantryAtk, ${tableNames.stats}.infantryDeff,${tableNames.stats}.infantryHp,
             ${tableNames.stats}.rangedAtk, ${tableNames.stats}.rangedDeff, ${tableNames.stats}.rangedHp,
             ${tableNames.stats}.cavalryAtk, ${tableNames.stats}.cavalryDeff, ${tableNames.stats}.cavalryHp
@@ -76,7 +76,17 @@ export const getAllPiecesByTypeAndRareness = async (db: SQLiteDatabase, type: pi
 
 export const getGearSetById = async (db: SQLiteDatabase, gearSetId: number): Promise<gearSet> => {
     try{
-        let gearSet: gearSet = {id: gearSetId, rarenessArray: {
+        let gearSet: gearSet = {id: gearSetId,
+            title: "",
+            mainHand: undefined,
+            helmet: undefined,
+            plate: undefined,
+            boots: undefined,
+            secondHand: undefined,
+            accessory1: undefined,
+            accessory2: undefined,
+            accessory3: undefined,
+            rarenessArray: {
             mainHandRareness: undefined,
             helmetRareness: undefined,
             plateRareness: undefined,
@@ -144,31 +154,37 @@ export const getAllGearSets = async (db: SQLiteDatabase): Promise<[{id: number, 
 }
 
 export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet): Promise<void> => {
+    try{
     const sqlQueryUpdateGearSetRareness = `UPDATE ${tableNames.gear_set_pieces_rareness}
-            SET mainHand_rareness = ${gearSet.rarenessArray.mainHandRareness},
-            helmet_rareness = ${gearSet.rarenessArray.helmetRareness},
-            plate_rareness = ${gearSet.rarenessArray.plateRareness},
-            boots_rareness = ${gearSet.rarenessArray.bootsRareness},
-            secondHand_rareness = ${gearSet.rarenessArray.secondHandRareness},
-            accessory1_rareness = ${gearSet.rarenessArray.accessory1Rarenes},
-            accessory2_rareness = ${gearSet.rarenessArray.accessory2Rareness},
-            accessory3_rareness = ${gearSet.rarenessArray.accessory3Rareness}
+            SET mainHand_rareness = '${gearSet.rarenessArray.mainHandRareness}',
+            helmet_rareness = '${gearSet.rarenessArray.helmetRareness}',
+            plate_rareness = '${gearSet.rarenessArray.plateRareness}',
+            boots_rareness = '${gearSet.rarenessArray.bootsRareness}',
+            secondHand_rareness = '${gearSet.rarenessArray.secondHandRareness}',
+            accessory1_rareness = '${gearSet.rarenessArray.accessory1Rarenes}',
+            accessory2_rareness = '${gearSet.rarenessArray.accessory2Rareness}',
+            accessory3_rareness = '${gearSet.rarenessArray.accessory3Rareness}'
             WHERE ${tableNames.gear_set_pieces_rareness}.id = (SELECT ${tableNames.gear_sets}.gear_set_pieces_rareness_id
             FROM ${tableNames.gear_sets} WHERE ${tableNames.gear_sets}.id = ${gearSet.id})`
     
     const sqlQueryUpdateGearSet = `UPDATE ${tableNames.gear_sets}
-    SET mainHand = ${gearSet.mainHand},
-        helmet = ${gearSet.helmet},
-        plate = ${gearSet.plate},
-        boots = ${gearSet.boots},
-        secondHand = ${gearSet.secondHand},
-        accessory1 = ${gearSet.accessory1},
-        accessory2 = ${gearSet.accessory2},
-        accessory3 = ${gearSet.accessory3},
-        title = ${gearSet.title}
+    SET mainHand = ${gearSet.mainHand?.id},
+        helmet = ${gearSet.helmet?.id},
+        plate = ${gearSet.plate?.id},
+        boots = ${gearSet.boots?.id},
+        secondHand = ${gearSet.secondHand?.id},
+        accessory1 = ${gearSet.accessory1?.id},
+        accessory2 = ${gearSet.accessory2?.id},
+        accessory3 = ${gearSet.accessory3?.id},
+        title = '${gearSet.title}'
     WHERE ${tableNames.gear_sets}.id = ${gearSet.id}`
 
     await db.executeSql(sqlQueryUpdateGearSet).then(async () => {
         await db.executeSql(sqlQueryUpdateGearSetRareness)
     })
+    }
+
+    catch(e){
+        throw Error("All gear sets loading failed..." + JSON.stringify(e))
+}
 }
