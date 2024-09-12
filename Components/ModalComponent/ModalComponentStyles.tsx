@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 
 const modal_component = StyleSheet.create({
     wrapper: {
-        position: 'absolute',
+        position: 'absolute', //because of this cannot center components inside with justify-content and aligns :/
     },
 
     background: {
@@ -17,8 +17,6 @@ const modal_component = StyleSheet.create({
         height: "100%",
         width: "100%",
         position: 'absolute',
-        left: "10%",
-        top: "10%",
     }
 })
 

@@ -47,11 +47,6 @@ export type gearSet = {
     },
 }
 
-export type gearSetData = {
-    id: number, 
-    title: string,
-}
-
 export type calculationData = {
     infantryRss: number[],
     rangedRss: number[],

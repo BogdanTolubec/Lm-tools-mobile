@@ -32,7 +32,7 @@ const swapper = StyleSheet.create({
     icon: {
         height: 20,
         width: 18
-    }
+    },
 })
 
 export default swapper

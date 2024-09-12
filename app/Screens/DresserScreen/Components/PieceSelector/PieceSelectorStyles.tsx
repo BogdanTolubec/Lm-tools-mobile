@@ -5,6 +5,9 @@ const piece_selector = StyleSheet.create({
     wrapper: {
         display: "flex",
         flexDirection: "column",
+
+        left: "10%",
+        top: "10%", //just to center component with position absolute :/
         
         height: "80%",
         width: "80%",

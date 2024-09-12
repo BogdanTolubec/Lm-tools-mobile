@@ -3,27 +3,28 @@ import { ImageBackground, SafeAreaView, View } from "react-native";
 import dresser_screen from "./DresserScreenStyles";
 import { ImgPathConsts, pieceTypes } from "../../../../utills/enums";
 import SetOfPieces from "../Components/SetOfPieces/SetOfPieces";
-import { getAllGearSets, getDBConnection, getGearSetById, updateGearSet } from "../../../../utills/functions/db-service";
+import { getALLGearSets, getDBConnection} from "../../../../utills/functions/db-service";
 import Swapper from "../../../../Components/Swapper/Swapper";
-import { gearSet, gearSetData } from "../../../../utills/types";
+import { gearSet} from "../../../../utills/types";
 import ModalComponent from "../../../../Components/ModalComponent/ModalComponent";
 import PieceSelector from "../Components/PieceSelector/PieceSelector";
 import GearSetMenu from "../Components/GearSetMenu/GearSetMenu";
 import { gearSetPlaceHolder } from "../../../../utills/consts";
+import GearSetTitleChangeComponent from "../Components/GearSetTitleChangeComponent/GearSetTitleChangeComponent";
 
 function DresserScreen(): React.JSX.Element{
 
-    const [currentGearSetData, setCurrentGearSetData] = useState<gearSetData>({id: 1, title: "MIX"})
-    const [allGearSetsData, setAllGearsSetsData] = useState<gearSetData[]>([currentGearSetData])
-    const [gearSet, setGearSet] = useState<gearSet>(gearSetPlaceHolder)
+    const [currentGearSet, setCurrentGearSet] = useState<gearSet>(gearSetPlaceHolder)
+    const [allGearSets, setAllGearsSets] = useState<gearSet[]>([])
 
     const [isPieceSelectorModalActive, setIsPieceSelectorModalActive] = useState<boolean>(false)
     const [isMenuModalActive, setIsMenuModalActive] = useState<boolean>(false)
+    const [isChangeTitleModalVisible, setIsChangeTitleModalVisible] = useState<boolean>(false)
 
     const [currentTypeOfGearSelected, setCurrentGearTypeSelected] = useState<pieceTypes>(pieceTypes.mainHand)
 
-    const childToParent = (id: number): void => {
-        setCurrentGearSetData(allGearSetsData[id])
+    const onGearSetSwap = (id: number): void => {
+        setCurrentGearSet(allGearSets[id])
     }
 
     function onPieceSelected(type: pieceTypes): void {
@@ -35,35 +36,28 @@ function DresserScreen(): React.JSX.Element{
         setIsMenuModalActive(!isMenuModalActive)
     }
 
-    const loadGearSetsDataCallback = useCallback(async () => {
+    function onTitleCklicked(): void {
+        setIsChangeTitleModalVisible(!isChangeTitleModalVisible)
+    }
+
+    const loadGearSetsCallback = useCallback(async () => {
         try{
             const db = await getDBConnection()
-            const allGearSets = await getAllGearSets(db)
+            const allGearSets = await getALLGearSets(db)
 
-            setAllGearsSetsData(allGearSets)
+            setAllGearsSets(allGearSets)
+            setCurrentGearSet(allGearSets[0])
+
+            console.log("ABOBA: " + JSON.stringify(allGearSets))
         }
         catch(e){
             console.error(e)
         }
     }, [])
 
-    const loadGearSetCallback = useCallback(async () => {
-        try{
-            const db = await getDBConnection()
-            const setOfPieces = await getGearSetById(db, currentGearSetData.id)
-
-            setGearSet(setOfPieces)
-        }
-        catch(e){
-            console.error(e)
-        }
-    }, [currentGearSetData])
-
     useEffect(() => {
-        loadGearSetsDataCallback().then(() => {
-            loadGearSetCallback()
-        })
-    }, [loadGearSetCallback])
+        loadGearSetsCallback()
+    }, [loadGearSetsCallback])
     
     return(
         <SafeAreaView>
@@ -71,17 +65,21 @@ function DresserScreen(): React.JSX.Element{
                 <ImageBackground style = {dresser_screen.backgroundImg} source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover">
 
                     <ModalComponent visible = {isPieceSelectorModalActive} setVisible = {setIsPieceSelectorModalActive} children = {
-                        <PieceSelector pieceType = {currentTypeOfGearSelected} gearSet = {gearSet}/>
+                        <PieceSelector pieceType = {currentTypeOfGearSelected} gearSet = {currentGearSet}/>
                     }/>
 
                     <ModalComponent visible = {isMenuModalActive} setVisible = {setIsMenuModalActive} children={
-                        <GearSetMenu gearSet = {gearSet}/>
+                        <GearSetMenu gearSet = {currentGearSet} title = {currentGearSet?.title}/>
+                    }/>
+
+                    <ModalComponent visible = {isChangeTitleModalVisible} setVisible = {setIsChangeTitleModalVisible} children = {
+                        <GearSetTitleChangeComponent gearSet = {currentGearSet}/>
                     }/>
                     
                     <Swapper centerComponent = {
-                        <SetOfPieces gearSet = {gearSet} title =  {currentGearSetData.title} onPieceSelected = {onPieceSelected}
-                        onMenuClicked = {onMenuClicked}/>
-                    } componentsCount = {allGearSetsData.length} childToParent = {childToParent}/>
+                        <SetOfPieces gearSet = {currentGearSet} title =  {currentGearSet.title} onPieceSelected = {onPieceSelected}
+                        onMenuClicked = {onMenuClicked} onTitleCklicked = {onTitleCklicked}/>
+                    } componentsCount = {allGearSets.length} childToParent = {onGearSetSwap}/>
                             
                 </ImageBackground>
             </View>

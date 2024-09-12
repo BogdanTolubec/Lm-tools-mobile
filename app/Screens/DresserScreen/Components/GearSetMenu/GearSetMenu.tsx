@@ -1,24 +1,41 @@
 import React from "react"
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import SubmitButton from "../../../../../Components/SubmitButton/SubmitButton";
-import { getDBConnection, updateGearSet } from "../../../../../utills/functions/db-service";
+import { createGearSet, getDBConnection, updateGearSet } from "../../../../../utills/functions/db-service";
 import gear_set_menu from "./GearSetMenuStyles";
-import { gearSet } from "../../../../../utills/types";
+import { gearSet} from "../../../../../utills/types";
 
 type Props = {
-    gearSet: gearSet
+    title: string | null,
+    gearSet: gearSet,
+    //gearSetsCount: number,
+    //setGearSetsCount: React.Dispatch<React.SetStateAction<number>>
 }
 
-function GearSetMenu({gearSet}: Props): React.JSX.Element {
-
-    const onChangeTitle = (): void => {
-        gearSet.title = "Hello Kitty"
-    }
+function GearSetMenu({gearSet, title, /*gearSetsCount, setGearSetsCount*/}: Props): React.JSX.Element {
 
     const onSaveChanges = async (): Promise<void> => {
         try{
             const db = await getDBConnection() 
-            await updateGearSet(db, gearSet)
+            const result = await updateGearSet(db, gearSet, title)
+
+            if(!result){
+                Alert.alert("Oops! An error occured!")
+            }
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+
+    const onCreateGearSet = async (): Promise<void> => {
+        try{
+            const db = await getDBConnection() 
+            const result = await createGearSet(db)
+
+            if(!result){
+                Alert.alert("Cannot create new gear set...")
+            }
         }
         catch(e){
             console.log(e)
@@ -28,12 +45,13 @@ function GearSetMenu({gearSet}: Props): React.JSX.Element {
     return(
         <View style = {gear_set_menu.wrapper}>
             <View style = {gear_set_menu.buttons_wrapper}>
-                <View style = {gear_set_menu.button_wrapper}>
-                    <SubmitButton title = "Change title" onPress = {onChangeTitle}/>
-                </View>
 
                 <View style = {gear_set_menu.button_wrapper}>
                     <SubmitButton title = "Save changes" onPress = {onSaveChanges}/>
+                </View>
+
+                <View style = {gear_set_menu.button_wrapper}>
+                    <SubmitButton title = "Add new gear set" onPress = {onCreateGearSet}/>
                 </View>
             </View>
         </View>

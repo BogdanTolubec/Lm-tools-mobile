@@ -5,6 +5,9 @@ const gear_set_menu = StyleSheet.create({
     wrapper: {
         display: "flex",
         flexDirection: "column",
+
+        left: "10%",
+        top: "10%",
         
         height: "80%",
         width: "80%",

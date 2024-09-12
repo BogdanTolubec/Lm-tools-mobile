@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { IconPathConsts } from "../../utills/enums";
 import swapper from "./SwapperStyles";
 
@@ -17,8 +17,8 @@ function Swapper({centerComponent, componentsCount, childToParent}: Props): Reac
         <View style = {swapper.wrapper}>
             <TouchableOpacity style = {swapper.icon_wrapper} onPress = {() => {
                 if(swapperIterator > 0){
+                    childToParent(swapperIterator - 1)
                     setSwapperIterator(swapperIterator - 1)
-                    childToParent(swapperIterator)
                 }
             }}>
                 <Image source = {{uri: IconPathConsts.leftArrowIcon}} style = {swapper.icon} resizeMode = "cover"/>
@@ -30,8 +30,8 @@ function Swapper({centerComponent, componentsCount, childToParent}: Props): Reac
 
             <TouchableOpacity style = {swapper.icon_wrapper} onPress = {() => {
                 if(swapperIterator < (componentsCount - 1)){
+                    childToParent(swapperIterator + 1)
                     setSwapperIterator(swapperIterator + 1)
-                    childToParent(swapperIterator)
                 }
             }}>
                 <Image source = {{uri: IconPathConsts.rightArrowIcon}} style = {swapper.icon}/>

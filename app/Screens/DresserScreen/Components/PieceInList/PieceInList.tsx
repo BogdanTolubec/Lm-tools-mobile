@@ -6,7 +6,6 @@ import piece_in_list from "./PieceInListStyles";
 import StatsList from "../StatsList/StatsList";
 import { firstLetterCapitalizer } from "../../../../../utills/functions/userFriendlyVisualisation";
 import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/imagesFunctions";
-import { updateGearSet } from "../../../../../utills/functions/db-service";
 
 type Props = {
     pieceData: Pieces,
