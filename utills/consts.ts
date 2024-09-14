@@ -59,7 +59,7 @@ export const gearSetPlaceHolder: gearSet = {
         plateRareness: undefined,
         bootsRareness: undefined,
         secondHandRareness: undefined,
-        accessory1Rarenes: undefined,
+        accessory1Rareness: undefined,
         accessory2Rareness: undefined,
         accessory3Rareness: undefined,
     },

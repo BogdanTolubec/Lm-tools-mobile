@@ -7,6 +7,7 @@ import TrainingCalculatorScreen from '../Screens/TrainingCalculatorScreen/Screen
 import DresserScreen from '../Screens/DresserScreen/Screen/DresserScreen';
 import AddNewPieceScreen from '../Screens/AddNewPieceScreen/Screen/AddNewPieceScreen';
 import TabIcon from './TabIcon/TabIcon';
+import { gearSetPlaceHolder } from '../../utills/consts';
 
 function TabLayout(): React.JSX.Element {
 

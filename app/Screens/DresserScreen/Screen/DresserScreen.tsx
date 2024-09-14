@@ -43,12 +43,10 @@ function DresserScreen(): React.JSX.Element{
     const loadGearSetsCallback = useCallback(async () => {
         try{
             const db = await getDBConnection()
-            const allGearSets = await getALLGearSets(db)
-
-            setAllGearsSets(allGearSets)
-            setCurrentGearSet(allGearSets[0])
-
-            console.log("ABOBA: " + JSON.stringify(allGearSets))
+            await getALLGearSets(db).then((data: gearSet[]) =>{
+                setAllGearsSets(data)
+                setCurrentGearSet(data[0])
+            })
         }
         catch(e){
             console.error(e)
@@ -77,7 +75,7 @@ function DresserScreen(): React.JSX.Element{
                     }/>
                     
                     <Swapper centerComponent = {
-                        <SetOfPieces gearSet = {currentGearSet} title =  {currentGearSet.title} onPieceSelected = {onPieceSelected}
+                        <SetOfPieces gearSet = {currentGearSet} title =  {currentGearSet?.title} onPieceSelected = {onPieceSelected}
                         onMenuClicked = {onMenuClicked} onTitleCklicked = {onTitleCklicked}/>
                     } componentsCount = {allGearSets.length} childToParent = {onGearSetSwap}/>
                             

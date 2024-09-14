@@ -13,6 +13,11 @@ function Swapper({centerComponent, componentsCount, childToParent}: Props): Reac
 
     const[swapperIterator, setSwapperIterator] = useState<number>(0)
 
+    useEffect(() => {
+        setSwapperIterator(0)
+        childToParent(0)
+    }, [])
+
     return(
         <View style = {swapper.wrapper}>
             <TouchableOpacity style = {swapper.icon_wrapper} onPress = {() => {

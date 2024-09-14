@@ -42,7 +42,7 @@ function PieceInList({pieceData, pieceRareness, pieceType, gearSet}: Props): Rea
                 }
 
                 case pieceTypes.accessory1: {
-                    gearSet.accessory1 = pieceData; gearSet.rarenessArray.accessory1Rarenes = pieceRareness; break
+                    gearSet.accessory1 = pieceData; gearSet.rarenessArray.accessory1Rareness = pieceRareness; break
                 }
 
                 case pieceTypes.accessory2: {

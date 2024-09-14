@@ -17,6 +17,8 @@ type Props = {
 
 function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleCklicked}: Props): React.JSX.Element {
 
+    if(gearSet === undefined)  gearSet = gearSetPlaceHolder 
+
     function setGearPath(image_path: string | undefined): string{
         return  ImgPathConsts.rootAssetsImgPath + (image_path !== undefined ? image_path :
                 ImgPathConsts.piecePlaceholderImage.substring(10))
@@ -48,7 +50,7 @@ function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleCk
                         onPress = {() => onPieceSelected(pieceTypes.helmet)} pieceRareness = {gearSet.rarenessArray.helmetRareness}/>
 
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory1?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.accessory1)} pieceRareness = {gearSet.rarenessArray.accessory1Rarenes}/>
+                        onPress = {() => onPieceSelected(pieceTypes.accessory1)} pieceRareness = {gearSet.rarenessArray.accessory1Rareness}/>
                     </View>
 
                     <View style = {set_of_pieces.center_of_set}>

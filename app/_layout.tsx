@@ -10,9 +10,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TabLayout from './(tabs)/_layout';
 
 function App(): React.JSX.Element {
-  
-  const Stack = createNativeStackNavigator();
-
   return (
     <TabLayout/>
   );

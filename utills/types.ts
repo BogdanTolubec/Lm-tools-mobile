@@ -1,7 +1,7 @@
 import { rareness } from "./enums"
 
 export type Pieces = {
-    id?: number,
+    piece_id?: number,
     name: string,
     rareness: string,
     type: string,
@@ -41,7 +41,7 @@ export type gearSet = {
         plateRareness: rareness | undefined,
         bootsRareness: rareness | undefined,
         secondHandRareness: rareness | undefined,
-        accessory1Rarenes: rareness | undefined,
+        accessory1Rareness: rareness | undefined,
         accessory2Rareness: rareness | undefined,
         accessory3Rareness: rareness | undefined,
     },
