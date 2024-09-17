@@ -1,6 +1,5 @@
 import React from "react";
 import { ImageBackground, Text, View } from "react-native";
-import training_calculator_styles from "../../TrainingCalculatorScreen/Screen/TrainingCalculatorScreenStyles";
 import { ImgPathConsts} from "../../../../utills/enums";
 import home from "./HomeScreenStyles";
 

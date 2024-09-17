@@ -10,10 +10,16 @@ export enum ScreensEnum {
 
 export enum tableNames {
     pieces = "Pieces",
-    juewels = "Juewels",
+    piece_rareness_stats = "Piece_rareness_stats",
+
+    jewels = "Jewels",
+    jewels_rareness_stats = "Jewels_rareness_stats",
+    jewels_by_piece = "Jewels_by_piece",
+    jewels_set =  "Jewels_set",
+
     stats = "Stats",
+
     gear_sets = "Gear_Sets",
-    rareness_stats = "Rareness_Stats",
     gear_set_pieces_rareness = "Gear_set_pieces_rareness"
 }
 

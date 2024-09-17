@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, GestureResponderEvent, Pressable, Text, TextInput,  View } from "react-native";
+import { Alert, Text,  View } from "react-native";
 import calculation_data_input_form from "./CalculationDataInputFormStyles";
 import CheckLabel from "../CheckLabel/CheckLabel";
 import { calculationDataT1, calculationDataT2, calculationDataT3, calculationDataT4 } from "../../../../../utills/consts";

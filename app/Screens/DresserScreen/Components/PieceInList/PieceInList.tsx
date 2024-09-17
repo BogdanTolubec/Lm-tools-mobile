@@ -22,42 +22,42 @@ function PieceInList({pieceData, pieceRareness, pieceType, gearSet}: Props): Rea
         if(gearSet){
             switch (pieceType){
                 case pieceTypes.mainHand: {
-                    gearSet.mainHand = pieceData; gearSet.rarenessArray.mainHandRareness = pieceRareness; break
+                    gearSet.mainHand = pieceData; gearSet.mainHand.rareness = pieceRareness; break
                 }
 
                 case pieceTypes.helmet: {
-                    gearSet.helmet = pieceData; gearSet.rarenessArray.helmetRareness = pieceRareness; break
+                    gearSet.helmet = pieceData; gearSet.helmet.rareness = pieceRareness; break
                 }
 
                 case pieceTypes.plate: {
-                    gearSet.plate = pieceData; gearSet.rarenessArray.plateRareness = pieceRareness; break
+                    gearSet.plate = pieceData; gearSet.plate.rareness = pieceRareness; break
                 }
 
                 case pieceTypes.boots: {
-                    gearSet.boots = pieceData; gearSet.rarenessArray.bootsRareness = pieceRareness; break
+                    gearSet.boots = pieceData; gearSet.boots.rareness = pieceRareness; break
                 }
 
                 case pieceTypes.secondHand: {
-                    gearSet.secondHand = pieceData; gearSet.rarenessArray.secondHandRareness = pieceRareness; break
+                    gearSet.secondHand = pieceData; gearSet.secondHand.rareness = pieceRareness; break
                 }
 
                 case pieceTypes.accessory1: {
-                    gearSet.accessory1 = pieceData; gearSet.rarenessArray.accessory1Rareness = pieceRareness; break
+                    gearSet.accessory1 = pieceData; gearSet.accessory1.rareness = pieceRareness; break
                 }
 
                 case pieceTypes.accessory2: {
-                    gearSet.accessory2 = pieceData; gearSet.rarenessArray.accessory2Rareness = pieceRareness; break
+                    gearSet.accessory2 = pieceData; gearSet.accessory2.rareness = pieceRareness; break
                 }
 
                 case pieceTypes.accessory3: {
-                    gearSet.accessory3 = pieceData; gearSet.rarenessArray.accessory3Rareness = pieceRareness; break
+                    gearSet.accessory3 = pieceData; gearSet.accessory3.rareness = pieceRareness; break
                 }
             }
         }
     }
 
     return(
-        <View key={pieceData.id} style = {piece_in_list.wrapper}>
+        <View key={pieceData.piece_id} style = {piece_in_list.wrapper}>
             <TouchableOpacity style = {piece_in_list.first_row} onPress = {() => {updateGearSet()}}>
                 <View style = {piece_in_list.rareness_background_img_wrapper}>
                     <ImageBackground  source = {{uri: piece_rareness_background_image_path}} style = {piece_in_list.rareness_background_img_wrapper}>
@@ -71,7 +71,7 @@ function PieceInList({pieceData, pieceRareness, pieceType, gearSet}: Props): Rea
                 <Text> {firstLetterCapitalizer(pieceData.name)} </Text>
             </TouchableOpacity>
 
-            <StatsList key = {pieceData.id} piece = {pieceData}/>
+            <StatsList key = {pieceData.piece_id} piece = {pieceData}/>
         </View>
     );
 }

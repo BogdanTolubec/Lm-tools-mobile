@@ -33,9 +33,9 @@ export const getAllPiecesByTypeAndRareness = async (db: SQLiteDatabase, type: pi
             ${tableNames.stats}.infantryAtk, ${tableNames.stats}.infantryDeff,${tableNames.stats}.infantryHp,
             ${tableNames.stats}.rangedAtk, ${tableNames.stats}.rangedDeff, ${tableNames.stats}.rangedHp,
             ${tableNames.stats}.cavalryAtk, ${tableNames.stats}.cavalryDeff, ${tableNames.stats}.cavalryHp
-            FROM ${tableNames.pieces}, ${tableNames.rareness_stats}, ${tableNames.stats} WHERE  
-            (${tableNames.pieces}.type = "${type}") AND (${tableNames.pieces}.rareness_stats_id = ${tableNames.rareness_stats}.rareness_stats_id)
-            AND (${tableNames.stats}.stats_id = ${tableNames.rareness_stats}.${rareness}_stats_id) ORDER BY ${tableNames.pieces}.piece_id`
+            FROM ${tableNames.pieces}, ${tableNames.piece_rareness_stats}, ${tableNames.stats} WHERE  (${tableNames.pieces}.type = "${type}")
+            AND (${tableNames.pieces}.piece_rareness_stats_id = ${tableNames.piece_rareness_stats}.piece_rareness_stats_id)
+            AND (${tableNames.stats}.stats_id = ${tableNames.piece_rareness_stats}.${rareness}_stats_id) ORDER BY ${tableNames.pieces}.piece_id`
             
         const pieces: [ResultSet] = await db.executeSql(sqlQuery)
     
@@ -86,30 +86,31 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
         console.log((allGearSets[0].rows.raw()))
             
             for (let i = 0; i < allGearSets[0].rows.length; i++) {
-                gearSets.push(
-                    {
-                        id: allGearSets[0].rows.item(i).gear_sets_id,
-                        title:  allGearSets[0].rows.item(i).title,
-                        mainHand: await getPieceById(db, allGearSets[0].rows.item(i).mainHand),
-                        helmet: await getPieceById(db, allGearSets[0].rows.item(i).helmet),
-                        plate:await getPieceById(db, allGearSets[0].rows.item(i).plate),
-                        boots: await getPieceById(db, allGearSets[0].rows.item(i).boots),
-                        secondHand: await getPieceById(db, allGearSets[0].rows.item(i).secondHand),
-                        accessory1: await getPieceById(db, allGearSets[0].rows.item(i).accessory1),
-                        accessory2: await getPieceById(db, allGearSets[0].rows.item(i).accessory2),
-                        accessory3: await getPieceById(db, allGearSets[0].rows.item(i).accessory3),
-                        rarenessArray: {
-                            mainHandRareness: allGearSets[0].rows.item(i).mainHand_rareness,
-                            helmetRareness: allGearSets[0].rows.item(i).helmet_rareness,
-                            plateRareness: allGearSets[0].rows.item(i).plate_rareness,
-                            bootsRareness: allGearSets[0].rows.item(i).boots_rareness,
-                            secondHandRareness: allGearSets[0].rows.item(i).secondHand_rareness,
-                            accessory1Rareness: allGearSets[0].rows.item(i).accessory1_rareness,
-                            accessory2Rareness: allGearSets[0].rows.item(i).accessory2_rareness,
-                            accessory3Rareness: allGearSets[0].rows.item(i).accessory3_rareness,
-                        }
-                    }
-                )
+
+                const currentGearSet = {
+                    id: allGearSets[0].rows.item(i).gear_sets_id,
+                    title:  allGearSets[0].rows.item(i).title,
+
+                    mainHand: await getPieceById(db, allGearSets[0].rows.item(i).mainHand),
+                    helmet: await getPieceById(db, allGearSets[0].rows.item(i).helmet),
+                    plate:await getPieceById(db, allGearSets[0].rows.item(i).plate),
+                    boots: await getPieceById(db, allGearSets[0].rows.item(i).boots),
+                    secondHand: await getPieceById(db, allGearSets[0].rows.item(i).secondHand),
+                    accessory1: await getPieceById(db, allGearSets[0].rows.item(i).accessory1),
+                    accessory2: await getPieceById(db, allGearSets[0].rows.item(i).accessory2),
+                    accessory3: await getPieceById(db, allGearSets[0].rows.item(i).accessory3),
+                }
+
+                currentGearSet.mainHand.rareness = allGearSets[0].rows.item(i).mainHand_rareness
+                currentGearSet.helmet.rareness = allGearSets[0].rows.item(i).helmet_rareness
+                currentGearSet.plate.rareness = allGearSets[0].rows.item(i).plate_rareness
+                currentGearSet.boots.rareness = allGearSets[0].rows.item(i).boots_rareness
+                currentGearSet.secondHand.rareness = allGearSets[0].rows.item(i).secondHand_rareness
+                currentGearSet.accessory1.rareness = allGearSets[0].rows.item(i).accessory1_rareness
+                currentGearSet.accessory2.rareness = allGearSets[0].rows.item(i).accessory2_rareness
+                currentGearSet.accessory3.rareness = allGearSets[0].rows.item(i).accessory3_rareness
+
+                gearSets.push(currentGearSet)
             }
 
         return gearSets
@@ -123,14 +124,14 @@ export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet, title:
 
         console.log("GearSet to update: " + JSON.stringify(gearSet))
     const sqlQueryUpdateGearSetRareness: string = `UPDATE ${tableNames.gear_set_pieces_rareness}
-            SET mainHand_rareness = ${gearSet.rarenessArray.mainHandRareness ? `'${gearSet.rarenessArray.mainHandRareness}'` : null},
-            helmet_rareness = ${gearSet.rarenessArray.helmetRareness ? `'${gearSet.rarenessArray.helmetRareness}'` : null},
-            plate_rareness = ${gearSet.rarenessArray.plateRareness ? `'${gearSet.rarenessArray.plateRareness}'` : null},
-            boots_rareness = ${gearSet.rarenessArray.bootsRareness ? `'${gearSet.rarenessArray.bootsRareness}'` : null},
-            secondHand_rareness = ${gearSet.rarenessArray.secondHandRareness? `'${gearSet.rarenessArray.secondHandRareness}'` : null},
-            accessory1_rareness = ${gearSet.rarenessArray.accessory1Rareness ? `'${gearSet.rarenessArray.accessory1Rareness}'` : null},
-            accessory2_rareness = ${gearSet.rarenessArray.accessory2Rareness ? `'${gearSet.rarenessArray.accessory2Rareness}'` : null},
-            accessory3_rareness = ${gearSet.rarenessArray.accessory3Rareness ? `'${gearSet.rarenessArray.accessory3Rareness}'` : null}
+            SET mainHand_rareness = ${gearSet.mainHand?.rareness ? `'${gearSet.mainHand?.rareness}'` : null},
+            helmet_rareness = ${gearSet.helmet?.rareness ? `'${gearSet.helmet?.rareness}'` : null},
+            plate_rareness = ${gearSet.plate?.rareness ? `'${gearSet.plate?.rareness}'` : null},
+            boots_rareness = ${gearSet.boots?.rareness ? `'${gearSet.boots?.rareness}'` : null},
+            secondHand_rareness = ${gearSet.secondHand?.rareness? `'${gearSet.secondHand?.rareness}'` : null},
+            accessory1_rareness = ${gearSet.accessory1?.rareness ? `'${gearSet.accessory1?.rareness}'` : null},
+            accessory2_rareness = ${gearSet.accessory2?.rareness ? `'${gearSet.accessory2?.rareness}'` : null},
+            accessory3_rareness = ${gearSet.accessory3?.rareness ? `'${gearSet.accessory3?.rareness}'` : null}
             WHERE ${tableNames.gear_set_pieces_rareness}.gear_set_piece_rareness_id = (SELECT gear_set_pieces_rareness_id
             FROM ${tableNames.gear_sets} WHERE ${tableNames.gear_sets}.gear_sets_id = ${gearSet.id})`
     
@@ -160,4 +161,13 @@ export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet, title:
     catch(e){
         throw Error("All gear sets loading failed..." + JSON.stringify(e))
 }
+}
+
+export const getAllJewelsByGearSet = async (db: SQLiteDatabase, jewelSetId: number) => {
+    try{
+
+    }
+    catch(e){
+        console.log("Jewels loading failed... " + JSON.stringify(e))
+    }
 }

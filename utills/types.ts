@@ -3,10 +3,20 @@ import { rareness } from "./enums"
 export type Pieces = {
     piece_id?: number,
     name: string,
-    rareness: string,
+    rareness: rareness,
     type: string,
     image_path: string,
 
+    jewels?: {
+        jewel_1?: jewel,
+        jewel_2?: jewel,
+        jewel_3?: jewel,
+    }
+
+    stats: stats,
+}
+
+export type stats = {
     armyAtk?: number,
     armyHp?: number,
     armyDeff?: number,
@@ -35,16 +45,14 @@ export type gearSet = {
     accessory1: Pieces | undefined,
     accessory2: Pieces | undefined,
     accessory3: Pieces | undefined,
-    rarenessArray: {
-        mainHandRareness: rareness | undefined,
-        helmetRareness: rareness | undefined,
-        plateRareness: rareness | undefined,
-        bootsRareness: rareness | undefined,
-        secondHandRareness: rareness | undefined,
-        accessory1Rareness: rareness | undefined,
-        accessory2Rareness: rareness | undefined,
-        accessory3Rareness: rareness | undefined,
-    },
+}
+
+export type jewel = {
+    jewel_id?: number,
+    name: string,
+    rareness: rareness,
+    image_path: string,
+    stats: stats,
 }
 
 export type calculationData = {

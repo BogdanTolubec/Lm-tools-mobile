@@ -1,5 +1,5 @@
 import React from "react"
-import { TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { rareness, rarenessColors } from "../../../../../utills/enums";
 import piece_rareness_choose_label from "./PieceRarenessChooseLabelStyles";
 

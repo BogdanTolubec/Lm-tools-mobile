@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Piece from "../Piece/Piece";
 import { Text, View } from "react-native";
 import set_of_pieces from "./SetOfPieceStyles";
@@ -37,38 +37,38 @@ function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleCk
 
                 <View style = {set_of_pieces.start_of_set}>
                     <Piece pieceImgPath = {{uri: setGearPath(gearSet?.mainHand?.image_path)}} 
-                    onPress = {() => onPieceSelected(pieceTypes.mainHand)} pieceRareness = {gearSet.rarenessArray.mainHandRareness}/>
+                    onPress = {() => onPieceSelected(pieceTypes.mainHand)} pieceRareness = {gearSet.mainHand?.rareness}/>
 
                     <Piece pieceImgPath = {{uri: setGearPath(gearSet?.secondHand?.image_path)}}
-                    onPress = {() => onPieceSelected(pieceTypes.secondHand)} pieceRareness = {gearSet.rarenessArray.secondHandRareness}/>
+                    onPress = {() => onPieceSelected(pieceTypes.secondHand)} pieceRareness = {gearSet.secondHand?.rareness}/>
                 </View>
 
                 <View style = {set_of_pieces.center_of_set_wrapper}>
 
                     <View style = {set_of_pieces.center_of_set}>           
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.helmet?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.helmet)} pieceRareness = {gearSet.rarenessArray.helmetRareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.helmet)} pieceRareness = {gearSet.helmet?.rareness}/>
 
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory1?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.accessory1)} pieceRareness = {gearSet.rarenessArray.accessory1Rareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.accessory1)} pieceRareness = {gearSet.accessory1?.rareness}/>
                     </View>
 
                     <View style = {set_of_pieces.center_of_set}>
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.plate?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.plate)} pieceRareness = {gearSet.rarenessArray.plateRareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.plate)} pieceRareness = {gearSet.plate?.rareness}/>
 
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory2?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.accessory2)} pieceRareness = {gearSet.rarenessArray.accessory2Rareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.accessory2)} pieceRareness = {gearSet.accessory2?.rareness}/>
                     </View>
 
                 </View>
                 
                     <View style = {set_of_pieces.end_of_set}>           
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.boots?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.boots)} pieceRareness = {gearSet.rarenessArray.bootsRareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.boots)} pieceRareness = {gearSet.boots?.rareness}/>
 
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory3?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.accessory3)} pieceRareness = {gearSet.rarenessArray.accessory3Rareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.accessory3)} pieceRareness = {gearSet.accessory3?.rareness}/>
                     </View>
                 </View>
             </View>

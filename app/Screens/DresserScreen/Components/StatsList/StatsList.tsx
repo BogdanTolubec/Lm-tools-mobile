@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Pieces} from "../../../../../utills/types"
-import { FlatList, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import stats_list from "./StatsListStyles";
 
 type Props = {
@@ -17,12 +17,12 @@ function StatsList({piece}: Props): React.JSX.Element {
     const [listData, setListData] = useState<statsShowInfo[]>([])
 
     useEffect(() => {  
-        setListData([{text: "Army atk:", stat: piece?.armyAtk}, {text: "Army hp:", stat: piece?.armyHp},
-            {text: "Army deff:", stat: piece?.armyDeff}, {text: "Infantry atk: ", stat: piece?.infantryAtk},
-            {text: "Infantry hp: ", stat: piece?.infantryHp}, {text: "Infantry deff: ", stat: piece?.infantryDeff},
-            {text: "Ranged atk: ", stat: piece?.rangedAtk}, {text: "Ranged hp: ", stat: piece?.rangedHp},
-            {text: "Ranged deff: ", stat: piece?.rangedDeff}, {text: "Cavalry atk: ", stat: piece?.cavalryAtk},
-            {text: "Cavalry hp: ", stat: piece?.cavalryHp}, {text:"Cavalry deff: ", stat: piece?.cavalryDeff}])
+        setListData([{text: "Army atk:", stat: piece.stats?.armyAtk}, {text: "Army hp:", stat: piece.stats?.armyHp},
+            {text: "Army deff:", stat: piece.stats?.armyDeff}, {text: "Infantry atk: ", stat: piece.stats?.infantryAtk},
+            {text: "Infantry hp: ", stat: piece.stats?.infantryHp}, {text: "Infantry deff: ", stat: piece.stats?.infantryDeff},
+            {text: "Ranged atk: ", stat: piece.stats?.rangedAtk}, {text: "Ranged hp: ", stat: piece.stats?.rangedHp},
+            {text: "Ranged deff: ", stat: piece.stats?.rangedDeff}, {text: "Cavalry atk: ", stat: piece.stats?.cavalryAtk},
+            {text: "Cavalry hp: ", stat: piece.stats?.cavalryHp}, {text:"Cavalry deff: ", stat: piece.stats?.cavalryDeff}])
     }, [piece])
 
     return(
