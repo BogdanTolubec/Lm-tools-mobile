@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { Pieces} from "../../../../../utills/types"
+import { Piece} from "../../../../../utills/types"
 import { Text, View } from "react-native";
 import stats_list from "./StatsListStyles";
 
 type Props = {
-    piece: Pieces,
+    piece: Piece,
 }
 
 type statsShowInfo = {

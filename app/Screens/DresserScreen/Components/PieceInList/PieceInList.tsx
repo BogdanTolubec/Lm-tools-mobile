@@ -1,14 +1,14 @@
 import React from "react";
 import { Image, ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { ImgPathConsts, pieceTypes, rareness } from "../../../../../utills/enums";
-import { gearSet, Pieces } from "../../../../../utills/types";
+import { gearSet, Piece } from "../../../../../utills/types";
 import piece_in_list from "./PieceInListStyles";
 import StatsList from "../StatsList/StatsList";
 import { firstLetterCapitalizer } from "../../../../../utills/functions/userFriendlyVisualisation";
 import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/imagesFunctions";
 
 type Props = {
-    pieceData: Pieces,
+    pieceData: Piece,
     pieceRareness: rareness,
     pieceType: pieceTypes,
     gearSet?: gearSet,

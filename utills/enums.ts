@@ -75,7 +75,7 @@ export enum ImgPathConsts{
     temperedPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/tempered_piece_background.jpg",
     
     placeholderImage = rootAssetsImgPath + "/utills/no_image_placeholder.jpg",
-    juewelsPlaceHolderImage = rootAssetsImgPath + "/utills/no_juewels_placeholder.jpg",
+    jewelsPlaceHolderImage = rootAssetsImgPath + "/utills/no_juewels_placeholder.jpg",
     piecePlaceholderImage = rootAssetsImgPath + "/utills/no_piece_placeholder.jpg",
 }
 

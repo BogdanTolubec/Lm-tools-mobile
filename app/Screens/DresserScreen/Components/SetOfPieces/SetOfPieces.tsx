@@ -37,38 +37,46 @@ function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleCk
 
                 <View style = {set_of_pieces.start_of_set}>
                     <Piece pieceImgPath = {{uri: setGearPath(gearSet?.mainHand?.image_path)}} 
-                    onPress = {() => onPieceSelected(pieceTypes.mainHand)} pieceRareness = {gearSet.mainHand?.rareness}/>
+                    onPress = {() => onPieceSelected(pieceTypes.mainHand)} pieceRareness = {gearSet.mainHand?.rareness}
+                    jewelsArray = {[gearSet.mainHand?.jewels?.jewel_1, gearSet.mainHand?.jewels?.jewel_2, gearSet.mainHand?.jewels?.jewel_3]}/>
 
                     <Piece pieceImgPath = {{uri: setGearPath(gearSet?.secondHand?.image_path)}}
-                    onPress = {() => onPieceSelected(pieceTypes.secondHand)} pieceRareness = {gearSet.secondHand?.rareness}/>
+                    onPress = {() => onPieceSelected(pieceTypes.secondHand)} pieceRareness = {gearSet.secondHand?.rareness}
+                    jewelsArray = {[gearSet.secondHand?.jewels?.jewel_1, gearSet.secondHand?.jewels?.jewel_2, gearSet.secondHand?.jewels?.jewel_3]}/>
                 </View>
 
                 <View style = {set_of_pieces.center_of_set_wrapper}>
 
                     <View style = {set_of_pieces.center_of_set}>           
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.helmet?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.helmet)} pieceRareness = {gearSet.helmet?.rareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.helmet)} pieceRareness = {gearSet.helmet?.rareness}
+                        jewelsArray = {[gearSet.helmet?.jewels?.jewel_1, gearSet.helmet?.jewels?.jewel_2, gearSet.helmet?.jewels?.jewel_3]}/>
 
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory1?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.accessory1)} pieceRareness = {gearSet.accessory1?.rareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.accessory1)} pieceRareness = {gearSet.accessory1?.rareness}
+                        jewelsArray = {[gearSet.accessory1?.jewels?.jewel_1, gearSet.accessory1?.jewels?.jewel_2, gearSet.accessory1?.jewels?.jewel_3]}/>
                     </View>
 
                     <View style = {set_of_pieces.center_of_set}>
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.plate?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.plate)} pieceRareness = {gearSet.plate?.rareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.plate)} pieceRareness = {gearSet.plate?.rareness}
+                        jewelsArray = {[gearSet.plate?.jewels?.jewel_1, gearSet.plate?.jewels?.jewel_2, gearSet.plate?.jewels?.jewel_3]}/>
 
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory2?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.accessory2)} pieceRareness = {gearSet.accessory2?.rareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.accessory2)} pieceRareness = {gearSet.accessory2?.rareness}
+                        jewelsArray = {[gearSet.accessory2?.jewels?.jewel_1, gearSet.accessory2?.jewels?.jewel_2, gearSet.accessory2?.jewels?.jewel_3]}/>
                     </View>
 
                 </View>
                 
                     <View style = {set_of_pieces.end_of_set}>           
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.boots?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.boots)} pieceRareness = {gearSet.boots?.rareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.boots)} pieceRareness = {gearSet.boots?.rareness}
+                        jewelsArray = {[gearSet.boots?.jewels?.jewel_1, gearSet.boots?.jewels?.jewel_2, gearSet.boots?.jewels?.jewel_3]}/>
 
                         <Piece pieceImgPath = {{uri: setGearPath(gearSet?.accessory3?.image_path)}}
-                        onPress = {() => onPieceSelected(pieceTypes.accessory3)} pieceRareness = {gearSet.accessory3?.rareness}/>
+                        onPress = {() => onPieceSelected(pieceTypes.accessory3)} pieceRareness = {gearSet.accessory3?.rareness}
+                        jewelsArray = {[gearSet.accessory3?.jewels?.jewel_1, gearSet.accessory3?.jewels?.jewel_2, gearSet.accessory3?.jewels?.jewel_3]}/>
                     </View>
                 </View>
             </View>

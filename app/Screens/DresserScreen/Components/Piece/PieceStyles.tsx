@@ -7,16 +7,11 @@ const piece = StyleSheet.create({
         width: 80,       
     },
 
-    rareness_background_img_wrapper: {
+    rareness_background_img: {
         height: "100%",
         width: "100%",
         justifyContent: "center",
         alignItems: "center",
-    },
-
-    rareness_background_img: {
-        height: "100%",
-        width: "100%"
     },
 
     piece_img_wrapper: {
@@ -32,18 +27,31 @@ const piece = StyleSheet.create({
         justifyContent: "flex-end",
     },
 
-    juewels_wrapper: {
+    jewels_wrapper: {
         flexDirection: "row",
 
-        height: "25%",
+        height: "27%",
         width: "100%",
+
+        justifyContent: "space-between",
+        alignItems: "center",
     
         borderRadius: 10,
 
-        opacity: 0.7,
+        opacity: 0.9,
     },
 
-    juewels_img: {
+    jewel_wrapper: {
+        height: "100%",
+        width: "33%",
+    },
+
+    jewel_img_wrapper: {
+        height: "90%",
+        width: "90%",
+    },
+
+    img_in_view: {
         flex: 1,
         width: null,
         height: null,

@@ -4,7 +4,7 @@ import piece_selector from "./PieceSelectorStyles";
 import PieceRarenessChooseLabel from "../PieceRarenessChooseLabel/PieceRarenessChooseLabel";
 import { pieceTypes, rareness } from "../../../../../utills/enums";
 import { getAllPiecesByTypeAndRareness , getDBConnection } from "../../../../../utills/functions/db-service";
-import { gearSet, Pieces } from "../../../../../utills/types";
+import { gearSet, Piece } from "../../../../../utills/types";
 import PieceInList from "../PieceInList/PieceInList";
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 function PieceSelector({pieceType, gearSet}: Props): React.JSX.Element {
 
     const [currentRarenessSelected, setCurrentRarenessSelected] = useState<rareness>(rareness.common)
-    const [piecesByTypeAndRareness, setPiecesByTypeAndRareness] = useState<Pieces[]>([])
+    const [piecesByTypeAndRareness, setPiecesByTypeAndRareness] = useState<Piece[]>([])
  
     const loadDataCallback = useCallback(async () => {
         try{
