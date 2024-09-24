@@ -140,6 +140,8 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
 
         const allGearSets: [ResultSet] = await db.executeSql(sqlQueryGetGearSets)
         const allJewelsSets: [ResultSet] = await db.executeSql(sqlQueryGetJewelsSets)
+
+        console.log("gear sets: " + JSON.stringify(allGearSets[0].rows.raw()))
             
             for (let i = 0; i < allGearSets[0].rows.length; i++) {
 
@@ -156,7 +158,6 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
                 accessory2: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory2, allGearSets[0].rows.item(i).accessory2_rareness),
                 accessory3: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory3, allGearSets[0].rows.item(i).accessory3_rareness),
             }
-
 
                 if (currentGearSet.mainHand) currentGearSet.mainHand.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).mainHand_jewels)
                 if (currentGearSet.helmet) currentGearSet.helmet.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).helmet_jewels)
@@ -269,8 +270,9 @@ export const getJewelStatsByIdAndRareness = async (db: SQLiteDatabase, jewelId: 
     }
 }
 
-export const getJewelByIdAndRareness = async (db: SQLiteDatabase, jewelId: number, jewelRareness: rareness): Promise<jewel> => {
+export const getJewelByIdAndRareness = async (db: SQLiteDatabase, jewelId: number | null, jewelRareness: rareness | null): Promise<jewel | undefined> => {
     try{
+        if(!jewelId || ! jewelRareness) {return undefined}
         const sqlQueryGetJewelById: string = `SELECT * FROM ${tableNames.jewels} WHERE jewel_id = ${jewelId}`
 
         const queryData: ResultSet[] = await db.executeSql(sqlQueryGetJewelById)
@@ -290,8 +292,10 @@ export const getJewelByIdAndRareness = async (db: SQLiteDatabase, jewelId: numbe
     }
 }
 
-export const getJewelsByPiece = async (db: SQLiteDatabase, jewelsByPieceId: number): Promise<Array<jewel | undefined> | undefined> => {
+export const getJewelsByPiece = async (db: SQLiteDatabase, jewelsByPieceId: number | null): Promise<Array<jewel | undefined> | undefined> => {
     try{
+        if(!jewelsByPieceId){return undefined}
+
         const sqlQueryGetJewelById: string = `SELECT * FROM ${tableNames.jewels_by_piece} WHERE jewels_by_piece_id = ${jewelsByPieceId}`
 
         const queryData: ResultSet[] = await db.executeSql(sqlQueryGetJewelById)
@@ -301,8 +305,6 @@ export const getJewelsByPiece = async (db: SQLiteDatabase, jewelsByPieceId: numb
             await getJewelByIdAndRareness(db, queryData[0].rows.item(0).jewel_2, queryData[0].rows.item(0).jewel_2_rareness),
             await getJewelByIdAndRareness(db, queryData[0].rows.item(0).jewel_3, queryData[0].rows.item(0).jewel_3_rareness)
         ]
-
-        //console.log(`Jewels by piece ${jewelsByPieceId}: ` + JSON.stringify(jewels))
 
         return [jewels[0], jewels[1] , jewels[2]]
     }

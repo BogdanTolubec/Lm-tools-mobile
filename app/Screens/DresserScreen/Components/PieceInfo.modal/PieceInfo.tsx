@@ -21,8 +21,9 @@ function PieceInfo({pieceSelected, pieceTypeSelected, gearSetSelected}: Props): 
     return(
         <View style = {shared_styles.modal_box_default_wrapper}>
 
-            <PieceOfSet piece = {pieceSelected}/>
+            <PieceOfSet piece = {pieceSelected} onPress = {() => {setIsPieceSelectorModalActive(!isPieceSelectorModalActive)}}/>
             
+
             <ModalComponent visible = {isPieceSelectorModalActive} setVisible = {setIsPieceSelectorModalActive} children = {
                 <PieceSelector pieceType = {pieceTypeSelected} gearSet = {gearSetSelected}/>
             }/>
