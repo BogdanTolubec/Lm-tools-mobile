@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { Text, TextInput, View } from "react-native";
 import SubmitButton from "../../../../../Components/SubmitButton/SubmitButton";
 import { gearSet } from "../../../../../utills/types";
-import gear_set_title_change_component from "./GearSetTitleChangeComponentStyles";
-import { validateInputStringBySymbols } from "../../../../../utills/functions/validationFunctions";
+import gear_set_title_change_component from "./GearSetTitleChangeComponent.styles";
+import { validateInputStringBySymbols } from "../../../../../utills/functions/validation.functions";
 
 type Props = {
     gearSet: gearSet,

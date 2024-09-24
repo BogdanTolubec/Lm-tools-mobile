@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageBackground, Text, View } from "react-native";
 import { ImgPathConsts} from "../../../../utills/enums";
-import home from "./HomeScreenStyles";
+import home from "./HomeScreen.styles";
 
 function HomeScreen(): React.JSX.Element {
     

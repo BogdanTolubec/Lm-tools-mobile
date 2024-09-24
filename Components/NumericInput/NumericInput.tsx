@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleProp, TextInput, TextStyle } from "react-native";
-import { validateInputTypeNumber } from "../../utills/functions/validationFunctions";
+import { validateInputTypeNumber } from "../../utills/functions/validation.functions";
 
 type Props = {
     minValue: number, 

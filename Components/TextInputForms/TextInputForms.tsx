@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleProp, TextInput, TextStyle } from 'react-native'
-import { validateInputStringBySymbols } from '../../utills/functions/validationFunctions'
+import { validateInputStringBySymbols } from '../../utills/functions/validation.functions'
 
 type Props = {
     placeholder?: string,

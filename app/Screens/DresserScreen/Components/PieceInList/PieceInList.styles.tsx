@@ -33,13 +33,6 @@ const piece_in_list = StyleSheet.create({
         height: "90%",
         width: "90%",
     },
-
-    image: {
-        flex: 1,
-        width: null,
-        height: null,
-        resizeMode: 'contain'
-    }
 })
 
 export default piece_in_list

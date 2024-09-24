@@ -1,21 +1,15 @@
-import { rareness } from "./enums"
+import { pieceTypes, rareness } from "./enums"
 
 export type Piece = {
     piece_id: number,
     name: string,
     rareness: rareness,
-    type: string,
+    type: pieceTypes,
     image_path: string,
 
-    jewels?: PieceJewels,
+    jewels?: Array<jewel | undefined>,
 
     stats: stats,
-}
-
-export type PieceJewels = {
-    jewel_1: jewel | undefined,
-    jewel_2: jewel | undefined,
-    jewel_3: jewel | undefined,
 }
 
 export type stats = {
@@ -38,7 +32,7 @@ export type stats = {
 
 export type gearSet = {
     id: number,
-    title: string ,
+    title: string | undefined,
     mainHand: Piece | undefined,
     helmet: Piece | undefined,
     plate: Piece | undefined,

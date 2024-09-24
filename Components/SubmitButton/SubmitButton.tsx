@@ -1,7 +1,7 @@
 import React from "react";
 import { GestureResponderEvent, Text, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import submit_button from "./SubmitButtonStyles";
+import submit_button from "./SubmitButton.styles";
 
 type Props = {
     onPress: ((event: GestureResponderEvent) => void) | undefined,

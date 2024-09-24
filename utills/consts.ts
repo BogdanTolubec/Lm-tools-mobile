@@ -2,6 +2,9 @@
 
 import { calculationData, gearSet } from "./types"
 
+export const gearSetPiecesCount = 8 //it's cont 8 don't touch it :)
+export const jewelsByPiece = 3
+
 //t1
 export const calculationDataT1: calculationData = {
     infantryRss: [50, 0, 50, 50, 0], // [food, stone, wood, ore, gold]
@@ -53,15 +56,4 @@ export const gearSetPlaceHolder: gearSet = {
     accessory1: undefined,
     accessory2: undefined,
     accessory3: undefined,
-    rarenessArray: {
-        mainHandRareness: undefined,
-        helmetRareness: undefined,
-        plateRareness: undefined,
-        bootsRareness: undefined,
-        secondHandRareness: undefined,
-        accessory1Rareness: undefined,
-        accessory2Rareness: undefined,
-        accessory3Rareness: undefined,
-    },
-
 }

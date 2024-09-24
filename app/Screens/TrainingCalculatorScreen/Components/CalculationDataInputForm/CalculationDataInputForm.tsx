@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Text,  View } from "react-native";
-import calculation_data_input_form from "./CalculationDataInputFormStyles";
+import calculation_data_input_form from "./CalculationDataInputForm.styles";
 import CheckLabel from "../CheckLabel/CheckLabel";
 import { calculationDataT1, calculationDataT2, calculationDataT3, calculationDataT4 } from "../../../../../utills/consts";
 import NumericInput from "../../../../../Components/NumericInput/NumericInput";

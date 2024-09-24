@@ -1,47 +1,29 @@
 import React from "react";
-import { GestureResponderEvent, Image, ImageBackground, ImageSourcePropType, TouchableOpacity, View } from "react-native";
-import piece from "./PieceStyles";
-import { ImgPathConsts, rareness } from "../../../../../utills/enums";
-import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/imagesFunctions";
-import { jewel } from "../../../../../utills/types";
+import { GestureResponderEvent, ImageBackground, TouchableOpacity, View } from "react-native";
+import piece_in_set from "./Piece.styles";
+import { ImgPathConsts } from "../../../../../utills/enums";
+import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/images.functions";
+import { Piece } from "../../../../../utills/types";
+import JewelsInPiece from "../JewelsInPiece/JewelsInPiece";
 
 type Props = {
-    pieceImgPath: ImageSourcePropType | undefined, 
-    jewelsArray?: Array<jewel | undefined>,
-    pieceRareness: rareness | undefined,
+    piece: Piece | undefined,
     onPress?: (event: GestureResponderEvent) => void, 
 }
 
-function Piece({pieceImgPath, jewelsArray, onPress, pieceRareness = rareness.common}: Props): React.JSX.Element {
+function PieceOfSet({piece, onPress}: Props): React.JSX.Element {
 
-    const piece_rareness_background_image_path = setGearImageBackgroundByRareness(pieceRareness)
+    const piece_rareness_background_image_path = setGearImageBackgroundByRareness(piece?.rareness)
     
     return(
-        <TouchableOpacity onPress = {onPress} style = {piece.wrapper}>
-            <ImageBackground source = {{uri: piece_rareness_background_image_path}} style = {piece.rareness_background_img}>
-                <View style = {piece.piece_img_wrapper}>
-                    <ImageBackground style = {piece.piece_img} source = {pieceImgPath}>
-                        <View style = {piece.jewels_wrapper}>
-                            {
-                            jewelsArray?.map((jewel, index) => {
-                                const jewel_rareness_background_image_path = jewel ? setGearImageBackgroundByRareness(jewel.rareness)
-                                : ImgPathConsts.jewelsPlaceHolderImage
+        <TouchableOpacity onPress = {onPress} style = {piece_in_set.wrapper}>
+            <ImageBackground source = {{uri: piece_rareness_background_image_path}} style = {piece_in_set.rareness_background_img}>
+                <View style = {piece_in_set.piece_img_wrapper}>
+                    <ImageBackground style = {piece_in_set.piece_img} 
+                        source = {{uri: ImgPathConsts.rootAssetsImgPath + piece?.image_path}}>
 
-                                return (
-                                    <View key = {index} style = {piece.jewel_wrapper}>
-                                        <ImageBackground source = {{uri: jewel_rareness_background_image_path}} style = {piece.img_in_view}>
-                                            <View style = {piece.jewel_img_wrapper}>
-                                                <Image style = {piece.img_in_view} 
-                                                    source = {{uri: jewel?.image_path ? (ImgPathConsts.rootAssetsImgPath + jewel?.image_path) :
-                                                        ImgPathConsts.jewelsPlaceHolderImage
-                                                    }}/>
-                                            </View>
-                                        </ImageBackground>
-                                    </View>
-                                )
-                                }
-                            )}
-                        </View>
+                       <JewelsInPiece jewels = {piece?.jewels}/>
+
                     </ImageBackground>
                 </View>
             </ImageBackground>
@@ -49,4 +31,4 @@ function Piece({pieceImgPath, jewelsArray, onPress, pieceRareness = rareness.com
     );
 }
 
-export default Piece
+export default PieceOfSet

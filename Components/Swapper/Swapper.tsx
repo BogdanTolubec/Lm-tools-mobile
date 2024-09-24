@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { IconPathConsts } from "../../utills/enums";
-import swapper from "./SwapperStyles";
+import swapper from "./Swapper.styles";
 
 type Props = {
     componentsCount: number

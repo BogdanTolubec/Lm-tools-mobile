@@ -1,6 +1,6 @@
 import React from "react"
-import { GestureResponderEvent, ImageBackground, TouchableOpacity} from "react-native"
-import menu_icon from "./MenuIconStyles";
+import { ImageBackground, TouchableOpacity} from "react-native"
+import menu_icon from "./MenuIcon.styles";
 import { IconPathConsts } from "../../utills/enums";
 
 type Props = {

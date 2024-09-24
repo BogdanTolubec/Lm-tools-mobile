@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import calculation_data_output_form_styles from "./CalculationDataOutputFormStyles";
-import { userFriendlyBigNumbersVisualisation } from "../../../../../utills/functions/userFriendlyVisualisation";
+import calculation_data_output_form_styles from "./CalculationDataOutputForm.styles";
+import { userFriendlyBigNumbersVisualisation } from "../../../../../utills/functions/userFriendlyVisualisation.functions";
 
 type Props = {
     calculationResults: Record<string, number>

@@ -1,8 +1,18 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-const piece_selector = StyleSheet.create({
-    wrapper: {
+const shared_styles = StyleSheet.create({
+    img_in_view: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'contain',
+
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    modal_box_default_wrapper: {
         display: "flex",
         flexDirection: "column",
 
@@ -19,25 +29,7 @@ const piece_selector = StyleSheet.create({
         padding: 2,
 
         overflow: "scroll"
-    },
-
-    selector: {
-        flex: 1,
-        maxHeight: "92%",
-        width: "100%",
-    },
-
-    filter_wrapper: {
-        display: "flex",
-        flexDirection: "row",
-        top: "95%",
-        position: "absolute",
-
-        justifyContent: "space-between",
-
-        height: "7%",
-        width: "100%"
     }
 })
 
-export default piece_selector
+export default shared_styles

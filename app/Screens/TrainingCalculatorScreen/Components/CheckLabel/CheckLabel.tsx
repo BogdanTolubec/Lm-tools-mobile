@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, TouchableHighlight } from 'react-native'
-import check_label from './CheckLabelStyles'
+import check_label from './CheckLabel.styles'
 
 type Props = {
     setStateFunction?: React.Dispatch<React.SetStateAction<string>>,

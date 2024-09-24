@@ -1,6 +1,6 @@
 import { ImgPathConsts, rareness } from "../enums";
 
-export function setGearImageBackgroundByRareness(currentRareness: rareness): string {
+export function setGearImageBackgroundByRareness(currentRareness: rareness | undefined): string {
     switch (currentRareness){
         case rareness.common: return ImgPathConsts.commonPieceBackgroundImage
         case rareness.uncommon: return ImgPathConsts.uncommonPieceBackgroundImage
