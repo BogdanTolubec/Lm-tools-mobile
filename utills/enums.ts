@@ -49,6 +49,14 @@ export enum armyTypes {
     siege = "siege",
 }
 
+export enum armyTiers {
+    tier1 = "t1",
+    tier2 = "t2",
+    tier3 = "t3",
+    tier4 = "t4",
+    tier5 = "t5",
+}
+
 export enum pieceTypes {
     mainHand = "mainHand",
     helmet = "helmet",
@@ -83,6 +91,7 @@ export enum IconPathConsts{
     rootAssetsconsPath = "asset:/img/Icons",
 
     menuIcon = rootAssetsconsPath + "/menu.png",
+    questionMarkIcon = rootAssetsconsPath + "/question_mark.png",
 
     homeIcon = rootAssetsconsPath + "/home.png",
     plusIcon = rootAssetsconsPath + "/plus.png",

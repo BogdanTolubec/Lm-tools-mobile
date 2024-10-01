@@ -18,7 +18,10 @@ function PieceSelector({pieceType, gearSet}: Props): React.JSX.Element {
     const [currentRarenessSelected, setCurrentRarenessSelected] = useState<rareness>(rareness.common)
     const [piecesByTypeAndRareness, setPiecesByTypeAndRareness] = useState<Piece[]>([])
     const rarenessArray: rareness[] = [rareness.common, rareness.uncommon, rareness.rare, rareness.epic, rareness.legendary, rareness.mythic]
- 
+
+    function onChooseRarenessSelected(currentRareness: rareness): void{
+        setCurrentRarenessSelected(currentRareness)
+    }
     const loadDataCallback = useCallback(async () => {
         try{
             const db = await getDBConnection()
@@ -47,7 +50,7 @@ function PieceSelector({pieceType, gearSet}: Props): React.JSX.Element {
             <View style = {piece_selector.filter_wrapper}>
                 {
                     rarenessArray.map((rareness, index) => 
-                        <PieceRarenessChooseLabel key = {index} labelRareness = {rareness} setStateFunction = {setCurrentRarenessSelected}/>
+                        <PieceRarenessChooseLabel key = {index} labelRareness = {rareness} onPress = {onChooseRarenessSelected}/>
                     )
                 }
             </View>

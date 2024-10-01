@@ -14,7 +14,7 @@ const set_of_pieces = StyleSheet.create({
     first_row: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "space-between",
 
         width: "100%",
     },
@@ -30,6 +30,11 @@ const set_of_pieces = StyleSheet.create({
         textShadowColor: "#c9c9c9",
         textShadowRadius: 2,
         textShadowOffset: {height: 2, width: 2},
+    },
+
+    stats_icon: {
+        height: 22,
+        width: 22,
     },
 
     gear_box: {

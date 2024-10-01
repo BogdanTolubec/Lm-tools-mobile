@@ -5,7 +5,7 @@ import CheckLabel from "../CheckLabel/CheckLabel";
 import { calculationDataT1, calculationDataT2, calculationDataT3, calculationDataT4 } from "../../../../../utills/consts";
 import NumericInput from "../../../../../Components/NumericInput/NumericInput";
 import SubmitButton from "../../../../../Components/SubmitButton/SubmitButton";
-import { armyTypes } from "../../../../../utills/enums";
+import { armyTiers, armyTypes } from "../../../../../utills/enums";
 import { calculationData } from "../../../../../utills/types";
 
 type Props = {childToParent: (calculationResults: Record<string, number>) => void}
@@ -22,22 +22,34 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
         trainingTime: 0,
     }
 
-    const armyTypeLabelsInfo = [{ id: 1, text: "infantry"}, { id: 2, text: "ranged"},
-    { id: 3, text: "cavalry"}, { id:4, text: "siege"}]
+    const armyTypeLabelsInfo = [{ id: 1, text: armyTypes.infantry}, { id: 2, text: armyTypes.ranged},
+    { id: 3, text: armyTypes.cavalry}, { id:4, text: armyTypes.siege}]
 
-    const tierLabelsInfo = [{ id: 1, text: "t1"}, { id: 2, text: "t2"}, { id: 3, text: "t3"}, { id:4, text: "t4"}]
+    const tierLabelsInfo = [{ id: 1, text: armyTiers.tier1}, { id: 2, text: armyTiers.tier2},
+    { id: 3, text: armyTiers.tier3}, { id:4, text: armyTiers.tier4}]
 
     const [armyCount, setArmyCount] = useState<number>(0)
     const [trainingSpeed, setTrainingSpeed] = useState<number>(0)
     const [subsidy, setSubsidy] = useState<number>(0)
 
-    const[currentArmyTypeSelect, setCurrentArmyTypeSelect] = useState<string>("infantry")
-    const[currentTierSelect, setCurrentTierSelect] = useState<string>("t1")
+    const[currentArmyTypeSelect, setCurrentArmyTypeSelect] = useState<armyTypes>(armyTypes.infantry)
+    const[currentTierSelect, setCurrentTierSelect] = useState<armyTiers>(armyTiers.tier1)
 
     const[selectedArmyTypeId, setSelectedArmyTypeId] = useState<number>(0)
     const[selectedTierId, setSelectedTierId] = useState<number>(0)
 
     //functions
+    function onCheckLabelClick(text: armyTypes | armyTiers, itemId: number): void {
+        if(Object.values(armyTypes).includes(text as armyTypes)){
+            setCurrentArmyTypeSelect(text as armyTypes)
+            setSelectedArmyTypeId(itemId)
+        }
+
+        if(Object.values(armyTiers).includes(text as armyTiers)){
+            setCurrentTierSelect(text as armyTiers)
+            setSelectedTierId(itemId)}
+    }
+
     const setMaterialsCount = (calculationDataArmyTypeRss: Array<number>, trainingTime: number) => {
         
         calculationResults.foodCount = armyCount * (calculationDataArmyTypeRss[0] * (1 - subsidy / 100))
@@ -90,7 +102,7 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
                     {armyTypeLabelsInfo.map((label, index) => 
                         <View key = {index} style = {calculation_data_input_form.check_label_wrapper}>
                             <CheckLabel  itemId = {label.id} text = {label.text} selectedId = {selectedArmyTypeId}
-                            setStateFunction = {setCurrentArmyTypeSelect} setSelectedFunction = {setSelectedArmyTypeId}/>
+                            onPress = {onCheckLabelClick}/>
                         </View>
                     )}
 
@@ -101,7 +113,7 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
                     {tierLabelsInfo.map((label, index) => 
                         <View key = {index} style = {calculation_data_input_form.check_label_wrapper}>
                             <CheckLabel  key = {index} itemId = {label.id} text = {label.text} selectedId = {selectedTierId}
-                            setStateFunction = {setCurrentTierSelect} setSelectedFunction = {setSelectedTierId}/>
+                            onPress = {onCheckLabelClick}/>
                         </View>
                     )}
 

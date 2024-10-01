@@ -7,6 +7,8 @@ import { pieceTypes } from "../../../../../utills/enums"
 import { gearSet, Piece } from "../../../../../utills/types"
 import shared_styles from "../../../../../utills/sharedStyles.styles"
 import PieceOfSet from "../Piece/Piece"
+import JewelsInPiece from "../JewelsInPiece/JewelsInPiece"
+import StatsList from "../StatsList/StatsList"
 
 type Props = {
     pieceSelected: Piece | undefined,
@@ -21,8 +23,19 @@ function PieceInfo({pieceSelected, pieceTypeSelected, gearSetSelected}: Props): 
     return(
         <View style = {shared_styles.modal_box_default_wrapper}>
 
-            <PieceOfSet piece = {pieceSelected} onPress = {() => {setIsPieceSelectorModalActive(!isPieceSelectorModalActive)}}/>
-            
+            <View style = {piece_info.gear_and_jewels_row}>
+
+                <PieceOfSet piece = { pieceSelected } onPress = {() => {setIsPieceSelectorModalActive(!isPieceSelectorModalActive)}}/>
+
+                <View>
+                    
+                </View>
+
+            </View>  
+
+            <View>
+                <StatsList statsToShow = {pieceSelected?.stats}/>  
+            </View>     
 
             <ModalComponent visible = {isPieceSelectorModalActive} setVisible = {setIsPieceSelectorModalActive} children = {
                 <PieceSelector pieceType = {pieceTypeSelected} gearSet = {gearSetSelected}/>

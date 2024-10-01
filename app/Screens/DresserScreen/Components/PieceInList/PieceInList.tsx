@@ -72,7 +72,7 @@ function PieceInList({pieceData, pieceRareness, pieceType, gearSet}: Props): Rea
                 <Text> {firstLetterCapitalizer(pieceData.name)} </Text>
             </TouchableOpacity>
 
-            <StatsList key = {pieceData.piece_id} piece = {pieceData}/>
+            <StatsList key = {pieceData.piece_id} statsToShow = {pieceData.stats}/>
         </View>
     );
 }

@@ -7,7 +7,7 @@ export type Piece = {
     type: pieceTypes,
     image_path: string,
 
-    jewels?: Array<jewel | undefined>,
+    jewels: Array<jewel | undefined>,
 
     stats: stats,
 }
@@ -32,7 +32,7 @@ export type stats = {
 
 export type gearSet = {
     id: number,
-    title: string | undefined,
+    title: string | null,
     mainHand: Piece | undefined,
     helmet: Piece | undefined,
     plate: Piece | undefined,
@@ -58,4 +58,9 @@ export type calculationData = {
     siegeRss: number[],
 
     secondsTrainingSpeed: number,
+}
+
+export type statsShowInfo = {
+    text: string,
+    stat: number
 }

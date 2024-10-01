@@ -1,6 +1,6 @@
 //Training calculator consts
 
-import { calculationData, gearSet } from "./types"
+import { calculationData, gearSet, statsShowInfo } from "./types"
 
 export const gearSetPiecesCount = 8 //it's cont 8 don't touch it :)
 export const jewelsByPiece = 3
@@ -57,3 +57,12 @@ export const gearSetPlaceHolder: gearSet = {
     accessory2: undefined,
     accessory3: undefined,
 }
+
+export const statsObject: statsShowInfo[] = [
+    {text: "Army atk", stat: 0}, {text: "Army hp", stat: 0},
+    {text: "Army deff", stat: 0}, {text: "Infantry atk", stat: 0},
+    {text: "Infantry hp", stat: 0}, {text: "Infantry deff", stat: 0},
+    {text: "Ranged atk", stat: 0}, {text: "Ranged hp", stat: 0},
+    {text: "Ranged deff", stat: 0}, {text: "Cavalry atk", stat: 0},
+    {text: "Cavalry hp", stat: 0}, {text:"Cavalry deff", stat: 0}
+]

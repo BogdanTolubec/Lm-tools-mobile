@@ -8,10 +8,11 @@ import JewelsInPiece from "../JewelsInPiece/JewelsInPiece";
 
 type Props = {
     piece: Piece | undefined,
-    onPress?: (event: GestureResponderEvent) => void, 
+    onPress?: (event: GestureResponderEvent) => void,
+    jewels?: React.JSX.Element
 }
 
-function PieceOfSet({piece, onPress}: Props): React.JSX.Element {
+function PieceOfSet({piece, jewels, onPress}: Props): React.JSX.Element {
 
     const piece_rareness_background_image_path = setGearImageBackgroundByRareness(piece?.rareness)
     
@@ -21,8 +22,10 @@ function PieceOfSet({piece, onPress}: Props): React.JSX.Element {
                 <View style = {piece_in_set.piece_img_wrapper}>
                     <ImageBackground style = {piece_in_set.piece_img} 
                         source = {{uri: ImgPathConsts.rootAssetsImgPath + piece?.image_path}}>
-
-                       <JewelsInPiece jewels = {piece?.jewels}/>
+                        
+                        <View style = {piece_in_set.jewels_wrapper}>
+                            {jewels}
+                        </View>
 
                     </ImageBackground>
                 </View>

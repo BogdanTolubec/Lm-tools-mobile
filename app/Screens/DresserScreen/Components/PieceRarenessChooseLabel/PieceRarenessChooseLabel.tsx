@@ -5,10 +5,10 @@ import piece_rareness_choose_label from "./PieceRarenessChooseLabel.styles";
 
 type Props = {
     labelRareness: rareness,
-    setStateFunction: React.Dispatch<React.SetStateAction<rareness>>,
+    onPress: (currentRareness: rareness) => void,
 }
 
-function PieceRarenessChooseLabel({setStateFunction, labelRareness}: Props):React.JSX.Element {
+function PieceRarenessChooseLabel({labelRareness, onPress}: Props):React.JSX.Element {
 
     let backgroundColor = ""
 
@@ -23,7 +23,7 @@ function PieceRarenessChooseLabel({setStateFunction, labelRareness}: Props):Reac
 
     return(
         <TouchableOpacity style = {[piece_rareness_choose_label.wrapper, {backgroundColor: backgroundColor}]} 
-        onPress = {() => setStateFunction(labelRareness)}/>
+        onPress = {() => onPress(labelRareness)}/>
     );
 }
 

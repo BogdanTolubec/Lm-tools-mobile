@@ -1,10 +1,11 @@
 import React from "react";
-import { Image, ImageBackground, View } from "react-native";
+import { ImageBackground, View } from "react-native";
 import { ImgPathConsts } from "../../../../../utills/enums";
 import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/images.functions";
 import { jewel } from "../../../../../utills/types";
 import shared_styles from "../../../../../utills/sharedStyles.styles";
 import jewels_in_piece from "./JewelsInPiece.styles";
+import ImageInWrapper from "../../../../../Components/ImageInWrapper/ImageInWrapper";
 
 type Props = {
     jewels: Array<jewel | undefined> | undefined,
@@ -12,22 +13,21 @@ type Props = {
 
 function JewelsInPiece({jewels}: Props): React.JSX.Element {
 
-    if(jewels !== undefined){ return(
+    if(jewels){ return(
         <View style = {jewels_in_piece.wrapper}>
             {   
-                jewels?.map((jewel, index) => {
+                jewels.map((jewel, index) => {
                     const jewel_rareness_background_image_path = jewel ? setGearImageBackgroundByRareness(jewel.rareness)
                         : ImgPathConsts.jewelsPlaceHolderImage
 
                         return (
                             <View key = {index} style = {jewels_in_piece.jewel_wrapper}>
                                 <ImageBackground source = {{uri: jewel_rareness_background_image_path}} style = {shared_styles.img_in_view}>
-                                    <View style = {jewels_in_piece.jewel_img_wrapper}>
-                                        <Image style = {shared_styles.img_in_view} 
-                                            source = {{uri: jewel?.image_path ? (ImgPathConsts.rootAssetsImgPath + jewel?.image_path) :
+                                        <ImageInWrapper wrapperStyles = {jewels_in_piece.jewel_img_wrapper} 
+                                            imageSource = { jewel?.image_path ? 
+                                                (ImgPathConsts.rootAssetsImgPath + jewel?.image_path) :
                                                 ImgPathConsts.jewelsPlaceHolderImage
-                                            }}/>
-                                    </View>
+                                            }/>
                                 </ImageBackground>
                             </View>
                         )

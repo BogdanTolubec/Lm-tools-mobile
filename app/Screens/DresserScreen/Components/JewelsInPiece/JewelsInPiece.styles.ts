@@ -5,7 +5,7 @@ const jewels_in_piece = StyleSheet.create({
     wrapper: {
         flexDirection: "row",
 
-        height: "25%",
+        height: "100%",
         width: "100%",
 
         justifyContent: "space-between",

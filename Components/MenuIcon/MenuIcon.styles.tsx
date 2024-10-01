@@ -5,8 +5,6 @@ const menu_icon = StyleSheet.create({
     wrapper: {
         width: 22,
         height: 22,
-        left: 0,
-        position: "absolute",
     },
 
     img_background: {

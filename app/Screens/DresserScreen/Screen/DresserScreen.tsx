@@ -11,6 +11,7 @@ import GearSetMenu from "../Components/GearSetMenu.modal/GearSetMenu";
 import { gearSetPlaceHolder } from "../../../../utills/consts";
 import GearSetTitleChangeComponent from "../Components/GearSetTitleChange.modal/GearSetTitleChangeComponent";
 import PieceInfo from "../Components/PieceInfo.modal/PieceInfo";
+import GearSetStatsList from "../Components/GearSetStatsList.modal/GearSetStatsList";
 
 function DresserScreen(): React.JSX.Element{
 
@@ -22,6 +23,7 @@ function DresserScreen(): React.JSX.Element{
 
     const [isMenuModalActive, setIsMenuModalActive] = useState<boolean>(false)
     const [isChangeTitleModalVisible, setIsChangeTitleModalVisible] = useState<boolean>(false)
+    const [isGearSetStatsListModalActive, setIsGearSetStatsListModalActive] = useState<boolean>(false)
 
     const [currentGearSelected, setCurrentGearSelected] = useState<Piece | undefined>()
     const [currentGearTypeSelected, setCurrentGearTypeSelected] = useState<pieceTypes>(pieceTypes.mainHand)
@@ -40,8 +42,12 @@ function DresserScreen(): React.JSX.Element{
         setIsMenuModalActive(!isMenuModalActive)
     }
 
-    function onTitleCklicked(): void {
+    function onTitleClicked(): void {
         setIsChangeTitleModalVisible(!isChangeTitleModalVisible)
+    }
+
+    function onQuestionMarkClicked(): void {
+        setIsGearSetStatsListModalActive(!isGearSetStatsListModalActive)
     }
 
     function onGearSetCreate(): void{
@@ -84,10 +90,16 @@ function DresserScreen(): React.JSX.Element{
                     children = {
                         <GearSetTitleChangeComponent gearSet = {currentGearSet}/>
                     }/>
+
+                    <ModalComponent visible = {isGearSetStatsListModalActive} setVisible = {setIsGearSetStatsListModalActive}
+                    children = {
+                        <GearSetStatsList gearSet = {currentGearSet}/>
+                    }/>
                     
                     <Swapper centerComponent = {
                         <SetOfPieces gearSet = {currentGearSet} title =  {currentGearSet?.title} 
-                        onPieceSelected = {onPieceSelected} onMenuClicked = {onMenuClicked} onTitleCklicked = {onTitleCklicked}/>
+                        onPieceSelected = {onPieceSelected} onMenuClicked = {onMenuClicked} onTitleClicked = {onTitleClicked}
+                        onQuestionMarkClicked = {onQuestionMarkClicked}/>
                     } componentsCount = {allGearSets.length} childToParent = {onGearSetSwap}/>
                             
                 </ImageBackground>

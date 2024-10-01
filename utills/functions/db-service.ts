@@ -138,10 +138,10 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
         const sqlQueryGetJewelsSets: string = `SELECT mainHand_jewels, helmet_jewels, plate_jewels, boots_jewels, secondHand_jewels, 
                 accessory1_jewels, accessory2_jewels, accessory3_jewels FROM ${tableNames.jewels_set}`
 
+        const sql = `SELECT * FROM ${tableNames.jewels_set}`
+
         const allGearSets: [ResultSet] = await db.executeSql(sqlQueryGetGearSets)
         const allJewelsSets: [ResultSet] = await db.executeSql(sqlQueryGetJewelsSets)
-
-        console.log("gear sets: " + JSON.stringify(allGearSets[0].rows.raw()))
             
             for (let i = 0; i < allGearSets[0].rows.length; i++) {
 
@@ -249,6 +249,21 @@ export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet, title:
 }
 }
 
+export const deleteGearSetById = async (db: SQLiteDatabase, gearSetId: number | undefined): Promise<boolean> => {
+    try{
+        if(!gearSetId){return false}
+
+        const sqlQueryDeleteJewelsByPiece: string = `DELETE FROM ${tableNames.jewels_by_piece} WHERE SELECT()`
+        const sqlQueryDeleteGearSetById: string = `DELETE FROM ${tableNames.gear_sets} WHERE gear_sets_id = ${gearSetId}`
+
+        await db.executeSql(sqlQueryDeleteGearSetById)
+
+        return true
+    } catch (e){
+        throw Error("Gear set delete error: " + JSON.stringify(e))
+    }
+}
+
 //jewels___________________________________________________________________
 export const getJewelStatsByIdAndRareness = async (db: SQLiteDatabase, jewelId: number, jewel_rareness: rareness): Promise<stats> => {
     try{
@@ -292,9 +307,9 @@ export const getJewelByIdAndRareness = async (db: SQLiteDatabase, jewelId: numbe
     }
 }
 
-export const getJewelsByPiece = async (db: SQLiteDatabase, jewelsByPieceId: number | null): Promise<Array<jewel | undefined> | undefined> => {
+export const getJewelsByPiece = async (db: SQLiteDatabase, jewelsByPieceId: number | null): Promise<Array<jewel | undefined>> => {
     try{
-        if(!jewelsByPieceId){return undefined}
+        if(!jewelsByPieceId) return [undefined, undefined, undefined]
 
         const sqlQueryGetJewelById: string = `SELECT * FROM ${tableNames.jewels_by_piece} WHERE jewels_by_piece_id = ${jewelsByPieceId}`
 

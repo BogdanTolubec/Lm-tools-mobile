@@ -26,6 +26,11 @@ const piece_in_set = StyleSheet.create({
         resizeMode: 'contain',
         justifyContent: "flex-end",
     },
+
+    jewels_wrapper: {
+        height: "25%",
+        width: "100%",
+    }
 })
 
 export default piece_in_set

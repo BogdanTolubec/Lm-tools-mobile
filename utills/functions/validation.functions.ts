@@ -1,5 +1,4 @@
 import React from "react"
-import { TextInput } from "react-native"
 
 export function validateInputTypeNumber(value: string, minValue: number, maxValue: number, 
     setStateFunction: React.Dispatch<React.SetStateAction<string>>): void
