@@ -6,6 +6,8 @@ const gear_set_menu = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
 
+        justifyContent: "center",
+
         left: "10%",
         top: "10%",
         
@@ -22,7 +24,8 @@ const gear_set_menu = StyleSheet.create({
     buttons_wrapper: {
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "space-between",
+
         alignItems: "center",
         height: "80%",
         width: "100%"

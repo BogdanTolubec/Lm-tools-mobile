@@ -2,11 +2,6 @@ import React from "react";
 import { StyleSheet } from "react-native";
 
 const piece_in_set = StyleSheet.create({
-    wrapper: {
-        height: 80,
-        width: 80,       
-    },
-
     rareness_background_img: {
         height: "100%",
         width: "100%",

@@ -74,6 +74,7 @@ function GearSetMenu({gearSet, title, changeGearSetsCount}: Props): React.JSX.El
                 <View style = {gear_set_menu.button_wrapper}>
                     <SubmitButton title = "Delete current gear set" onPress = {() => {onDeleteGearSet()}}/>
                 </View>
+                
             </View>
         </View>
     );

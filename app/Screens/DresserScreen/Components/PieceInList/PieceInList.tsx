@@ -63,8 +63,8 @@ function PieceInList({pieceData, pieceRareness, pieceType, gearSet}: Props): Rea
                 <View style = {piece_in_list.rareness_background_img_wrapper}>
                     <ImageBackground  source = {{uri: piece_rareness_background_image_path}} style = {piece_in_list.rareness_background_img_wrapper}>
                         <View style = {piece_in_list.img_wrapper}>
-                            <Image source = { {uri: ImgPathConsts.rootAssetsImgPath + pieceData.image_path || ImgPathConsts.piecePlaceholderImage}}
-                                style = {shared_styles.img_in_view}/>
+                            <Image source = { {uri: ImgPathConsts.rootAssetsImgPath + pieceData.image_path ||
+                                ImgPathConsts.piecePlaceholderImage}} style = {shared_styles.img_in_view}/>
                         </View>
                     </ImageBackground>
                 </View>

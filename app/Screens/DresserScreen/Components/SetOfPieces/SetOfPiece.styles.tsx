@@ -11,6 +11,11 @@ const set_of_pieces = StyleSheet.create({
         alignItems: "center",
     },
 
+    piece_wrapper: {
+        height: 80,
+        width: 80,       
+    },
+
     first_row: {
         display: "flex",
         flexDirection: "row",
