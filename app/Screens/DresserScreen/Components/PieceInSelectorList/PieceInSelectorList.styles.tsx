@@ -1,7 +1,7 @@
 import React from "react"
 import { StyleSheet } from "react-native"
 
-const piece_in_list = StyleSheet.create({
+const piece_in_selector_list = StyleSheet.create({
     wrapper: {
         display: "flex",
         flexDirection: "column",
@@ -35,4 +35,4 @@ const piece_in_list = StyleSheet.create({
     },
 })
 
-export default piece_in_list
+export default piece_in_selector_list

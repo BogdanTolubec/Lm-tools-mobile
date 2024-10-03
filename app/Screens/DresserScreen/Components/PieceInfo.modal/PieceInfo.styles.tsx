@@ -7,13 +7,11 @@ const piece_info = StyleSheet.create(
             display: "flex",
             flexDirection: "column",
     
-            left: "10%",
-            top: "25%", //just to center component with position absolute :/
+            left: "5%",
+            top: "15%", //just to center component with position absolute :/
             
-            height: "50%",
-            width: "80%",
-
-            justifyContent: "space-between",
+            height: "75%",
+            width: "90%",
     
             backgroundColor: "#FFFFFF",
             borderColor: "black",
@@ -25,30 +23,39 @@ const piece_info = StyleSheet.create(
         },
 
         gear_and_jewels_row: {
+            height: "50%",
             width: "100%",
-            display: "flex",
-            flexDirection: "row",
 
+            display: "flex",
+            flexDirection: "column",
             justifyContent: "space-between",
         },
 
         piece_img_wrapper: {
-            height: 60,
-            width: 60,
+            height: "28%",
+            width: "20%",
         },
 
-        jewels_wrapper: { 
+        jewels_wrapper: {
+            height: "28%",
+            width: "100%",
+
             display: "flex",
             flexDirection: "row",
 
             justifyContent: "space-between",
-
-            paddingRight: "4%",
         },
 
         jewel_wrapper: {
             height: "100%",
-            width: "27%",
+            width: "20%",
+        },
+
+        stats_wrapper: {
+            width: "100%",
+            height: "49%",
+
+            justifyContent: "flex-end"
         }
     }
 )

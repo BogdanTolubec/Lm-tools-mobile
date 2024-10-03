@@ -46,7 +46,7 @@ export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: numbe
             name: queryData[0].rows.item(0).name,
             rareness: pieceRareness,
             type: queryData[0].rows.item(0).type,
-            image_path: queryData[0].rows.item(0).image_path,
+            imagePath: queryData[0].rows.item(0).image_path,
 
             jewels: [undefined, undefined, undefined],
 
@@ -296,7 +296,7 @@ export const getJewelByIdAndRareness = async (db: SQLiteDatabase, jewelId: numbe
             jewel_id: queryData[0].rows.item(0).jewel_id,
             name: queryData[0].rows.item(0).name,
             rareness: jewelRareness,
-            image_path: queryData[0].rows.item(0).imgPath,
+            imagePath: queryData[0].rows.item(0).imgPath,
             stats: await getJewelStatsByIdAndRareness(db, jewelId, jewelRareness),
         }
 
@@ -325,5 +325,53 @@ export const getJewelsByPiece = async (db: SQLiteDatabase, jewelsByPieceId: numb
     }
     catch(e){
         throw Error("Jewel by id loading failed... " + JSON.stringify(e))
+    }
+}
+
+export const getAllJewelsByRareness = async (db: SQLiteDatabase, jewelsRareness: rareness): Promise<jewel[]> => {
+    try{
+        const sqlQueryGetJewelsByRareness: string = `SELECT jewel_id as id, ${tableNames.jewels}.imgPath, 
+            ${tableNames.jewels}.name, armyAtk, armyDeff, armyHp, infantryAtk, infantryDeff, infantryHp,
+            rangedAtk, rangedDeff, rangedHp, cavalryAtk, cavalryDeff, cavalryHp FROM ${tableNames.stats}, ${tableNames.jewels}
+	        WHERE stats_id = 
+            (SELECT stats_id FROM ${tableNames.stats}, ${tableNames.jewels_rareness_stats} 
+            WHERE (stats_id = ${jewelsRareness}_stats_id)
+	        AND jewels_rareness_stats_id = 
+            (SELECT rareness_stats_id FROM jewels WHERE ${tableNames.jewels}.jewel_id = id))`
+
+        const jewelsArray: jewel[] = []
+
+        const queryResult: ResultSet[] = await db.executeSql(sqlQueryGetJewelsByRareness)
+
+        for(let i = 0; i < queryResult[0].rows.length; i++){
+            jewelsArray.push({
+                jewel_id: queryResult[0].rows.item(i).id,
+                name: queryResult[0].rows.item(i).name,
+                rareness: jewelsRareness,
+                imagePath: queryResult[0].rows.item(i).imgPath,
+                stats: {
+                    armyAtk: queryResult[0].rows.item(i).armyAtk,
+                    armyHp: queryResult[0].rows.item(i).armyHp,
+                    armyDeff: queryResult[0].rows.item(i).armyDeff,
+                
+                    infantryAtk: queryResult[0].rows.item(i).infantryAtk,
+                    infantryHp: queryResult[0].rows.item(i).infantryHp,
+                    infantryDeff: queryResult[0].rows.item(i).infantryDeff,
+                    
+                    rangedAtk: queryResult[0].rows.item(i).rangedAtk,
+                    rangedHp: queryResult[0].rows.item(i).rangedHp,
+                    rangedDeff: queryResult[0].rows.item(i).rangedDeff,
+                
+                    cavalryAtk: queryResult[0].rows.item(i).cavalryAtk,
+                    cavalryHp: queryResult[0].rows.item(i).cavalryHp,
+                    cavalryDeff: queryResult[0].rows.item(i).cavalryDeff,
+                }
+            })
+        }
+
+        return jewelsArray
+
+    } catch(e){
+        throw Error("Jewels by rareness loading failed... " + JSON.stringify(e))
     }
 }

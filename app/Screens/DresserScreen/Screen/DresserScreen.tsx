@@ -4,7 +4,7 @@ import dresser_screen from "./DresserScreen.styles";
 import { ImgPathConsts, pieceTypes } from "../../../../utills/enums";
 import SetOfPieces from "../Components/SetOfPieces/SetOfPieces";
 import { getALLGearSets, getDBConnection} from "../../../../utills/functions/db-service";
-import Swapper from "../../../../Components/Swapper/Swapper";
+import Swapper from "../../../../Components/SubmitButton/Swapper/Swapper";
 import { gearSet, Piece} from "../../../../utills/types";
 import ModalComponent from "../../../../Components/ModalComponent/ModalComponent";
 import GearSetMenu from "../Components/GearSetMenu.modal/GearSetMenu";
@@ -12,6 +12,7 @@ import { gearSetPlaceHolder } from "../../../../utills/consts";
 import GearSetTitleChangeComponent from "../Components/GearSetTitleChange.modal/GearSetTitleChangeComponent";
 import PieceInfo from "../Components/PieceInfo.modal/PieceInfo";
 import GearSetStatsList from "../Components/GearSetStatsList.modal/GearSetStatsList";
+import PieceOrJewelsSelector from "../Components/PieceOrJewelsSelector.modal/PieceOrJewelsSelector";
 
 function DresserScreen(): React.JSX.Element{
 
@@ -25,17 +26,19 @@ function DresserScreen(): React.JSX.Element{
     const [isChangeTitleModalVisible, setIsChangeTitleModalVisible] = useState<boolean>(false)
     const [isGearSetStatsListModalActive, setIsGearSetStatsListModalActive] = useState<boolean>(false)
 
-    const [currentGearSelected, setCurrentGearSelected] = useState<Piece | undefined>()
-    const [currentGearTypeSelected, setCurrentGearTypeSelected] = useState<pieceTypes>(pieceTypes.mainHand)
+    const [currentPieceSelected, setCurrentPieceSelected] = useState<Piece | undefined>()
 
     const onGearSetSwap = (id: number): void => {
         setCurrentGearSet(allGearSets[id])
     }
 
-    function onPieceSelected(piece: Piece | undefined, pieceType: pieceTypes): void {
+    function onPieceSelected(piece: Piece | undefined): void {
         setIsPieceInfoModalActive(!isPieceInfoModalActive)
-        setCurrentGearSelected(piece)
-        setCurrentGearTypeSelected(pieceType)
+        setCurrentPieceSelected(piece)
+    }
+
+    function onPieceInfoPieceSelected(): void{
+        
     }
 
     function onMenuClicked(): void {
@@ -77,23 +80,24 @@ function DresserScreen(): React.JSX.Element{
                 <ImageBackground style = {dresser_screen.backgroundImg} source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover">
 
                     <ModalComponent visible = {isPieceInfoModalActive} setVisible = {setIsPieceInfoModalActive} children = {
-                        <PieceInfo pieceSelected = {currentGearSelected} 
-                        pieceTypeSelected = {currentGearTypeSelected} gearSetSelected = {currentGearSet}/>
+                        <PieceInfo pieceSelected = {currentPieceSelected} gearSetSelected = {currentGearSet} 
+                            isOuterModalVisible = {isPieceInfoModalActive}/>
                     }/>
+
 
                     <ModalComponent visible = {isMenuModalActive} setVisible = {setIsMenuModalActive} children={
                         <GearSetMenu gearSet = {currentGearSet} title = {currentGearSet?.title} 
-                        changeGearSetsCount = {onGearSetCreate}/>
+                            changeGearSetsCount = {onGearSetCreate}/>
                     }/>
 
                     <ModalComponent visible = {isChangeTitleModalVisible} setVisible = {setIsChangeTitleModalVisible} 
-                    children = {
-                        <GearSetTitleChangeComponent gearSet = {currentGearSet}/>
+                        children = {
+                            <GearSetTitleChangeComponent gearSet = {currentGearSet}/>
                     }/>
 
                     <ModalComponent visible = {isGearSetStatsListModalActive} setVisible = {setIsGearSetStatsListModalActive}
-                    children = {
-                        <GearSetStatsList gearSet = {currentGearSet}/>
+                        children = {
+                            <GearSetStatsList gearSet = {currentGearSet}/>
                     }/>
                     
                     <Swapper centerComponent = {

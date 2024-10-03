@@ -12,7 +12,7 @@ import JewelsInPiece from "../JewelsInPiece/JewelsInPiece";
 type Props = {
     title: string | null,
     gearSet: gearSet,
-    onPieceSelected: (piece: Piece | undefined, pieceType: pieceTypes) => void,
+    onPieceSelected: (piece: Piece | undefined) => void,
     onMenuClicked: () => void,
     onTitleClicked: () => void,
     onQuestionMarkClicked: () => void,
@@ -40,13 +40,13 @@ function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleCl
                 <View style = {set_of_pieces.start_of_set}>
                     <View style = {set_of_pieces.piece_wrapper}>
                         <PieceOfSet piece = {gearSet.mainHand}
-                        onPress = {() => onPieceSelected(gearSet?.mainHand, pieceTypes.mainHand)} 
+                        onPress = {() => onPieceSelected(gearSet?.mainHand)} 
                         jewels = {<JewelsInPiece jewels = {gearSet?.mainHand?.jewels}/>}/>
                     </View>
 
                     <View style = {set_of_pieces.piece_wrapper}>
                         <PieceOfSet piece = {gearSet.secondHand}
-                        onPress = {() => onPieceSelected(gearSet?.secondHand, pieceTypes.secondHand)} 
+                        onPress = {() => onPieceSelected(gearSet?.secondHand)} 
                         jewels = {<JewelsInPiece jewels = {gearSet?.secondHand?.jewels}/>}/>
                     </View>
                 </View>
@@ -56,13 +56,13 @@ function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleCl
                     <View style = {set_of_pieces.center_of_set}>
                         <View style = {set_of_pieces.piece_wrapper}>      
                             <PieceOfSet piece = {gearSet.helmet}
-                            onPress = {() => onPieceSelected(gearSet?.helmet, pieceTypes.helmet)} 
+                            onPress = {() => onPieceSelected(gearSet?.helmet)} 
                             jewels = {<JewelsInPiece jewels = {gearSet?.helmet?.jewels}/>}/>
                         </View>
 
                         <View style = {set_of_pieces.piece_wrapper}>
                             <PieceOfSet piece = {gearSet.accessory1}
-                            onPress = {() => onPieceSelected(gearSet?.accessory1, pieceTypes.accessory1)} 
+                            onPress = {() => onPieceSelected(gearSet?.accessory1)} 
                             jewels = {<JewelsInPiece jewels = {gearSet?.accessory1?.jewels}/>}/>
                         </View>
                     </View>
@@ -70,13 +70,13 @@ function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleCl
                     <View style = {set_of_pieces.center_of_set}>
                         <View style = {set_of_pieces.piece_wrapper}>
                             <PieceOfSet piece = {gearSet.plate}
-                            onPress = {() => onPieceSelected(gearSet?.plate, pieceTypes.plate)} 
+                            onPress = {() => onPieceSelected(gearSet?.plate)} 
                             jewels = {<JewelsInPiece jewels = {gearSet?.plate?.jewels}/>}/>
                         </View>
 
                         <View style = {set_of_pieces.piece_wrapper}>
                             <PieceOfSet piece = {gearSet.accessory2}
-                            onPress = {() => onPieceSelected(gearSet?.accessory2, pieceTypes.accessory2)} 
+                            onPress = {() => onPieceSelected(gearSet?.accessory2)} 
                             jewels = {<JewelsInPiece jewels = {gearSet?.accessory2?.jewels}/>}/>
                         </View>
                     </View>
@@ -86,13 +86,13 @@ function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleCl
                     <View style = {set_of_pieces.end_of_set}>
                         <View style = {set_of_pieces.piece_wrapper}>
                             <PieceOfSet piece = {gearSet.boots}
-                            onPress = {() => onPieceSelected(gearSet?.boots, pieceTypes.boots)} 
+                            onPress = {() => onPieceSelected(gearSet?.boots)} 
                             jewels = {<JewelsInPiece jewels = {gearSet?.boots?.jewels}/>}/>
                         </View>
 
                         <View style = {set_of_pieces.piece_wrapper}>
                             <PieceOfSet piece = {gearSet.accessory3}
-                            onPress = {() => onPieceSelected(gearSet?.accessory3, pieceTypes.accessory3)} 
+                            onPress = {() => onPieceSelected(gearSet?.accessory3)} 
                             jewels = {<JewelsInPiece jewels = {gearSet?.accessory3?.jewels}/>}/>
                         </View>
                     </View>

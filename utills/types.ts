@@ -5,7 +5,7 @@ export type Piece = {
     name: string,
     rareness: rareness,
     type: pieceTypes,
-    image_path: string,
+    imagePath: string,
 
     jewels: Array<jewel | undefined>,
 
@@ -47,7 +47,7 @@ export type jewel = {
     jewel_id: number,
     name: string,
     rareness: rareness,
-    image_path: string,
+    imagePath: string,
     stats: stats,
 }
 

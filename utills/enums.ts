@@ -100,6 +100,14 @@ export enum IconPathConsts{
 
     leftArrowIcon = rootAssetsconsPath + "/left_arrow.png",
     rightArrowIcon = rootAssetsconsPath + "/right_arrow.png",
+
+    
+    commonChooseLableIcon = rootAssetsconsPath + "/common_icon.png",
+    uncommonChooseLableIcon = rootAssetsconsPath + "/uncommon_icon.png",
+    rareChooseLableIcon = rootAssetsconsPath + "/rare_icon.png",
+    epicChooseLableIcon = rootAssetsconsPath + "/epic_icon.png",
+    legendaryChooseLableIcon = rootAssetsconsPath + "/legendary_icon.png",
+    mythicChooseLableIcon = rootAssetsconsPath + "/mythic_icon.png",
 }
 
 export enum ScreenParams{
