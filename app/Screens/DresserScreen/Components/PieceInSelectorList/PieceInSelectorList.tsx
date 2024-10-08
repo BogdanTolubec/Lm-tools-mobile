@@ -58,12 +58,12 @@ function PieceInList({piece, gearSet}: Props): React.JSX.Element {
 
     return(
         <View style = {piece_in_selector_list.wrapper}>
-            <TouchableOpacity style = {piece_in_selector_list.first_row} onPress = {() => {updateGearSet(piece)}}>
+            <TouchableOpacity style = {piece_in_selector_list.first_row}>
                 <View style = {piece_in_selector_list.rareness_background_img_wrapper}>
                     <ImageBackground  source = {{uri: item_rareness_background_image_path}} style = {piece_in_selector_list.rareness_background_img_wrapper}>
                         <ImageInWrapper wrapperStyles = {piece_in_selector_list.img_wrapper}
                             imageSource = { ImgPathConsts.rootAssetsImgPath + piece?.imagePath ||
-                                ImgPathConsts.jewelsPlaceHolderImage}/>
+                                ImgPathConsts.jewelsPlaceHolderImage} onPress = {() => {updateGearSet(piece)}}/>
                     </ImageBackground>
                 </View>
 

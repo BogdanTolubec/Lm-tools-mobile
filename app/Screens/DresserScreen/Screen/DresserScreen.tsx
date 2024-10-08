@@ -12,7 +12,7 @@ import { gearSetPlaceHolder } from "../../../../utills/consts";
 import GearSetTitleChangeComponent from "../Components/GearSetTitleChange.modal/GearSetTitleChangeComponent";
 import PieceInfo from "../Components/PieceInfo.modal/PieceInfo";
 import GearSetStatsList from "../Components/GearSetStatsList.modal/GearSetStatsList";
-import PieceOrJewelsSelector from "../Components/PieceOrJewelsSelector.modal/PieceOrJewelsSelector";
+import PieceOrJewelsSelector from "../Components/ItemsSelector.modal/ItemsSelector";
 
 function DresserScreen(): React.JSX.Element{
 
@@ -27,18 +27,16 @@ function DresserScreen(): React.JSX.Element{
     const [isGearSetStatsListModalActive, setIsGearSetStatsListModalActive] = useState<boolean>(false)
 
     const [currentPieceSelected, setCurrentPieceSelected] = useState<Piece | undefined>()
+    const [selectedPieceType, setSelectedPieceType] = useState<pieceTypes>(pieceTypes.mainHand)
 
     const onGearSetSwap = (id: number): void => {
         setCurrentGearSet(allGearSets[id])
     }
 
-    function onPieceSelected(piece: Piece | undefined): void {
+    function onPieceSelected(piece: Piece | undefined, pieceType: pieceTypes): void {
         setIsPieceInfoModalActive(!isPieceInfoModalActive)
         setCurrentPieceSelected(piece)
-    }
-
-    function onPieceInfoPieceSelected(): void{
-        
+        setSelectedPieceType(pieceType)
     }
 
     function onMenuClicked(): void {
@@ -81,7 +79,7 @@ function DresserScreen(): React.JSX.Element{
 
                     <ModalComponent visible = {isPieceInfoModalActive} setVisible = {setIsPieceInfoModalActive} children = {
                         <PieceInfo pieceSelected = {currentPieceSelected} gearSetSelected = {currentGearSet} 
-                            isOuterModalVisible = {isPieceInfoModalActive}/>
+                            isOuterModalVisible = {isPieceInfoModalActive} pieceType = {selectedPieceType}/>
                     }/>
 
 

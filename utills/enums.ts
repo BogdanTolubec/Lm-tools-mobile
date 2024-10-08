@@ -73,6 +73,8 @@ export enum pieceTypes {
 export enum ImgPathConsts{
     rootAssetsImgPath = "asset:/img",
 
+    emptyImage = rootAssetsImgPath + "/utills/gears/empty_image.png",
+
     backgroundImage = rootAssetsImgPath + "/utills/pages_background_img.jpg",
     commonPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/common_piece_background.jpg",
     uncommonPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/uncommon_piece_background.jpg",

@@ -1,45 +1,120 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { View } from "react-native"
 import piece_info from "./PieceInfo.styles"
-import { ImgPathConsts } from "../../../../../utills/enums"
+import { IconPathConsts, pieceTypes, rareness } from "../../../../../utills/enums"
 import { gearSet,  jewel,  Piece } from "../../../../../utills/types"
 import PieceOfSet from "../Piece/Piece"
 import StatsList from "../StatsList/StatsList"
 import Jewel from "../Jewel/Jewel"
-import ImageInWrapper from "../../../../../Components/ImageInWrapper/ImageInWrapper"
 import ModalComponent from "../../../../../Components/ModalComponent/ModalComponent"
-import PieceOrJewelsSelector from "../PieceOrJewelsSelector.modal/PieceOrJewelsSelector"
+import ItemsSelector from "../ItemsSelector.modal/ItemsSelector"
+import { getAllJewelsByRareness, getAllPiecesByTypeAndRareness, getDBConnection } from "../../../../../utills/functions/db-service"
+import PieceInList from "../PieceInSelectorList/PieceInSelectorList"
+import JewelInList from "../JewelInSelectorList/JewelInSelectorList"
 
 type Props = {
     pieceSelected: Piece | undefined,
+    pieceType: pieceTypes,
+
     gearSetSelected: gearSet,
     isOuterModalVisible: boolean,
 }
 
-function PieceInfo({pieceSelected, gearSetSelected, isOuterModalVisible}: Props): React.JSX.Element {
+function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisible}: Props): React.JSX.Element {
 
-    const [isPieceSelectorModalActive, setIsPieceSelectorModalActive] = useState<boolean>(false)
+    const [isItemSelectorModalActive, setIsItemSelectorModalActive] = useState<boolean>(false)
+
+    const [jewelSelected, setJewelSelected] = useState<jewel | undefined>(undefined)
+
+    const [itemsList, setItemsList] = useState<React.JSX.Element[] | React.JSX.Element>(<></>)
+    const [rarenessData, setRarenessData] = useState<Array<{rareness: rareness, iconPath: string}>>([])
+    const [currentItemType, setCurrentItemType] = useState<"piece" | "jewel">("piece")
+
+    function onPieceSelection(): void{
+        setRarenessData([
+                {rareness: rareness.common, iconPath: IconPathConsts.commonChooseLableIcon}, 
+                {rareness: rareness.uncommon, iconPath: IconPathConsts.uncommonChooseLableIcon}, 
+                {rareness: rareness.rare, iconPath: IconPathConsts.rareChooseLableIcon}, 
+                {rareness: rareness.epic, iconPath: IconPathConsts.epicChooseLableIcon}, 
+                {rareness: rareness.legendary, iconPath: IconPathConsts.legendaryChooseLableIcon},
+                {rareness: rareness.mythic, iconPath: IconPathConsts.mythicChooseLableIcon}]
+        )
+        
+        setCurrentItemType("piece")
+        onChooseRarenessLabelPress("piece", rareness.common, pieceSelected, undefined, pieceType)  // undefined is important :)
+        setIsItemSelectorModalActive(!isItemSelectorModalActive)
+    }
+
+    function onJewelSelection(jewel: jewel | undefined): void{
+            setJewelSelected(jewel) //selected jewel save
+            setRarenessData([
+                {rareness: rareness.common, iconPath: IconPathConsts.commonChooseLableIcon}, 
+                {rareness: rareness.uncommon, iconPath: IconPathConsts.uncommonChooseLableIcon}, 
+                {rareness: rareness.rare, iconPath: IconPathConsts.rareChooseLableIcon}, 
+                {rareness: rareness.epic, iconPath: IconPathConsts.epicChooseLableIcon}, 
+                {rareness: rareness.legendary, iconPath: IconPathConsts.legendaryChooseLableIcon}]
+            ) // rareness for choose labels
+
+            setCurrentItemType("jewel")
+            onChooseRarenessLabelPress("jewel" ,rareness.common, pieceSelected, jewel, undefined) // undefined in the end is important :)
+            setIsItemSelectorModalActive(!isItemSelectorModalActive)
+    }
+
+    async function getPiecesList(pieceType: pieceTypes, currentRarenessSelected: rareness): Promise<Piece[]> {
+        try{
+            const db = await getDBConnection()
+            return await getAllPiecesByTypeAndRareness(db, pieceType, currentRarenessSelected)
+
+        } catch(e){
+            console.log("On piece in PieceInfo selection error: " + JSON.stringify(e))
+            return []
+        }
+    }
+
+    async function getJewelsList(currentRarenessSelected: rareness): Promise<jewel[]> {
+        try{
+            const db = await getDBConnection()
+            return await getAllJewelsByRareness(db, currentRarenessSelected)
+
+        } catch(e){
+            console.log("On jewel in PieceInfo selection error: " + JSON.stringify(e))
+            return []
+        }
+    }
+
+    async function onChooseRarenessLabelPress(itemType: "piece" | "jewel",currentRareness: rareness, 
+        pieceSelected: Piece | undefined, jewelSelected?: jewel | undefined, pieceType?: pieceTypes): Promise<void>{
+
+        if(itemType === "piece" && pieceType){
+                
+            const piecesByTypeAndRareness = await getPiecesList(pieceType, currentRareness)
     
-    const [pieceToChange, setPieceToChange] = useState<Piece | undefined>(undefined)
-    const [jewelToChange, setJewelToChange] = useState<jewel | undefined>(undefined)
-
-    function onPieceOrJewelSelection(piece?: Piece, jewel?: jewel): void{
-        if(piece){
-            setPieceToChange(pieceSelected)
-            setJewelToChange(undefined)
-            setIsPieceSelectorModalActive(!isPieceSelectorModalActive)
+            setItemsList(
+                piecesByTypeAndRareness.map((piece, index) => 
+                    <PieceInList key = {index} piece = {piece} gearSet = {gearSetSelected}/>
+                )
+            )   
         }
 
-        if(jewel){
-            setJewelToChange(jewel)
-            setPieceToChange(undefined)
-            setIsPieceSelectorModalActive(!isPieceSelectorModalActive)
+        if(itemType === "jewel"){
+            try{
+                const jewelsByTypeAndRareness = await getJewelsList(currentRareness)
+    
+                setItemsList(
+                    jewelsByTypeAndRareness.map((listJewel, index) => 
+                        <JewelInList key = {index} piece = {pieceSelected} selectedJewel = {jewelSelected} listJewel = {listJewel}/>
+                    )
+                )
+    
+            } catch(e){
+                console.log("On jewel in PieceInfo selection error: " + JSON.stringify(e))
+            }
         }
     }
 
     useEffect(() => {
         if(!isOuterModalVisible)
-            setIsPieceSelectorModalActive(false)
+            setIsItemSelectorModalActive(false)
     }, [isOuterModalVisible])
 
     return(
@@ -49,22 +124,19 @@ function PieceInfo({pieceSelected, gearSetSelected, isOuterModalVisible}: Props)
 
                 <View style = {piece_info.piece_img_wrapper}>
                     <PieceOfSet piece = { pieceSelected } 
-                    onPress = {() => {onPieceOrJewelSelection(pieceSelected)}}/>
+                        onPress = {() => {onPieceSelection()}}/>
                 </View>
 
                 <View style = {piece_info.jewels_wrapper}>
                     {
                         pieceSelected?.jewels.map((jewel, index) => 
                             {
-                                if(jewel) return(
+                                return(
                                     <View key = { index } style = {piece_info.jewel_wrapper}>
-                                        <Jewel jewel = {jewel} onPress = {() => {onPieceOrJewelSelection(undefined, jewel)}}/>
+                                        <Jewel jewel = {jewel} onPress = {
+                                            () => {onJewelSelection(jewel)}
+                                            }/>
                                     </View>
-                                )
-
-                                else return(
-                                    <ImageInWrapper key = {index} imageSource = {ImgPathConsts.jewelsPlaceHolderImage} 
-                                        wrapperStyles = {piece_info.jewel_wrapper}/>
                                 )
                             }
                         )
@@ -77,9 +149,10 @@ function PieceInfo({pieceSelected, gearSetSelected, isOuterModalVisible}: Props)
                 <StatsList statsToShow = {pieceSelected?.stats}/>  
             </View>
 
-            <ModalComponent visible = {isPieceSelectorModalActive} setVisible = {setIsPieceSelectorModalActive} children={
-                <PieceOrJewelsSelector pieceToChange = {pieceToChange} jewelToChange = {jewelToChange}
-                    gearSet = {gearSetSelected} selectedPiece = {pieceSelected}/>
+            <ModalComponent visible = {isItemSelectorModalActive} setVisible = {setIsItemSelectorModalActive} children={
+                <ItemsSelector itemType = {currentItemType} itemsList = {itemsList} rarenessData = {rarenessData} 
+                    pieceSelected = {pieceSelected} pieceType = {pieceType} jewelSelected = {jewelSelected} 
+                    onChooseRarenessLabelPress = {onChooseRarenessLabelPress}/>
             }/>   
         </View>
     )
