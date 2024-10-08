@@ -10,11 +10,12 @@ import piece_in_selector_list from "../PieceInSelectorList/PieceInSelectorList.s
 
 type Props = {
     selectedJewel: jewel | undefined,
+    selectedJewelInPieceId: number,
     listJewel: jewel | undefined,
     piece: Piece | undefined,
 }
 
-function JewelInList({selectedJewel, listJewel, piece}: Props): React.JSX.Element {
+function JewelInList({selectedJewel, listJewel, piece, selectedJewelInPieceId}: Props): React.JSX.Element {
 
     let item_rareness_background_image_path = setGearImageBackgroundByRareness(listJewel?.rareness)
 
@@ -24,16 +25,12 @@ function JewelInList({selectedJewel, listJewel, piece}: Props): React.JSX.Elemen
             let isJewelValid = true
 
             for(const pieceJewel of piece.jewels){ //same type of jewel in one piece is restricted!
-                if(pieceJewel?.jewel_id === newJewel.jewel_id && selectedJewel?.jewel_id !== newJewel.jewel_id)
+                if(pieceJewel?.jewel_id === newJewel.jewel_id && ( selectedJewel ? selectedJewel.jewel_id !== newJewel.jewel_id : true))
                     isJewelValid = false
             }
 
-            if(isJewelValid){
-                for(let i = 0; i < piece.jewels.length; i++){ //changing jewel
-                    if(piece.jewels[i]?.jewel_id === selectedJewel?.jewel_id)
-                        piece.jewels[i] = newJewel
-                }
-            }
+            if(isJewelValid)
+                piece.jewels[selectedJewelInPieceId] = newJewel     
         }
     }
 

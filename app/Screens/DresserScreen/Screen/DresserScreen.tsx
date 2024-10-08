@@ -12,7 +12,7 @@ import { gearSetPlaceHolder } from "../../../../utills/consts";
 import GearSetTitleChangeComponent from "../Components/GearSetTitleChange.modal/GearSetTitleChangeComponent";
 import PieceInfo from "../Components/PieceInfo.modal/PieceInfo";
 import GearSetStatsList from "../Components/GearSetStatsList.modal/GearSetStatsList";
-import PieceOrJewelsSelector from "../Components/ItemsSelector.modal/ItemsSelector";
+import PieceOrJewelsSelector from "../Components/PieceOrJewelsSelector.modal/ItemsSelector";
 
 function DresserScreen(): React.JSX.Element{
 

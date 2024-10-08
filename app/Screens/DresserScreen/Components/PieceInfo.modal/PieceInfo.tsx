@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { View } from "react-native"
 import piece_info from "./PieceInfo.styles"
 import { IconPathConsts, pieceTypes, rareness } from "../../../../../utills/enums"
@@ -7,7 +7,7 @@ import PieceOfSet from "../Piece/Piece"
 import StatsList from "../StatsList/StatsList"
 import Jewel from "../Jewel/Jewel"
 import ModalComponent from "../../../../../Components/ModalComponent/ModalComponent"
-import ItemsSelector from "../ItemsSelector.modal/ItemsSelector"
+import ItemsSelector from "../PieceOrJewelsSelector.modal/ItemsSelector"
 import { getAllJewelsByRareness, getAllPiecesByTypeAndRareness, getDBConnection } from "../../../../../utills/functions/db-service"
 import PieceInList from "../PieceInSelectorList/PieceInSelectorList"
 import JewelInList from "../JewelInSelectorList/JewelInSelectorList"
@@ -28,7 +28,9 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
 
     const [itemsList, setItemsList] = useState<React.JSX.Element[] | React.JSX.Element>(<></>)
     const [rarenessData, setRarenessData] = useState<Array<{rareness: rareness, iconPath: string}>>([])
+
     const [currentItemType, setCurrentItemType] = useState<"piece" | "jewel">("piece")
+    const [selectedJewelInPieceId, setSelectedJewelInPieceId] = useState<number>(0)
 
     function onPieceSelection(): void{
         setRarenessData([
@@ -45,8 +47,10 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
         setIsItemSelectorModalActive(!isItemSelectorModalActive)
     }
 
-    function onJewelSelection(jewel: jewel | undefined): void{
+    function onJewelSelection(jewel: jewel | undefined, jewelInPieceId: number): void{
             setJewelSelected(jewel) //selected jewel save
+            setSelectedJewelInPieceId(jewelInPieceId)
+
             setRarenessData([
                 {rareness: rareness.common, iconPath: IconPathConsts.commonChooseLableIcon}, 
                 {rareness: rareness.uncommon, iconPath: IconPathConsts.uncommonChooseLableIcon}, 
@@ -56,7 +60,7 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
             ) // rareness for choose labels
 
             setCurrentItemType("jewel")
-            onChooseRarenessLabelPress("jewel" ,rareness.common, pieceSelected, jewel, undefined) // undefined in the end is important :)
+            onChooseRarenessLabelPress("jewel", rareness.common, pieceSelected, jewel, undefined) // undefined in the end is important :)
             setIsItemSelectorModalActive(!isItemSelectorModalActive)
     }
 
@@ -102,7 +106,8 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
     
                 setItemsList(
                     jewelsByTypeAndRareness.map((listJewel, index) => 
-                        <JewelInList key = {index} piece = {pieceSelected} selectedJewel = {jewelSelected} listJewel = {listJewel}/>
+                        <JewelInList key = {index} selectedJewelInPieceId = {selectedJewelInPieceId} piece = {pieceSelected} 
+                            selectedJewel = {jewelSelected} listJewel = {listJewel}/>
                     )
                 )
     
@@ -134,7 +139,7 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
                                 return(
                                     <View key = { index } style = {piece_info.jewel_wrapper}>
                                         <Jewel jewel = {jewel} onPress = {
-                                            () => {onJewelSelection(jewel)}
+                                                () => {onJewelSelection(jewel, index)}
                                             }/>
                                     </View>
                                 )

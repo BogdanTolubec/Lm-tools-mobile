@@ -19,11 +19,9 @@ function Jewel({jewel, onPress}: Props): React.JSX.Element {
 
     return (
             <ImageBackground source = {{uri: jewel_rareness_background_image_path}} style = {shared_styles.img_in_view}>
-                {
                     <ImageInWrapper wrapperStyles = {jewel_styles.jewel_img_wrapper} 
                         imageSource = { jewel ? ImgPathConsts.rootAssetsImgPath + jewel?.imagePath : ImgPathConsts.emptyImage}
                         onPress = {onPress}/> 
-                }
             </ImageBackground>
     )
 }
