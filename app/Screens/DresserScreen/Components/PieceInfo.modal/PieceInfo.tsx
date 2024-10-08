@@ -19,6 +19,7 @@ type Props = {
 function PieceInfo({pieceSelected, gearSetSelected, isOuterModalVisible}: Props): React.JSX.Element {
 
     const [isPieceSelectorModalActive, setIsPieceSelectorModalActive] = useState<boolean>(false)
+    
     const [pieceToChange, setPieceToChange] = useState<Piece | undefined>(undefined)
     const [jewelToChange, setJewelToChange] = useState<jewel | undefined>(undefined)
 

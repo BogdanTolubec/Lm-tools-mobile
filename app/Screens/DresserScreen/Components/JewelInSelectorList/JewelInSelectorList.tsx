@@ -19,7 +19,7 @@ function JewelInList({selectedJewel, listJewel, piece}: Props): React.JSX.Elemen
     let item_rareness_background_image_path = setGearImageBackgroundByRareness(listJewel?.rareness)
 
     function updateGearSet(newJewel: jewel | undefined, piece: Piece | undefined): void {
-        console.log("Im workin!")
+
         if(piece && newJewel){
             let isJewelValid = true
 
@@ -34,8 +34,6 @@ function JewelInList({selectedJewel, listJewel, piece}: Props): React.JSX.Elemen
                         piece.jewels[i] = newJewel
                 }
             }
-
-            console.log("new piece: " + JSON.stringify(piece))
         }
     }
 

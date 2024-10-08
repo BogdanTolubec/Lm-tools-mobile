@@ -200,16 +200,16 @@ export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet, title:
 
     for(let i = 0; i < gearSetPiecesCount; i++){
 
-    const sqlQueryUpdateJewelsByPiece: string = `UPDATE ${tableNames.jewels_by_piece}
-        SET jewel_1 = ${jewelsByGearSet[i]?.[0] || null},
-        jewel_1_rareness = ${jewelsByGearSet[i]?.[0]?.rareness || null},
-        jewel_2 = ${jewelsByGearSet[i]?.[1] || null},
-        jewel_2_rareness = ${jewelsByGearSet[i]?.[1]?.rareness || null},
-        jewel_3 = ${jewelsByGearSet[i]?.[2] || null},
-        jewel_3_rareness = ${jewelsByGearSet[i]?.[2]?.rareness || null}
+    let sqlQueryUpdateJewelsByPiece: string = `UPDATE ${tableNames.jewels_by_piece}
+        SET jewel_1 = ${jewelsByGearSet[i]?.[0]?.jewel_id || null},
+        jewel_1_rareness = '${jewelsByGearSet[i]?.[0]?.rareness || null}',
+        jewel_2 = ${jewelsByGearSet[i]?.[1]?.jewel_id || null},
+        jewel_2_rareness = '${jewelsByGearSet[i]?.[1]?.rareness || null}',
+        jewel_3 = ${jewelsByGearSet[i]?.[2]?.jewel_id || null},
+        jewel_3_rareness = '${jewelsByGearSet[i]?.[2]?.rareness || null}'
         WHERE jewels_by_piece_id = ${jewelsByPieceByGearSetIdsArray[i]}`
     
-    await db.executeSql(sqlQueryUpdateJewelsByPiece)
+        await db.executeSql(sqlQueryUpdateJewelsByPiece)
     }
 
     //pieces update
@@ -245,7 +245,7 @@ export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet, title:
 }
 
     catch(e){
-        throw Error("All gear sets loading failed..." + JSON.stringify(e))
+        throw Error("Updating gear sets failed..." + JSON.stringify(e))
 }
 }
 
