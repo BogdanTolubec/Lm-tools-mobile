@@ -21,9 +21,9 @@ function NumericInput({minValue, maxValue, placeholder, styles, setParentElement
 
     return(
         <TextInput value = {inputValue} keyboardType = "numeric" style = {styles} maxLength = {maxLength}
-        onChangeText = { (text) =>{
-            validateInputTypeNumber(text.replaceAll(" ", ""), minValue, maxValue, setInputValue)
-        }
+            onChangeText = { (text) =>{
+                validateInputTypeNumber(text.replaceAll(" ", ""), minValue, maxValue, setInputValue)
+            }
         }/>
     );
 }

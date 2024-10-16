@@ -11,6 +11,7 @@ import ItemsSelector from "../PieceOrJewelsSelector.modal/ItemsSelector"
 import { getAllJewelsByRareness, getAllPiecesByTypeAndRareness, getDBConnection } from "../../../../../utills/functions/db-service"
 import PieceInList from "../PieceInSelectorList/PieceInSelectorList"
 import JewelInList from "../JewelInSelectorList/JewelInSelectorList"
+import { calculatePieceStats } from "../../../../../utills/functions/statsCalculation.functions"
 
 type Props = {
     pieceSelected: Piece | undefined,
@@ -24,6 +25,7 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
 
     const [isItemSelectorModalActive, setIsItemSelectorModalActive] = useState<boolean>(false)
 
+    const [pieceToChange, setPieceToChange] = useState<Piece | undefined>()
     const [jewelSelected, setJewelSelected] = useState<jewel | undefined>(undefined)
 
     const [itemsList, setItemsList] = useState<React.JSX.Element[] | React.JSX.Element>(<></>)
@@ -43,7 +45,7 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
         )
         
         setCurrentItemType("piece")
-        onChooseRarenessLabelPress("piece", rareness.common, pieceSelected, undefined, pieceType)  // undefined is important :)
+        onChooseRarenessLabelPress("piece", rareness.common, pieceToChange, undefined, pieceType)  // undefined is important :)
         setIsItemSelectorModalActive(!isItemSelectorModalActive)
     }
 
@@ -60,8 +62,12 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
             ) // rareness for choose labels
 
             setCurrentItemType("jewel")
-            onChooseRarenessLabelPress("jewel", rareness.common, pieceSelected, jewel, undefined) // undefined in the end is important :)
+            onChooseRarenessLabelPress("jewel", rareness.common, pieceToChange, jewel, undefined) // undefined in the end is important :)
             setIsItemSelectorModalActive(!isItemSelectorModalActive)
+    }
+
+    function onPieceInListPress(selectedPiece: Piece | undefined): void {
+        setPieceToChange(selectedPiece)
     }
 
     async function getPiecesList(pieceType: pieceTypes, currentRarenessSelected: rareness): Promise<Piece[]> {
@@ -95,7 +101,7 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
     
             setItemsList(
                 piecesByTypeAndRareness.map((piece, index) => 
-                    <PieceInList key = {index} piece = {piece} gearSet = {gearSetSelected}/>
+                    <PieceInList key = {index} piece = {piece} pieceType = {pieceType} gearSet = {gearSetSelected} onPress = {onPieceInListPress}/>
                 )
             )   
         }
@@ -120,6 +126,8 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
     useEffect(() => {
         if(!isOuterModalVisible)
             setIsItemSelectorModalActive(false)
+
+        setPieceToChange(pieceSelected)
     }, [isOuterModalVisible])
 
     return(
@@ -128,13 +136,13 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
             <View style = {piece_info.gear_and_jewels_row}>
 
                 <View style = {piece_info.piece_img_wrapper}>
-                    <PieceOfSet piece = { pieceSelected } 
+                    <PieceOfSet piece = { pieceToChange } 
                         onPress = {() => {onPieceSelection()}}/>
                 </View>
 
                 <View style = {piece_info.jewels_wrapper}>
                     {
-                        pieceSelected?.jewels.map((jewel, index) => 
+                        pieceToChange?.jewels.map((jewel, index) => 
                             {
                                 return(
                                     <View key = { index } style = {piece_info.jewel_wrapper}>
@@ -151,12 +159,12 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
             </View>  
 
             <View style = {piece_info.stats_wrapper}>
-                <StatsList statsToShow = {pieceSelected?.stats}/>  
+                <StatsList statsToShow = {calculatePieceStats(pieceSelected)}/>  
             </View>
 
             <ModalComponent visible = {isItemSelectorModalActive} setVisible = {setIsItemSelectorModalActive} children={
                 <ItemsSelector itemType = {currentItemType} itemsList = {itemsList} rarenessData = {rarenessData} 
-                    pieceSelected = {pieceSelected} pieceType = {pieceType} jewelSelected = {jewelSelected} 
+                    pieceSelected = {pieceToChange} pieceType = {pieceType} jewelSelected = {jewelSelected} 
                     onChooseRarenessLabelPress = {onChooseRarenessLabelPress}/>
             }/>   
         </View>

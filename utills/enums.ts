@@ -3,9 +3,10 @@ import { Dimensions } from "react-native";
 
 export enum ScreensEnum {
     home = "HomeScreen",
-    calculator = "TrainingCalculatorScreen",
+    trainingCalculator = "TrainingCalculatorScreen",
     dresser = "DresserScreen",
-    addNewPiece = "AddNewPieceScreen",
+    speedUpsCalculator = "SpeedUpsCalculatorScreen",
+
 }
 
 export enum tableNames {
@@ -96,7 +97,7 @@ export enum IconPathConsts{
     questionMarkIcon = rootAssetsconsPath + "/question_mark.png",
 
     homeIcon = rootAssetsconsPath + "/home.png",
-    plusIcon = rootAssetsconsPath + "/plus.png",
+    speedUpIcon = rootAssetsconsPath + "/speed_up.png",
     calculatorIcon = rootAssetsconsPath + "/calculator.png",
     gearIcon = rootAssetsconsPath + "/gear.png",
 

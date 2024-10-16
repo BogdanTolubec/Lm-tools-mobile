@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import { Alert, ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { ImgPathConsts, pieceTypes} from "../../../../../utills/enums";
 import { gearSet, Piece } from "../../../../../utills/types";
 import StatsList from "../StatsList/StatsList";
@@ -10,17 +10,19 @@ import piece_in_selector_list from "./PieceInSelectorList.styles";
 
 type Props = {
     piece: Piece | undefined,
+    pieceType: pieceTypes | undefined,
 
     gearSet: gearSet | undefined,
+    onPress: (selectedPiece: Piece | undefined) => void
 }
 
-function PieceInList({piece, gearSet}: Props): React.JSX.Element {
+function PieceInList({piece, pieceType, gearSet, onPress}: Props): React.JSX.Element {
 
     let item_rareness_background_image_path = setGearImageBackgroundByRareness(piece?.rareness)
 
-    function updateGearSet(piece: Piece | undefined): void {
-        if(gearSet){
-            switch (piece?.type){
+    function updateGearSet(piece: Piece | undefined, pieceType: pieceTypes | undefined): void {
+        if(gearSet && piece){
+            switch (pieceType){
                 case pieceTypes.mainHand: {
                     gearSet.mainHand = piece; gearSet.mainHand.rareness = piece.rareness; break
                 }
@@ -52,6 +54,10 @@ function PieceInList({piece, gearSet}: Props): React.JSX.Element {
                 case pieceTypes.accessory3: {
                     gearSet.accessory3 = piece; gearSet.accessory3.rareness = piece.rareness; break
                 }
+
+                default: {
+                    Alert.alert("Unknown piece type!")
+                }
             }
         }
     }
@@ -63,7 +69,10 @@ function PieceInList({piece, gearSet}: Props): React.JSX.Element {
                     <ImageBackground  source = {{uri: item_rareness_background_image_path}} style = {piece_in_selector_list.rareness_background_img_wrapper}>
                         <ImageInWrapper wrapperStyles = {piece_in_selector_list.img_wrapper}
                             imageSource = { ImgPathConsts.rootAssetsImgPath + piece?.imagePath ||
-                                ImgPathConsts.jewelsPlaceHolderImage} onPress = {() => {updateGearSet(piece)}}/>
+                                ImgPathConsts.jewelsPlaceHolderImage} onPress = {() => {
+                                        updateGearSet(piece, pieceType)
+                                        onPress(piece)
+                                    }}/>
                     </ImageBackground>
                 </View>
 

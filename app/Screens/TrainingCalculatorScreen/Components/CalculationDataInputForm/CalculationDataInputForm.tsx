@@ -63,7 +63,7 @@ function CalculationDataInputForm( { childToParent }: Props): React.JSX.Element 
 
     const calculateMaterials = () => {
 
-        if(currentArmyTypeSelect === (null || undefined) || currentTierSelect === (null || undefined)){
+        if(!currentArmyTypeSelect || !currentTierSelect){
             return Alert.alert("Set up all values before calculating!")
         }
 

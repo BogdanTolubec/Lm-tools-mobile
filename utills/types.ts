@@ -13,21 +13,21 @@ export type Piece = {
 }
 
 export type stats = {
-    armyAtk?: number,
-    armyHp?: number,
-    armyDeff?: number,
+    armyAtk: number | null,
+    armyHp: number | null,
+    armyDeff: number | null,
 
-    infantryAtk?: number,
-    infantryHp?: number,
-    infantryDeff?: number,
+    infantryAtk: number | null,
+    infantryHp: number | null,
+    infantryDeff: number | null,
     
-    rangedAtk?: number,
-    rangedHp?: number,
-    rangedDeff?: number,
+    rangedAtk: number | null,
+    rangedHp: number | null,
+    rangedDeff: number | null,
 
-    cavalryAtk?: number,
-    cavalryHp?: number,
-    cavalryDeff?: number,
+    cavalryAtk: number | null,
+    cavalryHp: number | null,
+    cavalryDeff: number | null,
 }
 
 export type gearSet = {

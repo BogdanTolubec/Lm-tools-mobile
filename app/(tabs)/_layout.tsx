@@ -5,9 +5,8 @@ import { IconPathConsts, ScreensEnum } from '../../utills/enums';
 import HomeScreen from '../Screens/HomeScreen/Screen/HomeScreen';
 import TrainingCalculatorScreen from '../Screens/TrainingCalculatorScreen/Screen/TrainingCalculatorScreen';
 import DresserScreen from '../Screens/DresserScreen/Screen/DresserScreen';
-import AddNewPieceScreen from '../Screens/AddNewPieceScreen/Screen/AddNewPieceScreen';
 import TabIcon from './TabIcon/TabIcon';
-import { gearSetPlaceHolder } from '../../utills/consts';
+import SpeedUpsCalculatorScreen from '../Screens/SpeedUpsCalculatorScreen/Screen/SpeedUpsCalculatorScreen';
 
 function TabLayout(): React.JSX.Element {
 
@@ -43,7 +42,7 @@ function TabLayout(): React.JSX.Element {
                     }
                 }/>
 
-                <Tab.Screen name = {ScreensEnum.calculator} component = {TrainingCalculatorScreen} options = {
+                <Tab.Screen name = {ScreensEnum.trainingCalculator} component = {TrainingCalculatorScreen} options = {
                     {
                         title: "Calculator",
                         headerShown: false,
@@ -75,16 +74,16 @@ function TabLayout(): React.JSX.Element {
                     }
                 }/>
 
-                <Tab.Screen name = {ScreensEnum.addNewPiece} component = {AddNewPieceScreen} options = {
+                <Tab.Screen name = {ScreensEnum.speedUpsCalculator} component = {SpeedUpsCalculatorScreen} options = {
                     {
-                        title: "Add piece",
+                        title: "Speeds calculator",
                         headerShown: false,
                         tabBarIcon: ({color, focused}) => {
                             return (
                                 <TabIcon 
-                                icon = {IconPathConsts.plusIcon}
+                                icon = {IconPathConsts.speedUpIcon}
                                 color = {color}
-                                name = {"Add piece"}
+                                name = {"Speeds calculator"}
                                 focused = {focused}/>
                             )
                         }

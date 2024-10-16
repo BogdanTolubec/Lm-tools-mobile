@@ -19,9 +19,9 @@ export default function TextInputForms({ placeholder, styles, setParentElementSt
 
   return (
     <TextInput value = {inputValue} placeholder = {placeholder} maxLength = {maxLength}
-    onChangeText = { (text: string) => {
+      onChangeText = { (text: string) => {
             validateInputStringBySymbols(text, setInputValue)
-        }
+      }
     } style = {styles}>
         
     </TextInput>
