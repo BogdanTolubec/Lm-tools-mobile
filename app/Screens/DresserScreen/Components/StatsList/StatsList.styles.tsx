@@ -8,15 +8,15 @@ const stats_list = StyleSheet.create({
     },
 
     stat_wrapper: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        
         borderColor: "black",
         borderTopWidth: 1,
         borderBottomWidth: 1,
         borderStyle: "solid",
     },
-
-    text: {
-        gap: 2,
-    }
 })
 
 export default stats_list

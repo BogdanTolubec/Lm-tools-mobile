@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Piece, stats, statsShowInfo} from "../../../../../utills/types"
 import { Text, View } from "react-native";
 import stats_list from "./StatsList.styles";
+import shared_styles from "../../../../../utills/sharedStyles.styles";
 
 type Props = {
     statsToShow: stats | undefined,
@@ -36,7 +37,8 @@ function StatsList({statsToShow}: Props): React.JSX.Element {
                 {
                 return(
                     <View key = {index} style = {stats_list.stat_wrapper}>
-                        <Text> {item.text}: {item.stat}</Text>
+                        <Text style = {shared_styles.stats_text}> {item.text}: </Text>
+                        <Text style = {shared_styles.stats_text}>{item.stat}</Text>
                     </View>
                 )
                 }

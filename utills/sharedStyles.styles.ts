@@ -29,6 +29,11 @@ const shared_styles = StyleSheet.create({
         padding: 2,
 
         overflow: "scroll"
+    },
+
+    stats_text: {
+        letterSpacing: 1.5,
+        fontWeight: "700",
     }
 })
 

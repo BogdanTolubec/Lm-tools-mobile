@@ -20,13 +20,18 @@ function GearSetStatsList({gearSet}: Props): React.JSX.Element {
 
     return(
         <View style = {shared_styles.modal_box_default_wrapper}>
+            <Text style = {gear_set_stats_list.title}> Army stats </Text>
+
+            <View style = {gear_set_stats_list.stats_list_wrapper}>
             {
                 statsList.map((item, index) =>
                     <View key = {index} style = {gear_set_stats_list.stat_wrapper}>
-                        <Text> {item.text} : {item.stat}</Text>
+                        <Text style = {gear_set_stats_list.text}> {item.text} : </Text> 
+                        <Text>{item.stat}% </Text>
                     </View>
                 )
             }
+            </View>
         </View>
     );
 }
