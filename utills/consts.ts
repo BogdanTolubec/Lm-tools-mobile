@@ -1,9 +1,11 @@
 //Training calculator consts
 
+import { ImgPathConsts } from "./enums"
 import { calculationData, gearSet, statsShowInfo } from "./types"
 
-export const gearSetPiecesCount = 8 //it's cont 8 don't touch it :)
+export const gearSetPiecesCount = 8 //it's const 8 don't touch it :)
 export const jewelsByPiece = 3
+export const maxItemsInBagValue = 65536
 
 //t1
 export const calculationDataT1: calculationData = {
@@ -44,6 +46,24 @@ export const calculationDataT4: calculationData = {
 
     secondsTrainingSpeed: 120,
 }
+
+//speed ups calculator const
+export const speedUpsIconValueArray: Array<{imagePath: string, speedUpValueInMinutes: number}> = [
+    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 1}, // 1 min speed ups
+    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 3}, // 3 min speed ups
+    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 5}, // 5 min speed ups
+    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 10}, // 10 min speed ups
+    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 15}, // 15 min speed ups
+    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 30}, // 30 min speed ups
+    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 60}, //1 hour speed ups
+    {imagePath: ImgPathConsts.speedUpBlueImage, speedUpValueInMinutes: 180}, //3 hours speed ups
+    {imagePath: ImgPathConsts.speedUpBlueImage, speedUpValueInMinutes: 480}, //8 hours speed ups
+    {imagePath: ImgPathConsts.speedUpBlueImage, speedUpValueInMinutes: 900}, //15 hours speed ups
+    {imagePath: ImgPathConsts.speedUpBlueImage, speedUpValueInMinutes: 1440}, //1 day speed ups
+    {imagePath: ImgPathConsts.speedUpRedImage, speedUpValueInMinutes: 4320}, //3 days speed ups
+    {imagePath: ImgPathConsts.speedUpRedImage, speedUpValueInMinutes: 10080}, //7 days speed ups
+    {imagePath: ImgPathConsts.speedUpRedImage, speedUpValueInMinutes: 43200} //30 days speed ups
+]
 
 export const gearSetPlaceHolder: gearSet = {
     id: 1,

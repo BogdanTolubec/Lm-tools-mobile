@@ -3,14 +3,13 @@ import ImageInWrapper from "../../../../../Components/ImageInWrapper/ImageInWrap
 import speed_ups_input from "./SpeedUpsInput.styles";
 import { View } from "react-native";
 import NumericInput from "../../../../../Components/NumericInput/NumericInput";
+import { maxItemsInBagValue } from "../../../../../utills/consts";
 
 type Props = {
     imagePath: string,
 }
 
 function SpeedUpsInput({imagePath}: Props): React.JSX.Element {
-
-    const maxItemsInBagValue = 65536 // 2^16
     const [inputValue, setInputValue] = useState<number>(0)
 
     return(

@@ -7,11 +7,11 @@ const piece_info = StyleSheet.create(
             display: "flex",
             flexDirection: "column",
     
-            left: "5%",
-            top: "15%", //just to center component with position absolute :/
+            left: "2.5%",
+            top: "25%", //just to center component with position absolute :/
             
-            height: "75%",
-            width: "90%",
+            height: "50%",
+            width: "95%",
     
             backgroundColor: "#FFFFFF",
             borderColor: "black",
@@ -27,28 +27,28 @@ const piece_info = StyleSheet.create(
             width: "100%",
 
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
+            flexDirection: "row",
         },
 
         piece_img_wrapper: {
-            height: "28%",
-            width: "20%",
+            height: "42%",
+            width: "19%",
         },
 
         jewels_wrapper: {
-            height: "28%",
-            width: "100%",
+            height: "42%",
+            width: "80%",
 
             display: "flex",
             flexDirection: "row",
 
-            justifyContent: "space-between",
+
+            justifyContent: "space-evenly",
         },
 
         jewel_wrapper: {
             height: "100%",
-            width: "20%",
+            width: "24%",
         },
 
         stats_wrapper: {

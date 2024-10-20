@@ -76,6 +76,10 @@ export enum ImgPathConsts{
 
     emptyImage = rootAssetsImgPath + "/utills/gears/empty_image.png",
 
+    speedUpGreenImage = rootAssetsImgPath + "/utills/speed_up_green.jpg",
+    speedUpBlueImage = rootAssetsImgPath + "/utills/speed_up_blue.jpg",
+    speedUpRedImage = rootAssetsImgPath + "/utills/speed_up_red.jpg",
+
     backgroundImage = rootAssetsImgPath + "/utills/pages_background_img.jpg",
     commonPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/common_piece_background.jpg",
     uncommonPieceBackgroundImage = rootAssetsImgPath + "/utills/gears/uncommon_piece_background.jpg",

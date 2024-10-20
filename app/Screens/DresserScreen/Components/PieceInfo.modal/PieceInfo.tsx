@@ -19,9 +19,10 @@ type Props = {
 
     gearSetSelected: gearSet,
     isOuterModalVisible: boolean,
+    setInnerModalVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisible}: Props): React.JSX.Element {
+function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisible, setInnerModalVisible}: Props): React.JSX.Element {
 
     const [isItemSelectorModalActive, setIsItemSelectorModalActive] = useState<boolean>(false)
 
@@ -124,11 +125,12 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
     }
 
     useEffect(() => {
-        if(!isOuterModalVisible)
-            setIsItemSelectorModalActive(false)
+        if(!isOuterModalVisible) setIsItemSelectorModalActive(false) // close inner modal if outer modal is closed (may be now I don't need it...)
+
+        setInnerModalVisible(isItemSelectorModalActive) // send to dresser screen checking predicat on clothing outer modal
 
         setPieceToChange(pieceSelected)
-    }, [isOuterModalVisible])
+    }, [isItemSelectorModalActive ,isOuterModalVisible])
 
     return(
         <View style = {piece_info.wrapper}>

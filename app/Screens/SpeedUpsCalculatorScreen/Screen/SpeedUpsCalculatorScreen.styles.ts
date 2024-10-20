@@ -5,21 +5,29 @@ const speed_ups_calculator_screen = StyleSheet.create({
     wrapper: {
         height: "100%",
         width: "100%",
-    },
-
-    inputs_wrapper: {
-        height: "100%",
-        width: "100%",
 
         display: "flex",
         flexDirection: "column",
+    },
 
-        justifyContent: "space-between"
+    results_wrapper: {
+        height: "20%",
+        width: "100%"
+    },
+
+    inputs_wrapper: {
+        height: "80%",
+        width: "100%",
+
+        display: "flex",
+        flexWrap: "wrap",
+
+        justifyContent: "space-between",
     },
 
     input_wrapper: {
-        height: 100,
-        width: 100
+        height: "13.5%",
+        width: "30%"
     }
 })
 
