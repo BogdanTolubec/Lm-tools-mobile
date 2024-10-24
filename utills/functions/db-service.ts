@@ -251,11 +251,42 @@ export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet, title:
 
 export const deleteGearSetById = async (db: SQLiteDatabase, gearSetId: number | undefined): Promise<boolean> => {
     try{
-        if(!gearSetId){return false}
+        if(!gearSetId) return false
 
-        const sqlQueryDeleteJewelsByPiece: string = `DELETE FROM ${tableNames.jewels_by_piece} WHERE SELECT()`
+        const sqlQueryDeleteGearSetPieceRarenessByGearSetId = `DELETE FROM ${tableNames.gear_set_pieces_rareness} WHERE 
+            gear_set_piece_rareness_id = 
+            (SELECT gear_set_pieces_rareness_id FROM ${tableNames.gear_sets} WHERE gear_sets_id = ${gearSetId})`
+
+        const sqlQueryGetCurrentJewelsSetId: string = `SELECT jewels_set_id FROM ${tableNames.gear_sets} WHERE gear_sets_id = ${gearSetId}`
+
+        const currentJewelsSetId: number = (await db.executeSql(sqlQueryGetCurrentJewelsSetId))[0].rows.item(0).jewels_set_id
+
+        console.log("jewel_set_id: " + currentJewelsSetId)
+
+        const sqlQueryDeleteAllJewelsByPieceByGearSetId = `DELETE FROM Jewels_by_piece WHERE (
+            jewels_by_piece_id = (SELECT mainHand_jewels FROM Jewels_set WHERE jewels_set_id = ${currentJewelsSetId}) OR
+
+            jewels_by_piece_id = (SELECT  helmet_jewels FROM Jewels_set WHERE jewels_set_id = ${currentJewelsSetId})  OR
+
+            jewels_by_piece_id = (SELECT  plate_jewels FROM Jewels_set WHERE jewels_set_id = ${currentJewelsSetId}) OR
+
+            jewels_by_piece_id = (SELECT  boots_jewels FROM Jewels_set WHERE jewels_set_id = ${currentJewelsSetId}) OR
+
+            jewels_by_piece_id = (SELECT  secondHand_jewels FROM Jewels_set WHERE jewels_set_id = ${currentJewelsSetId}) OR
+
+            jewels_by_piece_id = (SELECT  accessory1_jewels FROM Jewels_set WHERE jewels_set_id = ${currentJewelsSetId}) OR
+
+            jewels_by_piece_id = (SELECT  accessory2_jewels FROM Jewels_set WHERE jewels_set_id = ${currentJewelsSetId}) OR
+
+            jewels_by_piece_id = (SELECT  accessory3_jewels FROM Jewels_set WHERE jewels_set_id = ${currentJewelsSetId})
+        )`
+
+        const sqlQueryDeleteJewelsSetByPiece: string = `DELETE FROM ${tableNames.jewels_set} WHERE jewels_set_id = ${currentJewelsSetId}`
         const sqlQueryDeleteGearSetById: string = `DELETE FROM ${tableNames.gear_sets} WHERE gear_sets_id = ${gearSetId}`
 
+        await db.executeSql(sqlQueryDeleteGearSetPieceRarenessByGearSetId)
+        await db.executeSql(sqlQueryDeleteAllJewelsByPieceByGearSetId)
+        await db.executeSql(sqlQueryDeleteJewelsSetByPiece)
         await db.executeSql(sqlQueryDeleteGearSetById)
 
         return true

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Piece, stats, statsShowInfo} from "../../../../../utills/types"
+import { stats, statsShowInfo} from "../../../../../utills/types"
 import { Text, View } from "react-native";
 import stats_list from "./StatsList.styles";
 import shared_styles from "../../../../../utills/sharedStyles.styles";

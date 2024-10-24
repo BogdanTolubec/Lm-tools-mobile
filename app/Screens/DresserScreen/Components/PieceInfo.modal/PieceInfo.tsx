@@ -125,11 +125,13 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
     }
 
     useEffect(() => {
+        setPieceToChange(pieceSelected)
+    }, [])
+
+    useEffect(() => {
         if(!isOuterModalVisible) setIsItemSelectorModalActive(false) // close inner modal if outer modal is closed (may be now I don't need it...)
 
         setInnerModalVisible(isItemSelectorModalActive) // send to dresser screen checking predicat on clothing outer modal
-
-        setPieceToChange(pieceSelected)
     }, [isItemSelectorModalActive ,isOuterModalVisible])
 
     return(
@@ -161,7 +163,7 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
             </View>  
 
             <View style = {piece_info.stats_wrapper}>
-                <StatsList statsToShow = {calculatePieceStats(pieceSelected)}/>  
+                <StatsList statsToShow = {calculatePieceStats(pieceToChange)}/>  
             </View>
 
             <ModalComponent visible = {isItemSelectorModalActive} setVisible = {setIsItemSelectorModalActive} children={
