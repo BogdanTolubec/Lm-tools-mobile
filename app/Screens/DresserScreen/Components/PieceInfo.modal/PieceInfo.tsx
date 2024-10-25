@@ -126,7 +126,7 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
 
     useEffect(() => {
         setPieceToChange(pieceSelected)
-    }, [])
+    }, [pieceSelected])
 
     useEffect(() => {
         if(!isOuterModalVisible) setIsItemSelectorModalActive(false) // close inner modal if outer modal is closed (may be now I don't need it...)

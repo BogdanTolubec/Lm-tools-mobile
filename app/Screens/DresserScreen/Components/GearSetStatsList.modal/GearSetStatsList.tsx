@@ -16,7 +16,7 @@ function GearSetStatsList({gearSet}: Props): React.JSX.Element {
 
     useEffect(() => {
         setStatsList(convertStatsIntoStatsShowInfo(calculateGearSetStats(gearSet)))
-    }, [JSON.stringify(gearSet)]) //lol it's shitcode probably but it's working
+    }, [gearSet])
 
     return(
         <View style = {shared_styles.modal_box_default_wrapper}>
