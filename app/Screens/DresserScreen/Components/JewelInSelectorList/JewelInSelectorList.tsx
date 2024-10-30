@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { ImgPathConsts} from "../../../../../utills/enums";
-import { jewel, Piece } from "../../../../../utills/types";
+import { gearSet, jewel, Piece } from "../../../../../utills/types";
 import StatsList from "../StatsList/StatsList";
 import { firstLetterCapitalizer } from "../../../../../utills/functions/userFriendlyVisualisation.functions";
 import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/images.functions";
@@ -10,28 +10,42 @@ import piece_in_selector_list from "../PieceInSelectorList/PieceInSelectorList.s
 import shared_styles from "../../../../../utills/sharedStyles.styles";
 
 type Props = {
-    selectedJewel: jewel | undefined,
+    gearSet: gearSet | undefined,
+    selectedJewelInPiece: jewel | undefined,
     selectedJewelInPieceId: number,
     listJewel: jewel | undefined,
     piece: Piece | undefined,
+    setGearSet: React.Dispatch<React.SetStateAction<gearSet>>,
 }
 
-function JewelInList({selectedJewel, listJewel, piece, selectedJewelInPieceId}: Props): React.JSX.Element {
+function JewelInList({gearSet, selectedJewelInPiece, listJewel, piece, selectedJewelInPieceId, setGearSet}: Props): React.JSX.Element {
 
     let item_rareness_background_image_path = setGearImageBackgroundByRareness(listJewel?.rareness)
 
-    function updateGearSet(newJewel: jewel | undefined, piece: Piece | undefined): void {
+    function updatePiece(newJewel: jewel | undefined, piece: Piece | undefined): void {
 
-        if(piece && newJewel){
-            let isJewelValid = true
+        if(piece && newJewel && gearSet){
+            let isJewelValid: boolean = true
+            let keyOfUpdatedGearSet: keyof typeof gearSet
+            let updatedGearSet: gearSet = {
+                ...gearSet
+            }
 
             for(const pieceJewel of piece.jewels){ //same type of jewel in one piece is restricted!
-                if(pieceJewel?.jewel_id === newJewel.jewel_id && ( selectedJewel ? selectedJewel.jewel_id !== newJewel.jewel_id : true))
+                if(pieceJewel?.jewel_id === newJewel.jewel_id && ( selectedJewelInPiece ? selectedJewelInPiece.jewel_id !== newJewel.jewel_id : true))
                     isJewelValid = false
             }
 
-            if(isJewelValid)
-                piece.jewels[selectedJewelInPieceId] = newJewel     
+            if(isJewelValid && updatedGearSet){
+
+                for(keyOfUpdatedGearSet in updatedGearSet){    
+                    if(keyOfUpdatedGearSet === piece.type){
+                        updatedGearSet[keyOfUpdatedGearSet]!.jewels[selectedJewelInPieceId] = newJewel // not null operaor because of check on not-null in previous lines
+                    }
+                }
+    
+                setGearSet(updatedGearSet)
+            }
         }
     }
 
@@ -43,7 +57,7 @@ function JewelInList({selectedJewel, listJewel, piece, selectedJewelInPieceId}: 
                         <ImageInWrapper wrapperStyles = {piece_in_selector_list.img_wrapper}
                             imageSource = { ImgPathConsts.rootAssetsImgPath + listJewel?.imagePath ||
                                 ImgPathConsts.jewelsPlaceHolderImage} 
-                                    onPress = {() => {updateGearSet(listJewel, piece)}}/>
+                                    onPress = {() => {updatePiece(listJewel, piece)}}/>
                     </ImageBackground>
                 </View>
 

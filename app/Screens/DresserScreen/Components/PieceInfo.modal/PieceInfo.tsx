@@ -19,10 +19,12 @@ type Props = {
 
     gearSetSelected: gearSet,
     isOuterModalVisible: boolean,
-    setInnerModalVisible: React.Dispatch<React.SetStateAction<boolean>>
+
+    setInnerModalVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    setGearSet: React.Dispatch<React.SetStateAction<gearSet>>,
 }
 
-function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisible, setInnerModalVisible}: Props): React.JSX.Element {
+function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisible, setInnerModalVisible, setGearSet}: Props): React.JSX.Element {
 
     const [isItemSelectorModalActive, setIsItemSelectorModalActive] = useState<boolean>(false)
 
@@ -102,9 +104,10 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
     
             setItemsList(
                 piecesByTypeAndRareness.map((piece, index) => 
-                    <PieceInList key = {index} piece = {piece} pieceType = {pieceType} gearSet = {gearSetSelected} onPress = {onPieceInListPress}/>
+                    <PieceInList key = {index} piece = {piece} pieceType = {pieceType} gearSet = {gearSetSelected} 
+                        onPress = {onPieceInListPress} setGearSet = {setGearSet}/>
                 )
-            )   
+            )
         }
 
         if(itemType === "jewel"){
@@ -114,7 +117,8 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
                 setItemsList(
                     jewelsByTypeAndRareness.map((listJewel, index) => 
                         <JewelInList key = {index} selectedJewelInPieceId = {selectedJewelInPieceId} piece = {pieceSelected} 
-                            selectedJewel = {jewelSelected} listJewel = {listJewel}/>
+                            selectedJewelInPiece = {jewelSelected} listJewel = {listJewel} setGearSet = {setGearSet}
+                            gearSet = {gearSetSelected}/>
                     )
                 )
     

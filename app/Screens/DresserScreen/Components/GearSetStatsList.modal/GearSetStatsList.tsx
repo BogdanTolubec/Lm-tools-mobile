@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import { gearSet, statsShowInfo } from "../../../../../utills/types";
 import { statsObject } from "../../../../../utills/consts";

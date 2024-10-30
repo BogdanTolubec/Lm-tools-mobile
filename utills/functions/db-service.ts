@@ -35,7 +35,7 @@ export const getPieceStatsByIdAndRareness = async (db: SQLiteDatabase, pieceId: 
 
 export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: number | null, pieceRareness: rareness | null): Promise<Piece | undefined> => {
     try{
-        if(!pieceId || ! pieceRareness) {return undefined}
+        if(!pieceId || !pieceRareness) {return undefined}
 
         const sqlQuery: string = `SELECT * FROM ${tableNames.pieces} WHERE ${pieceId} = ${tableNames.pieces}.piece_id`
         

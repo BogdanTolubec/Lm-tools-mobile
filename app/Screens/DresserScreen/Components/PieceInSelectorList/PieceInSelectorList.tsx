@@ -13,46 +13,69 @@ type Props = {
     pieceType: pieceTypes | undefined,
 
     gearSet: gearSet | undefined,
-    onPress: (selectedPiece: Piece | undefined) => void
+    onPress: (selectedPiece: Piece | undefined) => void,
+
+    setGearSet: React.Dispatch<React.SetStateAction<gearSet>>
 }
 
-function PieceInList({piece, pieceType, gearSet, onPress}: Props): React.JSX.Element {
+function PieceInList({piece, pieceType, gearSet, onPress, setGearSet}: Props): React.JSX.Element {
 
     let item_rareness_background_image_path = setGearImageBackgroundByRareness(piece?.rareness)
 
     function updateGearSet(piece: Piece | undefined, pieceType: pieceTypes | undefined): void {
         if(gearSet && piece){
+
+            let updatedGearSet = {
+                ...gearSet
+            }
+
             switch (pieceType){
                 case pieceTypes.mainHand: {
-                    gearSet.mainHand = piece; gearSet.mainHand.rareness = piece.rareness; break
+                    updatedGearSet.mainHand = piece; updatedGearSet.mainHand.rareness = piece.rareness 
+                    setGearSet(updatedGearSet)
+                    break
                 }
 
                 case pieceTypes.helmet: {
-                    gearSet.helmet = piece; gearSet.helmet.rareness = piece.rareness; break
+                    updatedGearSet.helmet = piece; updatedGearSet.helmet.rareness = piece.rareness
+                    setGearSet(updatedGearSet)
+                    break
                 }
 
                 case pieceTypes.plate: {
-                    gearSet.plate = piece; gearSet.plate.rareness = piece.rareness; break
+                    updatedGearSet.plate = piece; updatedGearSet.plate.rareness = piece.rareness
+                    setGearSet(updatedGearSet)
+                    break
                 }
 
                 case pieceTypes.boots: {
-                    gearSet.boots = piece; gearSet.boots.rareness = piece.rareness; break
+                    updatedGearSet.boots = piece; updatedGearSet.boots.rareness = piece.rareness
+                    setGearSet(updatedGearSet)
+                    break
                 }
 
                 case pieceTypes.secondHand: {
-                    gearSet.secondHand = piece; gearSet.secondHand.rareness = piece.rareness; break
+                    updatedGearSet.secondHand = piece; updatedGearSet.secondHand.rareness = piece.rareness
+                    setGearSet(updatedGearSet)
+                    break
                 }
 
                 case pieceTypes.accessory1: {
-                    gearSet.accessory1 = piece; gearSet.accessory1.rareness = piece.rareness; break
+                    updatedGearSet.accessory1 = piece; updatedGearSet.accessory1.rareness = piece.rareness
+                    setGearSet(updatedGearSet)
+                    break
                 }
 
                 case pieceTypes.accessory2: {
-                    gearSet.accessory2 = piece; gearSet.accessory2.rareness = piece.rareness; break
+                    updatedGearSet.accessory2 = piece; updatedGearSet.accessory2.rareness = piece.rareness
+                    setGearSet(updatedGearSet)
+                    break
                 }
 
                 case pieceTypes.accessory3: {
-                    gearSet.accessory3 = piece; gearSet.accessory3.rareness = piece.rareness; break
+                    updatedGearSet.accessory3 = piece; updatedGearSet.accessory3.rareness = piece.rareness
+                    setGearSet(updatedGearSet)
+                    break
                 }
 
                 default: {

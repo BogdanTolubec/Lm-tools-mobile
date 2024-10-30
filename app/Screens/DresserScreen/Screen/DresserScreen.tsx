@@ -80,7 +80,7 @@ function DresserScreen(): React.JSX.Element{
                     <ModalComponent visible = {isPieceInfoModalActive} setVisible = {setIsPieceInfoModalActive} children = {
                         <PieceInfo pieceSelected = {currentPieceSelected} gearSetSelected = {currentGearSet} 
                             isOuterModalVisible = {isPieceInfoModalActive} pieceType = {selectedPieceType}
-                            setInnerModalVisible = {setIsPieceInfoInnerModalActive}/>
+                            setInnerModalVisible = {setIsPieceInfoInnerModalActive} setGearSet = {setCurrentGearSet}/>
                     } isInnerModalActive = {isPieceInfoInnerModalActive}/>
 
 
@@ -101,9 +101,9 @@ function DresserScreen(): React.JSX.Element{
                     
                     <Swapper centerComponent = {
                         <SetOfPieces gearSet = {currentGearSet} title =  {currentGearSet?.title} 
-                        onPieceSelected = {onPieceSelected} onMenuClicked = {onMenuClicked} onTitleClicked = {onTitleClicked}
-                        onQuestionMarkClicked = {onQuestionMarkClicked}/>
-                    } componentsCount = {allGearSets.length} childToParent = {onGearSetSwap}/>
+                            onPieceSelected = {onPieceSelected} onMenuClicked = {onMenuClicked} onTitleClicked = {onTitleClicked}
+                            onQuestionMarkClicked = {onQuestionMarkClicked}/>
+                    }       componentsCount = {allGearSets.length} childToParent = {onGearSetSwap}/>
                             
                 </ImageBackground>
             </View>
