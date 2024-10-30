@@ -22,7 +22,7 @@ function PieceInList({piece, pieceType, gearSet, onPress, setGearSet}: Props): R
 
     let item_rareness_background_image_path = setGearImageBackgroundByRareness(piece?.rareness)
 
-    function updateGearSet(piece: Piece | undefined, pieceType: pieceTypes | undefined): void {
+    function updateGearSet(piece: Piece | undefined, pieceType: pieceTypes | undefined): void { //pieceType isimportant! because of accesories re-render issue!
         if(gearSet && piece){
             let keyOfUpdatedGearSet: keyof typeof gearSet
             let updatedGearSet: gearSet = {
@@ -30,7 +30,7 @@ function PieceInList({piece, pieceType, gearSet, onPress, setGearSet}: Props): R
             }
 
             for(keyOfUpdatedGearSet in updatedGearSet){
-                if(piece.type === keyOfUpdatedGearSet){
+                if(pieceType === keyOfUpdatedGearSet){
                     updatedGearSet[keyOfUpdatedGearSet] = piece
                     setGearSet(updatedGearSet)
                 }
