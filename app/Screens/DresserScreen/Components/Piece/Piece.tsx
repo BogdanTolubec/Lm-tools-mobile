@@ -1,9 +1,10 @@
 import React from "react";
-import { ImageBackground, TouchableOpacity, View } from "react-native";
+import { GestureResponderEvent, ImageBackground, TouchableOpacity, View } from "react-native";
 import piece_in_set from "./Piece.styles";
-import { ImgPathConsts } from "../../../../../utills/enums";
+import { IconPathConsts, ImgPathConsts, rareness } from "../../../../../utills/enums";
 import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/images.functions";
-import { Piece } from "../../../../../utills/types";;
+import { Piece } from "../../../../../utills/types";import ImageInWrapper from "../../../../../Components/ImageInWrapper/ImageInWrapper";
+;
 
 type Props = {
     piece: Piece | undefined,
@@ -22,9 +23,23 @@ function PieceOfSet({piece, jewels, onPress}: Props): React.JSX.Element {
                     <ImageBackground style = {piece_in_set.piece_img} 
                         source = {{uri: ImgPathConsts.rootAssetsImgPath + piece?.imagePath}}>
                         
-                        <View style = {piece_in_set.jewels_wrapper}>
-                            {jewels}
-                        </View>
+                        {
+                            piece?.rareness === rareness.tempered ?
+                            <ImageInWrapper imageSource = {IconPathConsts.temperedIcon} 
+                                wrapperStyles = {piece_in_set.temperStarIconWrapper}/> :
+
+                            <></>
+                        }
+
+                        {   
+                            jewels ?
+
+                            <View style = {piece_in_set.jewels_wrapper}>
+                                {jewels}
+                            </View> :
+
+                            <></>
+                        }
 
                     </ImageBackground>
                 </View>

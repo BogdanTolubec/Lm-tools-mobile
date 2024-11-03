@@ -23,7 +23,7 @@ const piece_info = StyleSheet.create(
         },
 
         gear_and_jewels_row: {
-            height: "50%",
+            height: "20%",
             width: "100%",
 
             display: "flex",
@@ -31,12 +31,12 @@ const piece_info = StyleSheet.create(
         },
 
         piece_img_wrapper: {
-            height: "42%",
+            height: "100%",
             width: "19%",
         },
 
         jewels_wrapper: {
-            height: "42%",
+            height: "100%",
             width: "80%",
 
             display: "flex",
@@ -52,11 +52,24 @@ const piece_info = StyleSheet.create(
         },
 
         stats_wrapper: {
+            display: "flex",
             width: "100%",
-            height: "49%",
+            height: "50%",
 
             justifyContent: "flex-end"
-        }
+        },
+
+        temperSectionWrapper: {
+            paddingTop: 8,
+
+            height: "30%",
+            width: "100%",
+        },
+
+        temperIconWrapper: {
+            height: "50%",
+            width: "20%"
+        },
     }
 )
 

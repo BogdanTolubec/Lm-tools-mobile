@@ -3,7 +3,10 @@ import { pieceTypes, rareness } from "./enums"
 export type Piece = {
     piece_id: number,
     name: string,
+
     rareness: rareness,
+    temperLevel?: number,
+
     type: pieceTypes,
     imagePath: string,
 

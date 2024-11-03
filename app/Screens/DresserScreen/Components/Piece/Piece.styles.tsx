@@ -30,7 +30,12 @@ const piece_in_set = StyleSheet.create({
     jewels_wrapper: {
         height: "25%",
         width: "100%",
-    }
+    },
+
+    temperStarIconWrapper: {
+        height: "32%",
+        width: "32%",
+    },
 })
 
 export default piece_in_set

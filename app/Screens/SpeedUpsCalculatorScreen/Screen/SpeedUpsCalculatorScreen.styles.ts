@@ -22,12 +22,12 @@ const speed_ups_calculator_screen = StyleSheet.create({
         display: "flex",
         flexWrap: "wrap",
 
-        justifyContent: "space-between",
+        justifyContent: "space-evenly",
     },
 
     input_wrapper: {
-        height: "13.5%",
-        width: "30%"
+        height: "15%",
+        width: "25%"
     }
 })
 

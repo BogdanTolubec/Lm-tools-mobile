@@ -8,7 +8,7 @@ export function setGearImageBackgroundByRareness(currentRareness: rareness | und
         case rareness.epic: return ImgPathConsts.epicPieceBackgroundImage
         case rareness.legendary: return ImgPathConsts.legendaryPieceBackgroundImage
         case rareness.mythic: return ImgPathConsts.mythicPieceBackgroundImage
-        case rareness.tempered: return ImgPathConsts.temperedPieceBackgroundImage
+        case rareness.tempered: return ImgPathConsts.mythicPieceBackgroundImage
         default: {return ImgPathConsts.commonPieceBackgroundImage}
     }
 }

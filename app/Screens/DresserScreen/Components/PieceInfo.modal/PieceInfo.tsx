@@ -12,6 +12,7 @@ import { getAllJewelsByRareness, getAllPiecesByTypeAndRareness, getDBConnection 
 import PieceInList from "../PieceInSelectorList/PieceInSelectorList"
 import JewelInList from "../JewelInSelectorList/JewelInSelectorList"
 import { calculatePieceStats } from "../../../../../utills/functions/statsCalculation.functions"
+import ImageInWrapper from "../../../../../Components/ImageInWrapper/ImageInWrapper"
 
 type Props = {
     pieceSelected: Piece | undefined,
@@ -147,7 +148,7 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
                     <PieceOfSet piece = { pieceToChange } 
                         onPress = {() => {onPieceSelection()}}/>
                 </View>
-
+        
                 <View style = {piece_info.jewels_wrapper}>
                     {
                         pieceToChange?.jewels.map((jewel, index) => 
@@ -164,7 +165,11 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
                     }
                 </View>
 
-            </View>  
+            </View>
+            
+            <View style = {piece_info.temperSectionWrapper}>
+                <ImageInWrapper imageSource = {IconPathConsts.temperedIcon} wrapperStyles = {piece_info.temperIconWrapper}/>
+            </View>
 
             <View style = {piece_info.stats_wrapper}>
                 <StatsList statsToShow = {calculatePieceStats(pieceToChange)}/>  

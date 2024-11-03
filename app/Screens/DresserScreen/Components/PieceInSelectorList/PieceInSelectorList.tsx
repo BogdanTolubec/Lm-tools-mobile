@@ -35,7 +35,6 @@ function PieceInList({piece, pieceType, gearSet, onPress, setGearSet}: Props): R
                     setGearSet(updatedGearSet)
                 }
             }
-
         }
     }
 

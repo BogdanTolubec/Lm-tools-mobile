@@ -115,9 +115,13 @@ export enum IconPathConsts{
     epicChooseLableIcon = rootAssetsconsPath + "/epic_icon.png",
     legendaryChooseLableIcon = rootAssetsconsPath + "/legendary_icon.png",
     mythicChooseLableIcon = rootAssetsconsPath + "/mythic_icon.png",
+    temperedIcon = rootAssetsconsPath + "/tempered_icon.png"
 }
 
-export enum ScreenParams{
-    height = Dimensions.get("screen").height - 155, // -155 is because of tabs bar height
-    width = Dimensions.get("screen").width
+//temper levels
+export enum TemperBonusPerLevel{
+    firstToThirdLevel = 1/70,
+    FourthToSixthLevel = 2/70,
+    SeventhToNinthLevel = 3/70,
+    TenthToFifteenthLevel = 4/70,
 }
