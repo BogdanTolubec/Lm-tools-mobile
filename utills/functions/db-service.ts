@@ -33,9 +33,9 @@ export const getPieceStatsByIdAndRareness = async (db: SQLiteDatabase, pieceId: 
     }
 }
 
-export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: number | null, pieceRareness: rareness | null): Promise<Piece | undefined> => {
+export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: number | null, pieceRareness: rareness | null, jewelsByPieceId: number | null): Promise<Piece | undefined> => {
     try{
-        if(!pieceId || !pieceRareness) {return undefined}
+        if(!pieceId || !pieceRareness) return undefined
 
         const sqlQuery: string = `SELECT * FROM ${tableNames.pieces} WHERE ${pieceId} = ${tableNames.pieces}.piece_id`
         
@@ -48,7 +48,7 @@ export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: numbe
             type: queryData[0].rows.item(0).type,
             imagePath: queryData[0].rows.item(0).image_path,
 
-            jewels: [undefined, undefined, undefined],
+            jewels: await getJewelsByPiece(db, jewelsByPieceId),
 
             stats: await getPieceStatsByIdAndRareness(db, pieceId, pieceRareness),
         }
@@ -71,9 +71,9 @@ export const getAllPiecesByTypeAndRareness = async (db: SQLiteDatabase, type: pi
             
         const pieces: [ResultSet] = await db.executeSql(sqlQuery)
     
-        for(const piece of pieces) { //never use arr.foreach(async () => {}) use this because of issues
+        for(const piece of pieces) { //never use arr.foreach(async () => {}) use this because of the issues
             for (let i = 0; i < piece.rows.length; i++) {
-                const currentPiece: Piece | undefined = await getPieceByIdAndRareness(db, piece.rows.item(i).piece_id, piecesRareness)
+                const currentPiece: Piece | undefined = await getPieceByIdAndRareness(db, piece.rows.item(i).piece_id, piecesRareness, null)
                 
                 if(currentPiece) {piecesArray.push(currentPiece)}
             }
@@ -138,8 +138,6 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
         const sqlQueryGetJewelsSets: string = `SELECT mainHand_jewels, helmet_jewels, plate_jewels, boots_jewels, secondHand_jewels, 
                 accessory1_jewels, accessory2_jewels, accessory3_jewels FROM ${tableNames.jewels_set}`
 
-        const sql = `SELECT * FROM ${tableNames.jewels_set}`
-
         const allGearSets: [ResultSet] = await db.executeSql(sqlQueryGetGearSets)
         const allJewelsSets: [ResultSet] = await db.executeSql(sqlQueryGetJewelsSets)
             
@@ -149,25 +147,15 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
                 id: allGearSets[0].rows.item(i).gear_sets_id,
                 title:  allGearSets[0].rows.item(i).title,
 
-                mainHand: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).mainHand, allGearSets[0].rows.item(i).mainHand_rareness),
-                helmet: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).helmet, allGearSets[0].rows.item(i).helmet_rareness),
-                plate:await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).plate, allGearSets[0].rows.item(i).plate_rareness),
-                boots: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).boots, allGearSets[0].rows.item(i).boots_rareness),
-                secondHand: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).secondHand, allGearSets[0].rows.item(i).secondHand_rareness),
-                accessory1: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory1, allGearSets[0].rows.item(i).accessory1_rareness),
-                accessory2: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory2, allGearSets[0].rows.item(i).accessory2_rareness),
-                accessory3: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory3, allGearSets[0].rows.item(i).accessory3_rareness),
+                mainHand: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).mainHand, allGearSets[0].rows.item(i).mainHand_rareness, allJewelsSets[0].rows.item(i).mainHand_jewels),
+                helmet: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).helmet, allGearSets[0].rows.item(i).helmet_rareness, allJewelsSets[0].rows.item(i).helmet_jewels),
+                plate:await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).plate, allGearSets[0].rows.item(i).plate_rareness, allJewelsSets[0].rows.item(i).plate_jewels),
+                boots: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).boots, allGearSets[0].rows.item(i).boots_rareness, allJewelsSets[0].rows.item(i).boots_jewels),
+                secondHand: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).secondHand, allGearSets[0].rows.item(i).secondHand_rareness, allJewelsSets[0].rows.item(i).secondHand_jewels),
+                accessory1: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory1, allGearSets[0].rows.item(i).accessory1_rareness, allJewelsSets[0].rows.item(i).accessory1_jewels),
+                accessory2: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory2, allGearSets[0].rows.item(i).accessory2_rareness, allJewelsSets[0].rows.item(i).accessory2_jewels),
+                accessory3: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory3, allGearSets[0].rows.item(i).accessory3_rareness, allJewelsSets[0].rows.item(i).accessory3_jewels),
             }
-
-                if (currentGearSet.mainHand) currentGearSet.mainHand.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).mainHand_jewels)
-                if (currentGearSet.helmet) currentGearSet.helmet.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).helmet_jewels)
-                if (currentGearSet.plate) currentGearSet.plate.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).plate_jewels)
-                if (currentGearSet.boots) currentGearSet.boots.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).boots_jewels)
-                if (currentGearSet.secondHand) currentGearSet.secondHand.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).secondHand_jewels)
-                if (currentGearSet.accessory1) currentGearSet.accessory1.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).accessory1_jewels)
-                if (currentGearSet.accessory2) currentGearSet.accessory2.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).accessory2_jewels)
-                if (currentGearSet.accessory3) currentGearSet.accessory3.jewels = await getJewelsByPiece(db, allJewelsSets[0].rows.item(i).accessory3_jewels)
-
                 gearSets.push(currentGearSet)
             }
 
@@ -260,8 +248,6 @@ export const deleteGearSetById = async (db: SQLiteDatabase, gearSetId: number | 
         const sqlQueryGetCurrentJewelsSetId: string = `SELECT jewels_set_id FROM ${tableNames.gear_sets} WHERE gear_sets_id = ${gearSetId}`
 
         const currentJewelsSetId: number = (await db.executeSql(sqlQueryGetCurrentJewelsSetId))[0].rows.item(0).jewels_set_id
-
-        console.log("jewel_set_id: " + currentJewelsSetId)
 
         const sqlQueryDeleteAllJewelsByPieceByGearSetId = `DELETE FROM Jewels_by_piece WHERE (
             jewels_by_piece_id = (SELECT mainHand_jewels FROM Jewels_set WHERE jewels_set_id = ${currentJewelsSetId}) OR
