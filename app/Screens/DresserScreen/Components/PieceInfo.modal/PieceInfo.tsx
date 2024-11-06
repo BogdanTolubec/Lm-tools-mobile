@@ -167,9 +167,16 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
 
             </View>
             
-            <View style = {piece_info.temperSectionWrapper}>
-                <ImageInWrapper imageSource = {IconPathConsts.temperedIcon} wrapperStyles = {piece_info.temperIconWrapper}/>
-            </View>
+            {   
+                (pieceSelected?.rareness === rareness.tempered || pieceSelected?.rareness === rareness.mythic) ?
+                    <View style = {piece_info.temperSectionWrapper}>
+                        <ImageInWrapper imageSource = {IconPathConsts.temperedIcon} wrapperStyles = {piece_info.temperIconWrapper}/>
+                    </View> :
+                
+                <View style = {piece_info.temperSectionWrapper}>
+                    
+                </View>
+            }
 
             <View style = {piece_info.stats_wrapper}>
                 <StatsList statsToShow = {calculatePieceStats(pieceToChange)}/>  

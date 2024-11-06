@@ -1,10 +1,10 @@
 import React from "react";
-import { GestureResponderEvent, ImageBackground, TouchableOpacity, View } from "react-native";
+import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import piece_in_set from "./Piece.styles";
 import { IconPathConsts, ImgPathConsts, rareness } from "../../../../../utills/enums";
 import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/images.functions";
-import { Piece } from "../../../../../utills/types";import ImageInWrapper from "../../../../../Components/ImageInWrapper/ImageInWrapper";
-;
+import { Piece } from "../../../../../utills/types";
+import shared_styles from "../../../../../utills/sharedStyles.styles";
 
 type Props = {
     piece: Piece | undefined,
@@ -24,9 +24,12 @@ function PieceOfSet({piece, jewels, onPress}: Props): React.JSX.Element {
                         source = {{uri: ImgPathConsts.rootAssetsImgPath + piece?.imagePath}}>
                         
                         {
-                            piece?.rareness === rareness.tempered ?
-                            <ImageInWrapper imageSource = {IconPathConsts.temperedIcon} 
-                                wrapperStyles = {piece_in_set.temperStarIconWrapper}/> :
+                            (piece?.rareness === rareness.tempered) ?
+                                <View style = {piece_in_set.temperStarIconWrapper}>
+                                    <ImageBackground source = {{uri: IconPathConsts.temperedIcon}} style = {shared_styles.img_in_view}>
+                                        <Text> {piece.tempernessLevel} </Text>
+                                    </ImageBackground>
+                                </View> :
 
                             <></>
                         }

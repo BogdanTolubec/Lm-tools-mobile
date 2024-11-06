@@ -13,8 +13,12 @@ export const getDBConnection = async () => {
 
 //Pieces___________________________________________________________________
 
-export const getPieceStatsByIdAndRareness = async (db: SQLiteDatabase, pieceId: number, pieceRareness: rareness): Promise<stats> => {
+const getPieceStatsByIdAndRareness = async (db: SQLiteDatabase, pieceId: number, pieceRareness: rareness): Promise<stats> => {
     try{
+        if(pieceRareness === rareness.tempered){
+            pieceRareness = rareness.mythic
+        }
+        
         const sqlQueryGetJewelStatsByIdAndRareness: string = `SELECT armyAtk, armyDeff, armyHp, infantryAtk, infantryDeff, infantryHp,
             rangedAtk, rangedDeff, rangedHp, cavalryAtk, cavalryDeff, cavalryHp FROM ${tableNames.stats}
 	        WHERE stats_id = 
@@ -41,10 +45,13 @@ export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: numbe
         
         const queryData: [ResultSet] = await db.executeSql(sqlQuery)
 
+        console.log(await getPieceStatsByIdAndRareness(db, pieceId, pieceRareness))
+
         const piece: Piece = {
             piece_id: queryData[0].rows.item(0).piece_id,
             name: queryData[0].rows.item(0).name,
             rareness: pieceRareness,
+            tempernessLevel: 0,
             type: queryData[0].rows.item(0).type,
             imagePath: queryData[0].rows.item(0).image_path,
 
@@ -91,6 +98,11 @@ export const getAllPiecesByTypeAndRareness = async (db: SQLiteDatabase, type: pi
 
 export const createGearSet = async (db: SQLiteDatabase): Promise<boolean> => {
     try{
+        const sqlQueryCreateTempernessLevelsSet: string = `INSERT INTO ${tableNames.temperness_levels_set} (mainHand_temperness_level)
+            VALUES(0)`
+
+        const tempernessLevelsSetCreationResult: ResultSet[] = await db.executeSql(sqlQueryCreateTempernessLevelsSet)
+
         const sqlQueryCreateGearSetRarenessArray: string = `INSERT INTO ${tableNames.gear_set_pieces_rareness} (
             mainHand_rareness, helmet_rareness, plate_rareness, boots_rareness, secondHand_rareness, 
             accessory1_rareness, accessory2_rareness, accessory3_rareness)
@@ -116,8 +128,13 @@ export const createGearSet = async (db: SQLiteDatabase): Promise<boolean> => {
 
         const jewelSetCreationResult: ResultSet[] = await db.executeSql(sqlQueryCreateJewelsSet)
 
-        const sqlQueryCreateGearSet: string = `INSERT INTO ${tableNames.gear_sets} (gear_set_pieces_rareness_id, jewels_set_id) 
-            VALUES (${rarenessArrayCreationResult[0].insertId}, ${jewelSetCreationResult[0].insertId})`
+        const sqlQueryCreateGearSet: string = `INSERT INTO ${tableNames.gear_sets} (gear_set_pieces_rareness_id, jewels_set_id, 
+            ${tableNames.gear_sets}.temperness_levels_set_id) 
+            VALUES (
+            ${rarenessArrayCreationResult[0].insertId}, 
+            ${jewelSetCreationResult[0].insertId}, 
+            ${tempernessLevelsSetCreationResult[0].insertId}
+            )`
 
         await db.executeSql(sqlQueryCreateGearSet)
 
@@ -225,7 +242,19 @@ export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet, title:
                 title = '${title}'
             WHERE ${tableNames.gear_sets}.gear_sets_id = ${gearSet.id}`
 
+    const sqlQueryUpdateTempernessLevelsSet: string = `UPDATE ${tableNames.temperness_levels_set}
+            SET mainHand_temperness_level = ${gearSet.mainHand?.tempernessLevel || 0},
+            helmet_temperness_level = ${gearSet.helmet?.tempernessLevel || 0},
+            plate_temperness_level = ${gearSet.plate?.tempernessLevel || 0},
+            boots_temperness_level = ${gearSet.boots?.tempernessLevel || 0},
+            secondHand_temperness_level = ${gearSet.secondHand?.tempernessLevel || 0},
+            accessory1_temperness_level = ${gearSet.accessory1?.tempernessLevel || 0},
+            accessory2_temperness_level = ${gearSet.accessory2?.tempernessLevel || 0},
+            accessory3_temperness_level = ${gearSet.accessory3?.tempernessLevel || 0}
+            WHERE ${tableNames.temperness_levels_set}.temperness_levels_set_id = (SELECT temperness_levels_set_id
+            FROM ${tableNames.gear_sets} WHERE ${tableNames.gear_sets}.gear_sets_id = ${gearSet.id})`
 
+        await db.executeSql(sqlQueryUpdateTempernessLevelsSet)
         await db.executeSql(sqlQueryUpdateGearSetRareness)
         await db.executeSql(sqlQueryUpdateGearSet)        
 

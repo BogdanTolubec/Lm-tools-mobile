@@ -21,7 +21,9 @@ export enum tableNames {
     stats = "Stats",
 
     gear_sets = "Gear_Sets",
-    gear_set_pieces_rareness = "Gear_set_pieces_rareness"
+    gear_set_pieces_rareness = "Gear_set_pieces_rareness",
+
+    temperness_levels_set = "Temperness_levels_set"
 }
 
 export enum rareness {
