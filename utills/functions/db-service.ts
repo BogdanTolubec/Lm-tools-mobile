@@ -37,15 +37,13 @@ const getPieceStatsByIdAndRareness = async (db: SQLiteDatabase, pieceId: number,
     }
 }
 
-export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: number | null, pieceRareness: rareness | null, jewelsByPieceId: number | null): Promise<Piece | undefined> => {
+export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: number | null, pieceRareness: rareness | null, jewelsByPieceId: number | null): Promise<Piece | undefined> => {   
     try{
         if(!pieceId || !pieceRareness) return undefined
 
         const sqlQuery: string = `SELECT * FROM ${tableNames.pieces} WHERE ${pieceId} = ${tableNames.pieces}.piece_id`
         
         const queryData: [ResultSet] = await db.executeSql(sqlQuery)
-
-        console.log(await getPieceStatsByIdAndRareness(db, pieceId, pieceRareness))
 
         const piece: Piece = {
             piece_id: queryData[0].rows.item(0).piece_id,
@@ -311,7 +309,7 @@ export const deleteGearSetById = async (db: SQLiteDatabase, gearSetId: number | 
 }
 
 //jewels___________________________________________________________________
-export const getJewelStatsByIdAndRareness = async (db: SQLiteDatabase, jewelId: number, jewel_rareness: rareness): Promise<stats> => {
+const getJewelStatsByIdAndRareness = async (db: SQLiteDatabase, jewelId: number, jewel_rareness: rareness): Promise<stats> => {
     try{
         const sqlQueryGetJewelStatsByIdAndRareness: string = `SELECT armyAtk, armyDeff, armyHp, infantryAtk, infantryDeff, infantryHp,
             rangedAtk, rangedDeff, rangedHp, cavalryAtk, cavalryDeff, cavalryHp FROM ${tableNames.stats}
@@ -376,43 +374,19 @@ export const getJewelsByPiece = async (db: SQLiteDatabase, jewelsByPieceId: numb
 
 export const getAllJewelsByRareness = async (db: SQLiteDatabase, jewelsRareness: rareness): Promise<jewel[]> => {
     try{
-        const sqlQueryGetJewelsByRareness: string = `SELECT jewel_id as id, ${tableNames.jewels}.imgPath, 
-            ${tableNames.jewels}.name, armyAtk, armyDeff, armyHp, infantryAtk, infantryDeff, infantryHp,
-            rangedAtk, rangedDeff, rangedHp, cavalryAtk, cavalryDeff, cavalryHp FROM ${tableNames.stats}, ${tableNames.jewels}
-	        WHERE stats_id = 
-            (SELECT stats_id FROM ${tableNames.stats}, ${tableNames.jewels_rareness_stats} 
-            WHERE (stats_id = ${jewelsRareness}_stats_id)
-	        AND jewels_rareness_stats_id = 
-            (SELECT rareness_stats_id FROM jewels WHERE ${tableNames.jewels}.jewel_id = id))`
+        const sqlQuerysqlQueryGetJewelsIds = `SELECT jewel_id FROM ${tableNames.jewels}`
+
+        const queryResult: ResultSet[] = await db.executeSql(sqlQuerysqlQueryGetJewelsIds)
 
         const jewelsArray: jewel[] = []
 
-        const queryResult: ResultSet[] = await db.executeSql(sqlQueryGetJewelsByRareness)
-
         for(let i = 0; i < queryResult[0].rows.length; i++){
-            jewelsArray.push({
-                jewel_id: queryResult[0].rows.item(i).id,
-                name: queryResult[0].rows.item(i).name,
-                rareness: jewelsRareness,
-                imagePath: queryResult[0].rows.item(i).imgPath,
-                stats: {
-                    armyAtk: queryResult[0].rows.item(i).armyAtk,
-                    armyHp: queryResult[0].rows.item(i).armyHp,
-                    armyDeff: queryResult[0].rows.item(i).armyDeff,
-                
-                    infantryAtk: queryResult[0].rows.item(i).infantryAtk,
-                    infantryHp: queryResult[0].rows.item(i).infantryHp,
-                    infantryDeff: queryResult[0].rows.item(i).infantryDeff,
-                    
-                    rangedAtk: queryResult[0].rows.item(i).rangedAtk,
-                    rangedHp: queryResult[0].rows.item(i).rangedHp,
-                    rangedDeff: queryResult[0].rows.item(i).rangedDeff,
-                
-                    cavalryAtk: queryResult[0].rows.item(i).cavalryAtk,
-                    cavalryHp: queryResult[0].rows.item(i).cavalryHp,
-                    cavalryDeff: queryResult[0].rows.item(i).cavalryDeff,
-                }
-            })
+            const currentJewel: jewel | undefined = await getJewelByIdAndRareness(db, queryResult[0].rows.item(i).jewel_id, jewelsRareness)
+
+            if(currentJewel)
+            jewelsArray.push(
+                currentJewel
+            )
         }
 
         return jewelsArray
