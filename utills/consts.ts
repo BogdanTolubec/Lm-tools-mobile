@@ -84,3 +84,7 @@ export const statsObject: statsShowInfo[] = [
     {text: "Ranged deff", stat: 0}, {text: "Cavalry atk", stat: 0},
     {text: "Cavalry hp", stat: 0}, {text:"Cavalry deff", stat: 0}
 ]
+
+export const tempernessStatsAddByLevels: number[] = [
+    1/70, 2/70, 3/70, 5/70, 7/70, 9/70, 12/70, 15/70, 18/70, 22/70, 26/70, 30/70, 34/70, 38/70, 42/70
+]

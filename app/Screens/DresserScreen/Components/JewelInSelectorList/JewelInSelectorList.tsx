@@ -39,7 +39,7 @@ function JewelInList({gearSet, selectedJewelInPiece, listJewel, piece, selectedJ
             if(isJewelValid && updatedGearSet){
 
                 for(keyOfUpdatedGearSet in updatedGearSet){    
-                    if(keyOfUpdatedGearSet === piece.type){
+                    if(keyOfUpdatedGearSet === piece.type && updatedGearSet[keyOfUpdatedGearSet] !== undefined){
                         updatedGearSet[keyOfUpdatedGearSet]!.jewels[selectedJewelInPieceId] = newJewel // not null operaor because of check on not-null in previous lines
                     }
                 }

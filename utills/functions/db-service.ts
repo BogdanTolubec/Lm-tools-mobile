@@ -2,6 +2,7 @@ import { openDatabase, enablePromise, SQLiteDatabase, ResultSet } from "react-na
 import { gearSet, jewel, Piece, stats } from "../types";
 import { pieceTypes, rareness, tableNames } from "../enums";
 import { gearSetPiecesCount } from "../consts";
+import { calculateTempernesStatsByLevel } from "./statsCalculation.functions";
 
 enablePromise(true);
 
@@ -37,7 +38,7 @@ const getPieceStatsByIdAndRareness = async (db: SQLiteDatabase, pieceId: number,
     }
 }
 
-export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: number | null, pieceRareness: rareness | null, jewelsByPieceId: number | null): Promise<Piece | undefined> => {   
+export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: number | null, pieceRareness: rareness | null, jewelsByPieceId: number | null, temperness_level: number): Promise<Piece | undefined> => {   
     try{
         if(!pieceId || !pieceRareness) return undefined
 
@@ -49,13 +50,17 @@ export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: numbe
             piece_id: queryData[0].rows.item(0).piece_id,
             name: queryData[0].rows.item(0).name,
             rareness: pieceRareness,
-            tempernessLevel: 0,
+            tempernessLevel: temperness_level,
             type: queryData[0].rows.item(0).type,
             imagePath: queryData[0].rows.item(0).image_path,
 
             jewels: await getJewelsByPiece(db, jewelsByPieceId),
 
             stats: await getPieceStatsByIdAndRareness(db, pieceId, pieceRareness),
+        }
+
+        if(piece.rareness === rareness.tempered && piece?.tempernessLevel){
+            piece.stats = calculateTempernesStatsByLevel(piece.stats, piece.tempernessLevel)
         }
 
         return piece
@@ -78,7 +83,7 @@ export const getAllPiecesByTypeAndRareness = async (db: SQLiteDatabase, type: pi
     
         for(const piece of pieces) { //never use arr.foreach(async () => {}) use this because of the issues
             for (let i = 0; i < piece.rows.length; i++) {
-                const currentPiece: Piece | undefined = await getPieceByIdAndRareness(db, piece.rows.item(i).piece_id, piecesRareness, null)
+                const currentPiece: Piece | undefined = await getPieceByIdAndRareness(db, piece.rows.item(i).piece_id, piecesRareness, null, 0)
                 
                 if(currentPiece) {piecesArray.push(currentPiece)}
             }
@@ -127,7 +132,7 @@ export const createGearSet = async (db: SQLiteDatabase): Promise<boolean> => {
         const jewelSetCreationResult: ResultSet[] = await db.executeSql(sqlQueryCreateJewelsSet)
 
         const sqlQueryCreateGearSet: string = `INSERT INTO ${tableNames.gear_sets} (gear_set_pieces_rareness_id, jewels_set_id, 
-            ${tableNames.gear_sets}.temperness_levels_set_id) 
+            temperness_levels_set_id) 
             VALUES (
             ${rarenessArrayCreationResult[0].insertId}, 
             ${jewelSetCreationResult[0].insertId}, 
@@ -149,12 +154,19 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
         let gearSets: gearSet[] = []
 
         const sqlQueryGetGearSets: string = `SELECT * FROM ${tableNames.gear_sets}, ${tableNames.gear_set_pieces_rareness}
-            WHERE gear_set_pieces_rareness_id = ${tableNames.gear_set_pieces_rareness}.gear_set_piece_rareness_id ORDER BY ${tableNames.gear_sets}.gear_sets_id`
+            WHERE gear_set_pieces_rareness_id = ${tableNames.gear_set_pieces_rareness}.gear_set_piece_rareness_id 
+            ORDER BY ${tableNames.gear_sets}.gear_sets_id`
         const sqlQueryGetJewelsSets: string = `SELECT mainHand_jewels, helmet_jewels, plate_jewels, boots_jewels, secondHand_jewels, 
                 accessory1_jewels, accessory2_jewels, accessory3_jewels FROM ${tableNames.jewels_set}`
 
+        const sqlQueryGetTempernessLevels = `SELECT mainHand_temperness_level, helmet_temperness_level, plate_temperness_level,
+            boots_temperness_level, secondHand_temperness_level,accessory1_temperness_level,
+            accessory2_temperness_level, accessory3_temperness_level
+            FROM ${tableNames.temperness_levels_set}`
+
         const allGearSets: [ResultSet] = await db.executeSql(sqlQueryGetGearSets)
         const allJewelsSets: [ResultSet] = await db.executeSql(sqlQueryGetJewelsSets)
+        const allTempernessSets: [ResultSet] = await db.executeSql(sqlQueryGetTempernessLevels)
             
             for (let i = 0; i < allGearSets[0].rows.length; i++) {
 
@@ -162,14 +174,38 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
                 id: allGearSets[0].rows.item(i).gear_sets_id,
                 title:  allGearSets[0].rows.item(i).title,
 
-                mainHand: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).mainHand, allGearSets[0].rows.item(i).mainHand_rareness, allJewelsSets[0].rows.item(i).mainHand_jewels),
-                helmet: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).helmet, allGearSets[0].rows.item(i).helmet_rareness, allJewelsSets[0].rows.item(i).helmet_jewels),
-                plate:await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).plate, allGearSets[0].rows.item(i).plate_rareness, allJewelsSets[0].rows.item(i).plate_jewels),
-                boots: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).boots, allGearSets[0].rows.item(i).boots_rareness, allJewelsSets[0].rows.item(i).boots_jewels),
-                secondHand: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).secondHand, allGearSets[0].rows.item(i).secondHand_rareness, allJewelsSets[0].rows.item(i).secondHand_jewels),
-                accessory1: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory1, allGearSets[0].rows.item(i).accessory1_rareness, allJewelsSets[0].rows.item(i).accessory1_jewels),
-                accessory2: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory2, allGearSets[0].rows.item(i).accessory2_rareness, allJewelsSets[0].rows.item(i).accessory2_jewels),
-                accessory3: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory3, allGearSets[0].rows.item(i).accessory3_rareness, allJewelsSets[0].rows.item(i).accessory3_jewels),
+                mainHand: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).mainHand,
+                    allGearSets[0].rows.item(i).mainHand_rareness, allJewelsSets[0].rows.item(i).mainHand_jewels, 
+                    allTempernessSets[0].rows.item(i).mainHand_temperness_level),
+
+                helmet: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).helmet,
+                    allGearSets[0].rows.item(i).helmet_rareness, allJewelsSets[0].rows.item(i).helmet_jewels,
+                    allTempernessSets[0].rows.item(i).helmet_temperness_level),
+
+                plate:await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).plate,
+                    allGearSets[0].rows.item(i).plate_rareness, allJewelsSets[0].rows.item(i).plate_jewels,
+                    allTempernessSets[0].rows.item(i).plate_temperness_level),
+
+                boots: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).boots,
+                    allGearSets[0].rows.item(i).boots_rareness, allJewelsSets[0].rows.item(i).boots_jewels,
+                    allTempernessSets[0].rows.item(i).boots_temperness_level),
+
+                secondHand: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).secondHand,
+                    allGearSets[0].rows.item(i).secondHand_rareness, allJewelsSets[0].rows.item(i).secondHand_jewels,
+                    allTempernessSets[0].rows.item(i).secondHandtemperness_level),
+
+                accessory1: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory1,
+                    allGearSets[0].rows.item(i).accessory1_rareness, allJewelsSets[0].rows.item(i).accessory1_jewels,
+                    allTempernessSets[0].rows.item(i).accessory1_temperness_level),
+
+                accessory2: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory2,
+                    allGearSets[0].rows.item(i).accessory2_rareness, allJewelsSets[0].rows.item(i).accessory2_jewels,
+                    allTempernessSets[0].rows.item(i).accessory2_temperness_level),
+
+                accessory3: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory3,
+                    allGearSets[0].rows.item(i).accessory3_rareness, allJewelsSets[0].rows.item(i).accessory3_jewels,
+                    allTempernessSets[0].rows.item(i).accessory3_temperness_level),
+
             }
                 gearSets.push(currentGearSet)
             }
@@ -384,9 +420,7 @@ export const getAllJewelsByRareness = async (db: SQLiteDatabase, jewelsRareness:
             const currentJewel: jewel | undefined = await getJewelByIdAndRareness(db, queryResult[0].rows.item(i).jewel_id, jewelsRareness)
 
             if(currentJewel)
-            jewelsArray.push(
-                currentJewel
-            )
+                jewelsArray.push(currentJewel)
         }
 
         return jewelsArray

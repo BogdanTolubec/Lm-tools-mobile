@@ -28,13 +28,23 @@ const piece_in_set = StyleSheet.create({
     },
 
     jewels_wrapper: {
-        height: "25%",
+        height: "30%",
         width: "100%",
     },
 
     temperStarIconWrapper: {
-        height: "32%",
-        width: "32%",
+        height: "33%",
+        width: "33%",
+    },
+
+    tempernessLevelText: {
+        fontSize: 10,
+        fontWeight: "700",
+        color: "white",
+
+        textShadowColor: "#000000",
+        textShadowRadius: 2,
+        textShadowOffset: {height: 1, width: 1},
     },
 })
 

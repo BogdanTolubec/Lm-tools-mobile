@@ -27,7 +27,7 @@ function PieceOfSet({piece, jewels, onPress}: Props): React.JSX.Element {
                             (piece?.rareness === rareness.tempered) ?
                                 <View style = {piece_in_set.temperStarIconWrapper}>
                                     <ImageBackground source = {{uri: IconPathConsts.temperedIcon}} style = {shared_styles.img_in_view}>
-                                        <Text> {piece.tempernessLevel} </Text>
+                                        <Text style = {piece_in_set.tempernessLevelText}> {piece.tempernessLevel} </Text>
                                     </ImageBackground>
                                 </View> :
 

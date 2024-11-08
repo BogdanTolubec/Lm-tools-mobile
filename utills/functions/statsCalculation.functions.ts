@@ -1,4 +1,4 @@
-import { statsObject } from "../consts";
+import { statsObject, tempernessStatsAddByLevels } from "../consts";
 import { gearSet, Piece, stats, statsShowInfo } from "../types";
 
 export function calculateGearSetStats(gearSet: gearSet | undefined): stats{
@@ -142,4 +142,33 @@ export function calculatePieceStats(piece: Piece | undefined): stats { //calcula
     }
 
     return calculatedStats
+}
+
+export function calculateTempernesStatsByLevel(pieceStats: stats, tempernessLevel: number): stats{
+    let keyOfPieceStats: keyof typeof pieceStats
+    let newPieceStats: stats = {
+        armyAtk: 0,
+        armyHp: 0,
+        armyDeff: 0,
+    
+        infantryAtk: 0,
+        infantryHp: 0,
+        infantryDeff: 0,
+        
+        rangedAtk: 0,
+        rangedHp: 0,
+        rangedDeff: 0,
+    
+        cavalryAtk: 0,
+        cavalryHp: 0,
+        cavalryDeff: 0,
+    }
+
+    for(keyOfPieceStats in pieceStats){
+        if(pieceStats[keyOfPieceStats] !== null){
+            newPieceStats[keyOfPieceStats] = pieceStats[keyOfPieceStats] * (1 + tempernessStatsAddByLevels[tempernessLevel]) // some typescript issues probably
+        }
+    }
+
+    return newPieceStats
 }

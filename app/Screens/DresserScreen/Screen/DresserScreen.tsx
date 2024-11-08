@@ -71,6 +71,18 @@ function DresserScreen(): React.JSX.Element{
     useEffect(() => {
         loadGearSetsCallback()
     }, [loadGearSetsCallback, gearSetCount])
+
+    useEffect(() => {
+        let newGearSets: gearSet[] = []
+        allGearSets.forEach((gearSet) => {
+            if(currentGearSet.id === gearSet.id)
+                newGearSets.push(currentGearSet)
+            else
+                newGearSets.push(gearSet)
+        })
+
+        setAllGearsSets(newGearSets)
+    }, [currentGearSet])
     
     return(
         <SafeAreaView>

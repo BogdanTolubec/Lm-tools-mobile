@@ -36,15 +36,6 @@ export enum rareness {
     tempered = "tempered"
 }
 
-export enum rarenessColors {
-    common = "grey",
-    uncommon = "#228b22",
-    rare = "dodgerblue",
-    epic = "blueviolet",
-    legendary = "#FFA001",
-    mythic = "#e7760d",
-}
-
 export enum armyTypes {
     infantry = "infantry",
     ranged = "ranged",
@@ -118,12 +109,4 @@ export enum IconPathConsts{
     legendaryChooseLableIcon = rootAssetsconsPath + "/legendary_icon.png",
     mythicChooseLableIcon = rootAssetsconsPath + "/mythic_icon.png",
     temperedIcon = rootAssetsconsPath + "/tempered_icon.png"
-}
-
-//temper levels
-export enum TemperBonusPerLevel{
-    firstToThirdLevel = 1/70,
-    FourthToSixthLevel = 2/70,
-    SeventhToNinthLevel = 3/70,
-    TenthToFifteenthLevel = 4/70,
 }
