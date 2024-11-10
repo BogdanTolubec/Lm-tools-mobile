@@ -10,14 +10,17 @@ type Props = {
     pieceSelected: Piece | undefined,
     jewelSelected: jewel | undefined,
     pieceType: pieceTypes,
+    selectedjewelInPieceId: number,
 
     itemsList: React.JSX.Element | React.JSX.Element[],
     rarenessData: Array<{rareness: rareness, iconPath: string}>,
     onChooseRarenessLabelPress: (itemType: "piece" | "jewel", currentRareness: rareness, 
-        pieceSelected: Piece | undefined, jewelSelected?: jewel | undefined, pieceType?: pieceTypes,) => Promise<void>
+        pieceSelected: Piece | undefined, selectedJewelInPieceId?: number, 
+        pieceType?: pieceTypes, jewelSelected?: jewel | undefined) => Promise<void>
 }
 
-function ItemsSelector({itemType, itemsList, rarenessData, pieceSelected, jewelSelected, pieceType, onChooseRarenessLabelPress}: Props): 
+function ItemsSelector({itemType, itemsList, rarenessData, pieceSelected, jewelSelected, pieceType, selectedjewelInPieceId,
+    onChooseRarenessLabelPress}: Props): 
     React.JSX.Element {
 
     return(
@@ -32,7 +35,9 @@ function ItemsSelector({itemType, itemsList, rarenessData, pieceSelected, jewelS
                         <ImageInWrapper key = {index} wrapperStyles = {piece_selector.choose_label_rareness_wrapper}
                             imageSource = {data.iconPath}
                             onPress = {() => {
-                                onChooseRarenessLabelPress(itemType, data.rareness, pieceSelected, jewelSelected, pieceType)
+                                onChooseRarenessLabelPress(itemType, data.rareness, pieceSelected, 
+                                    selectedjewelInPieceId, pieceType, jewelSelected
+                                )
                             }
                         }/>
                     )

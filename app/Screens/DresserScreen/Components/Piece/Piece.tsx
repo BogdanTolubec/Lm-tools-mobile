@@ -24,7 +24,7 @@ function PieceOfSet({piece, jewels, onPress}: Props): React.JSX.Element {
                         source = {{uri: ImgPathConsts.rootAssetsImgPath + piece?.imagePath}}>
                         
                         {
-                            (piece?.rareness === rareness.tempered) ?
+                            (piece?.tempernessLevel && piece?.tempernessLevel >= 1) ?
                                 <View style = {piece_in_set.temperStarIconWrapper}>
                                     <ImageBackground source = {{uri: IconPathConsts.temperedIcon}} style = {shared_styles.img_in_view}>
                                         <Text style = {piece_in_set.tempernessLevelText}> {piece.tempernessLevel} </Text>

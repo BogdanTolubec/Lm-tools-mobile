@@ -59,10 +59,6 @@ export const getPieceByIdAndRareness = async (db: SQLiteDatabase, pieceId: numbe
             stats: await getPieceStatsByIdAndRareness(db, pieceId, pieceRareness),
         }
 
-        if(piece.rareness === rareness.tempered && piece?.tempernessLevel){
-            piece.stats = calculateTempernesStatsByLevel(piece.stats, piece.tempernessLevel)
-        }
-
         return piece
     }
 
@@ -277,16 +273,20 @@ export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet, title:
             WHERE ${tableNames.gear_sets}.gear_sets_id = ${gearSet.id}`
 
     const sqlQueryUpdateTempernessLevelsSet: string = `UPDATE ${tableNames.temperness_levels_set}
-            SET mainHand_temperness_level = ${gearSet.mainHand?.tempernessLevel || 0},
-            helmet_temperness_level = ${gearSet.helmet?.tempernessLevel || 0},
-            plate_temperness_level = ${gearSet.plate?.tempernessLevel || 0},
-            boots_temperness_level = ${gearSet.boots?.tempernessLevel || 0},
-            secondHand_temperness_level = ${gearSet.secondHand?.tempernessLevel || 0},
-            accessory1_temperness_level = ${gearSet.accessory1?.tempernessLevel || 0},
-            accessory2_temperness_level = ${gearSet.accessory2?.tempernessLevel || 0},
-            accessory3_temperness_level = ${gearSet.accessory3?.tempernessLevel || 0}
+            SET mainHand_temperness_level = ${gearSet.mainHand ? gearSet.mainHand.tempernessLevel : 0},
+            helmet_temperness_level = ${gearSet.helmet ? gearSet.helmet.tempernessLevel : 0},
+            plate_temperness_level = ${gearSet.plate ? gearSet.plate.tempernessLevel : 0},
+            boots_temperness_level = ${gearSet.boots ? gearSet.boots.tempernessLevel : 0},
+            secondHand_temperness_level = ${gearSet.secondHand ? gearSet.secondHand.tempernessLevel : 0},
+            accessory1_temperness_level = ${gearSet.accessory1 ? gearSet.accessory1.tempernessLevel : 0},
+            accessory2_temperness_level = ${gearSet.accessory2 ? gearSet.accessory2.tempernessLevel : 0},
+            accessory3_temperness_level = ${gearSet.accessory3 ? gearSet.accessory3.tempernessLevel : 0}
             WHERE ${tableNames.temperness_levels_set}.temperness_levels_set_id = (SELECT temperness_levels_set_id
-            FROM ${tableNames.gear_sets} WHERE ${tableNames.gear_sets}.gear_sets_id = ${gearSet.id})`
+            FROM ${tableNames.gear_sets} WHERE gear_sets_id = ${gearSet.id})`
+
+        console.log(
+            (await db.executeSql(`SELECT * FROM ${tableNames.temperness_levels_set} WHERE (SELECT temperness_levels_set_id FROM Gear_sets WHERE Gear_sets.gear_sets_id = ${gearSet.id})`))[0].rows.raw()
+        )
 
         await db.executeSql(sqlQueryUpdateTempernessLevelsSet)
         await db.executeSql(sqlQueryUpdateGearSetRareness)

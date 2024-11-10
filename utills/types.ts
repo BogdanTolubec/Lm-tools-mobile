@@ -5,7 +5,7 @@ export type Piece = {
     name: string,
 
     rareness: rareness,
-    tempernessLevel?: number,
+    tempernessLevel: number,
 
     type: pieceTypes,
     imagePath: string,

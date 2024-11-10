@@ -24,7 +24,7 @@ function NumericInput({minValue, maxValue, placeholder, styles, setParentElement
             onChangeText = { (text) =>{
                 validateInputTypeNumber(text.replaceAll(" ", ""), minValue, maxValue, setInputValue)
             }
-        }/>
+        } placeholder = {placeholder} />
     );
 }
 

@@ -7,15 +7,17 @@ import PieceOfSet from "../Piece/Piece"
 import StatsList from "../StatsList/StatsList"
 import Jewel from "../Jewel/Jewel"
 import ModalComponent from "../../../../../Components/ModalComponent/ModalComponent"
-import ItemsSelector from "../PieceOrJewelsSelector.modal/ItemsSelector"
+import ItemsSelector from "../ItemsSelector.modal/ItemsSelector"
 import { getAllJewelsByRareness, getAllPiecesByTypeAndRareness, getDBConnection } from "../../../../../utills/functions/db-service"
 import PieceInList from "../PieceInSelectorList/PieceInSelectorList"
 import JewelInList from "../JewelInSelectorList/JewelInSelectorList"
-import { calculatePieceStats } from "../../../../../utills/functions/statsCalculation.functions"
+import { calculatePieceAndJewelsStats, calculateTempernesStatsByLevel } from "../../../../../utills/functions/statsCalculation.functions"
 import ImageInWrapper from "../../../../../Components/ImageInWrapper/ImageInWrapper"
+import NumericInput from "../../../../../Components/NumericInput/NumericInput"
+import { tempernessLevelsNumber } from "../../../../../utills/consts"
+import SubmitButton from "../../../../../Components/SubmitButton/SubmitButton"
 
 type Props = {
-    pieceSelected: Piece | undefined,
     pieceType: pieceTypes,
 
     gearSetSelected: gearSet,
@@ -25,18 +27,20 @@ type Props = {
     setGearSet: React.Dispatch<React.SetStateAction<gearSet>>,
 }
 
-function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisible, setInnerModalVisible, setGearSet}: Props): React.JSX.Element {
+function PieceInfo({pieceType, gearSetSelected, isOuterModalVisible, setInnerModalVisible, setGearSet}: Props): React.JSX.Element {
 
     const [isItemSelectorModalActive, setIsItemSelectorModalActive] = useState<boolean>(false)
 
     const [pieceToChange, setPieceToChange] = useState<Piece | undefined>()
     const [jewelSelected, setJewelSelected] = useState<jewel | undefined>(undefined)
+    const [selectedJewelInPieceId, setSelectedJewelsInPieceId] = useState<number>(0)
 
     const [itemsList, setItemsList] = useState<React.JSX.Element[] | React.JSX.Element>(<></>)
     const [rarenessData, setRarenessData] = useState<Array<{rareness: rareness, iconPath: string}>>([])
 
     const [currentItemType, setCurrentItemType] = useState<"piece" | "jewel">("piece")
-    const [selectedJewelInPieceId, setSelectedJewelInPieceId] = useState<number>(0)
+
+    const [tempernessLevel, setTempernessLevel] = useState<number>(0)
 
     function onPieceSelection(): void{
         setRarenessData([
@@ -49,13 +53,13 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
         )
         
         setCurrentItemType("piece")
-        onChooseRarenessLabelPress("piece", rareness.common, pieceToChange, undefined, pieceType)  // undefined is important :)
+        onChooseRarenessLabelPress("piece", pieceToChange?.rareness || rareness.common, pieceToChange, undefined, pieceType, undefined )  // undefined is important :)
         setIsItemSelectorModalActive(!isItemSelectorModalActive)
     }
 
     function onJewelSelection(jewel: jewel | undefined, jewelInPieceId: number): void{
             setJewelSelected(jewel) //selected jewel save
-            setSelectedJewelInPieceId(jewelInPieceId)
+            setSelectedJewelsInPieceId(jewelInPieceId)
 
             setRarenessData([
                 {rareness: rareness.common, iconPath: IconPathConsts.commonChooseLableIcon}, 
@@ -65,9 +69,36 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
                 {rareness: rareness.legendary, iconPath: IconPathConsts.legendaryChooseLableIcon}]
             ) // rareness for choose labels
 
+            console.log("id: " + jewelInPieceId)
+
             setCurrentItemType("jewel")
-            onChooseRarenessLabelPress("jewel", rareness.common, pieceToChange, jewel, undefined) // undefined in the end is important :)
+            onChooseRarenessLabelPress("jewel", jewel?.rareness || rareness.common, pieceToChange, jewelInPieceId, undefined, jewel) // undefined in the end is important :)
             setIsItemSelectorModalActive(!isItemSelectorModalActive)
+    }
+
+    function onTempernessLevelSelection(): void {
+        if(gearSetSelected && pieceToChange){
+            let keyOfUpdatedGearSet: keyof typeof gearSetSelected
+            let updatedGearSet: gearSet = {
+                ...gearSetSelected
+            }
+            let updatedPiece: Piece | undefined
+
+            for(keyOfUpdatedGearSet in updatedGearSet){
+                if(!updatedGearSet[keyOfUpdatedGearSet]) continue
+
+                if(pieceType === keyOfUpdatedGearSet && pieceToChange){
+                    updatedPiece = {
+                        ...pieceToChange,
+                        tempernessLevel: tempernessLevel,
+                    }
+                    updatedGearSet[keyOfUpdatedGearSet] = updatedPiece
+                    setPieceToChange(updatedPiece)
+                    setGearSet(updatedGearSet)
+                    break
+                }
+            }
+        }
     }
 
     function onPieceInListPress(selectedPiece: Piece | undefined): void {
@@ -96,8 +127,9 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
         }
     }
 
-    async function onChooseRarenessLabelPress(itemType: "piece" | "jewel",currentRareness: rareness, 
-        pieceSelected: Piece | undefined, jewelSelected?: jewel | undefined, pieceType?: pieceTypes): Promise<void>{
+    async function onChooseRarenessLabelPress(itemType: "piece" | "jewel", currentRareness: rareness, 
+        pieceSelected: Piece | undefined, selectedJewelInPieceId?: number,
+        pieceType?: pieceTypes, jewelSelected?: jewel | undefined ): Promise<void>{
 
         if(itemType === "piece" && pieceType){
                 
@@ -111,7 +143,7 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
             )
         }
 
-        if(itemType === "jewel"){
+        if(itemType === "jewel" && selectedJewelInPieceId !== undefined){
             try{
                 const jewelsByTypeAndRareness = await getJewelsList(currentRareness)
     
@@ -130,8 +162,18 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
     }
 
     useEffect(() => {
-        setPieceToChange(pieceSelected)
-    }, [pieceSelected])
+        let keyOfUpdatedGearSet: keyof typeof gearSetSelected
+        let updatedGearSet: gearSet = {
+            ...gearSetSelected
+        }
+
+        for(keyOfUpdatedGearSet in updatedGearSet){
+            if(pieceType === keyOfUpdatedGearSet){
+                setPieceToChange(updatedGearSet[keyOfUpdatedGearSet])
+            }
+            
+        }
+    }, [gearSetSelected, pieceType])
 
     useEffect(() => {
         if(!isOuterModalVisible) setIsItemSelectorModalActive(false) // close inner modal if outer modal is closed (may be now I don't need it...)
@@ -142,50 +184,66 @@ function PieceInfo({pieceSelected, pieceType, gearSetSelected, isOuterModalVisib
     return(
         <View style = {piece_info.wrapper}>
 
-            <View style = {piece_info.gear_and_jewels_row}>
+            <View style = {piece_info.piece_attributes_wrapper}>
 
-                <View style = {piece_info.piece_img_wrapper}>
-                    <PieceOfSet piece = { pieceToChange } 
-                        onPress = {() => {onPieceSelection()}}/>
+                <View style = {piece_info.gear_and_jewels_row}>
+
+                    <View style = {piece_info.piece_img_wrapper}>
+                        <PieceOfSet piece = { pieceToChange } 
+                            onPress = {() => {onPieceSelection()}}/>
+                    </View>
+            
+                    <View style = {piece_info.jewels_wrapper}>
+                        {
+                            pieceToChange?.jewels.map((jewel, index) => 
+                                {
+                                    return(
+                                        <View key = { index } style = {piece_info.jewel_wrapper}>
+                                            <Jewel jewel = {jewel} onPress = {
+                                                    () => {onJewelSelection(jewel, index)}
+                                                }/>
+                                        </View>
+                                    )
+                                }
+                            )
+                        }
+                    </View>
+
                 </View>
-        
-                <View style = {piece_info.jewels_wrapper}>
-                    {
-                        pieceToChange?.jewels.map((jewel, index) => 
-                            {
-                                return(
-                                    <View key = { index } style = {piece_info.jewel_wrapper}>
-                                        <Jewel jewel = {jewel} onPress = {
-                                                () => {onJewelSelection(jewel, index)}
-                                            }/>
-                                    </View>
-                                )
-                            }
-                        )
-                    }
-                </View>
+                
+                {   
+                    (pieceToChange?.rareness === rareness.tempered || pieceToChange?.rareness === rareness.mythic) ?
+                        <View style = {piece_info.temper_section_wrapper}>
+                            <ImageInWrapper imageSource = {IconPathConsts.temperedIcon} wrapperStyles = {piece_info.temper_icon_wrapper}/>
+
+                            <NumericInput minValue = {0} maxValue = {tempernessLevelsNumber}
+                                placeholder = {pieceToChange.tempernessLevel?.toString()} styles = {piece_info.temper_level_input}
+                                setParentElementState = {setTempernessLevel}/>
+                            
+                            <View style = {piece_info.temper_submit_button}>
+                                <SubmitButton title = "Set" onPress = {onTempernessLevelSelection}/>
+                            </View>
+                        </View> :
+                    
+                    <View style = {piece_info.temper_section_wrapper}/>
+                }
 
             </View>
-            
-            {   
-                (pieceSelected?.rareness === rareness.tempered || pieceSelected?.rareness === rareness.mythic) ?
-                    <View style = {piece_info.temperSectionWrapper}>
-                        <ImageInWrapper imageSource = {IconPathConsts.temperedIcon} wrapperStyles = {piece_info.temperIconWrapper}/>
-                    </View> :
-                
-                <View style = {piece_info.temperSectionWrapper}>
-                    
-                </View>
-            }
 
             <View style = {piece_info.stats_wrapper}>
-                <StatsList statsToShow = {calculatePieceStats(pieceToChange)}/>  
+                <StatsList statsToShow = {
+                    (pieceToChange && pieceToChange.tempernessLevel >= 1) ? 
+                    calculatePieceAndJewelsStats(
+                        calculateTempernesStatsByLevel(pieceToChange.stats, pieceToChange.tempernessLevel), pieceToChange.jewels
+                    )
+                    : calculatePieceAndJewelsStats(pieceToChange?.stats, pieceToChange?.jewels)
+                }/>  
             </View>
 
             <ModalComponent visible = {isItemSelectorModalActive} setVisible = {setIsItemSelectorModalActive} children={
                 <ItemsSelector itemType = {currentItemType} itemsList = {itemsList} rarenessData = {rarenessData} 
                     pieceSelected = {pieceToChange} pieceType = {pieceType} jewelSelected = {jewelSelected} 
-                    onChooseRarenessLabelPress = {onChooseRarenessLabelPress}/>
+                    selectedjewelInPieceId = {selectedJewelInPieceId} onChooseRarenessLabelPress = {onChooseRarenessLabelPress}/>
             }/>   
         </View>
     )

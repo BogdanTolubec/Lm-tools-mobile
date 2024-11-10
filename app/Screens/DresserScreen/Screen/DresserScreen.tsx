@@ -72,7 +72,7 @@ function DresserScreen(): React.JSX.Element{
         loadGearSetsCallback()
     }, [loadGearSetsCallback, gearSetCount])
 
-    useEffect(() => {
+    useEffect(() => { // update all gear sets after updating current gear set
         let newGearSets: gearSet[] = []
         allGearSets.forEach((gearSet) => {
             if(currentGearSet.id === gearSet.id)
@@ -90,7 +90,7 @@ function DresserScreen(): React.JSX.Element{
                 <ImageBackground style = {dresser_screen.backgroundImg} source = {{uri: ImgPathConsts.backgroundImage}} resizeMode = "cover">
 
                     <ModalComponent visible = {isPieceInfoModalActive} setVisible = {setIsPieceInfoModalActive} children = {
-                        <PieceInfo pieceSelected = {currentPieceSelected} gearSetSelected = {currentGearSet} 
+                        <PieceInfo gearSetSelected = {currentGearSet} 
                             isOuterModalVisible = {isPieceInfoModalActive} pieceType = {selectedPieceType}
                             setInnerModalVisible = {setIsPieceInfoInnerModalActive} setGearSet = {setCurrentGearSet}/>
                     } isInnerModalActive = {isPieceInfoInnerModalActive}/>

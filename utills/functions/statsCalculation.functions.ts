@@ -1,5 +1,5 @@
 import { statsObject, tempernessStatsAddByLevels } from "../consts";
-import { gearSet, Piece, stats, statsShowInfo } from "../types";
+import { gearSet, jewel, Piece, stats, statsShowInfo } from "../types";
 
 export function calculateGearSetStats(gearSet: gearSet | undefined): stats{
 
@@ -28,7 +28,7 @@ export function calculateGearSetStats(gearSet: gearSet | undefined): stats{
         gearSet.secondHand, gearSet.accessory1, gearSet.accessory2, gearSet.accessory3] // to avoid id and title props
 
     allPieces.forEach((piece) => {
-        calculatedStats = addStats(calculatedStats, calculatePieceStats(piece)) // adding stats one by one by each piece in set
+        calculatedStats = addStats(calculatedStats, calculatePieceAndJewelsStats(piece?.stats, piece?.jewels)) // adding stats one by one by each piece in set
     })
 
     return calculatedStats
@@ -112,7 +112,7 @@ export function convertStatsIntoStatsShowInfo(stat: stats | undefined): statsSho
     return statsShowInfoResult
 }
 
-export function calculatePieceStats(piece: Piece | undefined): stats { //calculates stats by piece and it's jewels
+export function calculatePieceAndJewelsStats(pieceStats: stats | undefined, jewels: Array<jewel | undefined> | undefined): stats { //calculates stats by piece and it's jewels
     let calculatedStats: stats = {
         armyAtk: 0,
         armyHp: 0,
@@ -131,12 +131,14 @@ export function calculatePieceStats(piece: Piece | undefined): stats { //calcula
         cavalryDeff: 0,
     }
 
-    if(piece){
-        calculatedStats = addStats(calculatedStats, piece.stats)
-
-        for(let i = 0; i < piece.jewels.length; i++){
-            if(piece.jewels[i]){
-                calculatedStats = addStats(calculatedStats, piece.jewels[i]?.stats)
+    if(pieceStats){
+        calculatedStats = addStats(calculatedStats, pieceStats)
+        
+        if(jewels){
+            for(let i = 0; i < jewels.length; i++){
+                if(jewels[i]){
+                    calculatedStats = addStats(calculatedStats, jewels[i]?.stats)
+                }
             }
         }
     }
@@ -166,7 +168,9 @@ export function calculateTempernesStatsByLevel(pieceStats: stats, tempernessLeve
 
     for(keyOfPieceStats in pieceStats){
         if(pieceStats[keyOfPieceStats] !== null){
-            newPieceStats[keyOfPieceStats] = pieceStats[keyOfPieceStats] * (1 + tempernessStatsAddByLevels[tempernessLevel]) // some typescript issues probably
+            newPieceStats[keyOfPieceStats] = Number((Math.round(
+                Number(pieceStats[keyOfPieceStats]) * (1 + tempernessStatsAddByLevels[tempernessLevel - 1])
+                    * 100) / 100).toFixed(2)) 
         }
     }
 

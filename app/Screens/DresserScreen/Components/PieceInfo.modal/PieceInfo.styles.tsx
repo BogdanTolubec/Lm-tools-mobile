@@ -6,11 +6,13 @@ const piece_info = StyleSheet.create(
         wrapper: {
             display: "flex",
             flexDirection: "column",
+
+            justifyContent: "space-between",
     
             left: "2.5%",
             top: "25%", //just to center component with position absolute :/
             
-            height: "50%",
+            height: "55%",
             width: "95%",
     
             backgroundColor: "#FFFFFF",
@@ -18,16 +20,25 @@ const piece_info = StyleSheet.create(
             borderWidth: 2,
             borderStyle: "solid",
             padding: 2,
-    
-            overflow: "scroll"
+            overflow: "scroll",
         },
 
         gear_and_jewels_row: {
-            height: "20%",
+            height: "50%",
             width: "100%",
 
             display: "flex",
             flexDirection: "row",
+        },
+
+        piece_attributes_wrapper: {
+            display: "flex",
+            flexDirection: "column",
+
+            justifyContent: "space-between",
+
+            height: "40%",
+            width: "100%",
         },
 
         piece_img_wrapper: {
@@ -51,24 +62,41 @@ const piece_info = StyleSheet.create(
             width: "24%",
         },
 
-        stats_wrapper: {
-            display: "flex",
+        temper_section_wrapper: {
+            height: "45%",
             width: "100%",
-            height: "50%",
 
-            justifyContent: "flex-end"
+            display: "flex",   
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
         },
 
-        temperSectionWrapper: {
-            paddingTop: 8,
-
-            height: "30%",
-            width: "100%",
-        },
-
-        temperIconWrapper: {
-            height: "50%",
+        temper_icon_wrapper: {
+            height: "90%",
             width: "20%"
+        },
+
+        temper_level_input: {
+            justifyContent: "flex-start",
+            alignItems: "center",
+
+            height: "60%",
+            width: "20%",
+
+            borderColor: "black",
+            borderStyle: "solid",
+            borderWidth: 2,
+        },
+
+        temper_submit_button: {
+            height: "60%",
+            width: "35%",
+        },
+
+        stats_wrapper: {
+            maxHeight: "50%",
+            width: "100%",
         },
     }
 )
