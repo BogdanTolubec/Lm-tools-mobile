@@ -18,13 +18,15 @@ function Swapper({centerComponent, componentsCount, childToParent}: Props): Reac
         childToParent(0)
     }, [])
 
+    useEffect(() => {
+        childToParent(swapperIterator)
+    }, [swapperIterator])
+
     return(
         <View style = {swapper.wrapper}>
             <TouchableOpacity style = {swapper.icon_wrapper} onPress = {() => {
-                if(swapperIterator > 0){
-                    childToParent(swapperIterator - 1)
+                if(swapperIterator > 0)
                     setSwapperIterator(swapperIterator - 1)
-                }
             }}>
                 <Image source = {{uri: IconPathConsts.leftArrowIcon}} style = {swapper.icon} resizeMode = "cover"/>
             </TouchableOpacity>
@@ -34,10 +36,8 @@ function Swapper({centerComponent, componentsCount, childToParent}: Props): Reac
                 </View>
 
             <TouchableOpacity style = {swapper.icon_wrapper} onPress = {() => {
-                if(swapperIterator < (componentsCount - 1)){
-                    childToParent(swapperIterator + 1)
+                if(swapperIterator < (componentsCount - 1))
                     setSwapperIterator(swapperIterator + 1)
-                }
             }}>
                 <Image source = {{uri: IconPathConsts.rightArrowIcon}} style = {swapper.icon}/>
             </TouchableOpacity>
