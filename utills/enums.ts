@@ -92,6 +92,7 @@ export enum IconPathConsts{
 
     menuIcon = rootAssetsconsPath + "/menu.png",
     questionMarkIcon = rootAssetsconsPath + "/question_mark.png",
+    closeIcon = rootAssetsconsPath + "/close.png",
 
     homeIcon = rootAssetsconsPath + "/home.png",
     speedUpIcon = rootAssetsconsPath + "/speed_up.png",

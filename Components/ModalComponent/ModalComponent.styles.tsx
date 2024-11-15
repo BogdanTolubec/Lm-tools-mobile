@@ -14,10 +14,23 @@ const modal_component = StyleSheet.create({
     },
 
     content: {
-        height: "100%",
+        height: "95%",
         width: "100%",
         position: 'absolute',
-    }
+    },
+
+    closing_icon_line: {
+        height: "5%",
+        width: "100%",
+    },
+
+    closing_icon: {
+        height: "100%",
+        width: "8%",
+        left: "90%",
+
+        position: "absolute",
+    },
 })
 
 export default modal_component

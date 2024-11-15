@@ -10,9 +10,9 @@ const piece_info = StyleSheet.create(
             justifyContent: "space-between",
     
             left: "2.5%",
-            top: "25%", //just to center component with position absolute :/
+            top: "20%", //just to center component with position absolute :/
             
-            height: "55%",
+            height: "60%",
             width: "95%",
     
             backgroundColor: "#FFFFFF",

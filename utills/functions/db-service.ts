@@ -2,7 +2,6 @@ import { openDatabase, enablePromise, SQLiteDatabase, ResultSet } from "react-na
 import { gearSet, jewel, Piece, stats } from "../types";
 import { pieceTypes, rareness, tableNames } from "../enums";
 import { gearSetPiecesCount } from "../consts";
-import { calculateTempernesStatsByLevel } from "./statsCalculation.functions";
 
 enablePromise(true);
 
@@ -163,6 +162,8 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
         const allGearSets: [ResultSet] = await db.executeSql(sqlQueryGetGearSets)
         const allJewelsSets: [ResultSet] = await db.executeSql(sqlQueryGetJewelsSets)
         const allTempernessSets: [ResultSet] = await db.executeSql(sqlQueryGetTempernessLevels)
+
+        console.log()
             
             for (let i = 0; i < allGearSets[0].rows.length; i++) {
 
@@ -188,7 +189,7 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
 
                 secondHand: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).secondHand,
                     allGearSets[0].rows.item(i).secondHand_rareness, allJewelsSets[0].rows.item(i).secondHand_jewels,
-                    allTempernessSets[0].rows.item(i).secondHandtemperness_level),
+                    allTempernessSets[0].rows.item(i).secondHand_temperness_level),
 
                 accessory1: await getPieceByIdAndRareness(db, allGearSets[0].rows.item(i).accessory1,
                     allGearSets[0].rows.item(i).accessory1_rareness, allJewelsSets[0].rows.item(i).accessory1_jewels,
