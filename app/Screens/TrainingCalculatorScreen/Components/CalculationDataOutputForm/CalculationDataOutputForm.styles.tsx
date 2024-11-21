@@ -1,30 +1,27 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-const calculation_data_output_form_styles = StyleSheet.create(
+const calculation_data_output_form = StyleSheet.create(
     {
         wrapper: {
-            flex: 1,
-            maxHeight: "40%",
-            minHeight: "30%",
-            minWidth: "40%",
+            display: "flex",
+            height: "40%",
+            width: "100%",
+
+            flexWrap: "wrap",
 
             borderWidth: 2,
             borderStyle: "solid",
             borderColor: "rgb(0, 0, 0)",
 
-            flexDirection: "row",
-            justifyContent: "space-between",
-
             backgroundColor: "rgba(0, 0, 0, 0.6)",
         },
 
-        rss_output_segment: {
-            width: "50%",
-        },
-
         rss_output : {
-            flex: 1,
+            display: "flex",
+            height: "33.31%",
+            width: "50%",
+
             borderStyle: "solid",
             borderWidth: 1,
 
@@ -33,10 +30,7 @@ const calculation_data_output_form_styles = StyleSheet.create(
         },
 
         text :{
-            fontWeight: "bold",
-            fontFamily: "Snell Roundhand, cursive",
-            fontSize: 20,
-            color: "rgb(0, 0, 0)",
+            fontWeight: "700",
         },
 
         img: {
@@ -47,4 +41,4 @@ const calculation_data_output_form_styles = StyleSheet.create(
     }
 )
 
-export default calculation_data_output_form_styles
+export default calculation_data_output_form

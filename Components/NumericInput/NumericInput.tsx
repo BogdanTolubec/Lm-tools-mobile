@@ -20,7 +20,7 @@ function NumericInput({minValue, maxValue, placeholder, styles, setParentElement
     },[inputValue])
 
     return(
-        <TextInput value = {inputValue} keyboardType = "numeric" style = {styles} maxLength = {maxLength}
+        <TextInput value = {inputValue} keyboardType = "numeric" style = {styles} maxLength = {maxLength || maxValue.toString().length}
             onChangeText = { (text) =>{
                 validateInputTypeNumber(text.replaceAll(" ", ""), minValue, maxValue, setInputValue)
             }

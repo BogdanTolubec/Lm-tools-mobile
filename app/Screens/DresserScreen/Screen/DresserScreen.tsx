@@ -4,7 +4,7 @@ import dresser_screen from "./DresserScreen.styles";
 import { ImgPathConsts, pieceTypes } from "../../../../utills/enums";
 import SetOfPieces from "../Components/SetOfPieces/SetOfPieces";
 import { getALLGearSets, getDBConnection} from "../../../../utills/functions/db-service";
-import Swapper from "../../../../Components/SubmitButton/Swapper/Swapper";
+import Swapper from "../../../../Components/Swapper/Swapper";
 import { gearSet, Piece} from "../../../../utills/types";
 import ModalComponent from "../../../../Components/ModalComponent/ModalComponent";
 import GearSetMenu from "../Components/GearSetMenu.modal/GearSetMenu";

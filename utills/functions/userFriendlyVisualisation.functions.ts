@@ -1,6 +1,8 @@
+import { daysToSeconds, hoursInDay, hoursToSeconds, minutesInHour, secondsInMinutes, secondsToDays, secondsToHours, secondsToMinutes } from "./timeConvertFunctions"
+
 export function userFriendlyBigNumbersVisualisation(number: number): string{
     if(!number){
-        return ""
+        return "0"
     }
 
     number = Math.round(number)
@@ -21,6 +23,14 @@ export function userFriendlyBigNumbersVisualisation(number: number): string{
     }
 
     return result.split("").reverse().join("") //reverses string
+}
+
+export function timeConverterToStringInDaysHoursMinutesFormat(timeInSeconds: number): string{
+    const daysCount: number = Math.floor(secondsToDays( timeInSeconds ))
+    const hoursCount: number = Math.floor(secondsToHours( timeInSeconds - daysToSeconds(daysCount) ))
+    const minutesCount: number = Math.floor(secondsToMinutes( timeInSeconds - daysToSeconds(daysCount) - hoursToSeconds(hoursCount) ))
+
+    return `${daysCount}d ${hoursCount}h ${minutesCount}m `
 }
 
 export function firstLetterCapitalizer(string: string): string{

@@ -2,11 +2,11 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { IconPathConsts, ScreensEnum } from '../../utills/enums';
-import HomeScreen from '../Screens/HomeScreen/Screen/HomeScreen';
 import TrainingCalculatorScreen from '../Screens/TrainingCalculatorScreen/Screen/TrainingCalculatorScreen';
 import DresserScreen from '../Screens/DresserScreen/Screen/DresserScreen';
 import TabIcon from './TabIcon/TabIcon';
 import SpeedUpsCalculatorScreen from '../Screens/SpeedUpsCalculatorScreen/Screen/SpeedUpsCalculatorScreen';
+import ResearchesToolsScreen from '../Screens/ResearchesToolsScreen/Screen/ResearchesToolsScreen';
 
 function TabLayout(): React.JSX.Element {
 
@@ -26,16 +26,16 @@ function TabLayout(): React.JSX.Element {
                 height: 80,
           },
         }}>
-                <Tab.Screen name = {ScreensEnum.home} component = {HomeScreen} options = {
+                <Tab.Screen name = {ScreensEnum.dresser} component = {DresserScreen} options = {
                     {
-                        title: "Home",
+                        title: "Dresser",
                         headerShown: false,
                         tabBarIcon: ({color, focused}) => {
                             return (
                                 <TabIcon 
-                                icon = {IconPathConsts.homeIcon}
+                                icon = {IconPathConsts.gearIcon}
                                 color = {color}
-                                name = {"Home"}
+                                name = {"Dresser"}
                                 focused = {focused}/>
                             )
                         }
@@ -58,22 +58,6 @@ function TabLayout(): React.JSX.Element {
                     }
                 }/>
 
-                <Tab.Screen name = {ScreensEnum.dresser} component = {DresserScreen} options = {
-                    {
-                        title: "Dresser",
-                        headerShown: false,
-                        tabBarIcon: ({color, focused}) => {
-                            return (
-                                <TabIcon 
-                                icon = {IconPathConsts.gearIcon}
-                                color = {color}
-                                name = {"Dresser"}
-                                focused = {focused}/>
-                            )
-                        }
-                    }
-                }/>
-
                 <Tab.Screen name = {ScreensEnum.speedUpsCalculator} component = {SpeedUpsCalculatorScreen} options = {
                     {
                         title: "Speeds calculator",
@@ -84,6 +68,22 @@ function TabLayout(): React.JSX.Element {
                                 icon = {IconPathConsts.speedUpIcon}
                                 color = {color}
                                 name = {"Speeds calculator"}
+                                focused = {focused}/>
+                            )
+                        }
+                    }
+                }/>
+
+                <Tab.Screen name = {ScreensEnum.home} component = {ResearchesToolsScreen} options = {
+                    {
+                        title: "Researches tools",
+                        headerShown: false,
+                        tabBarIcon: ({color, focused}) => {
+                            return (
+                                <TabIcon 
+                                icon = {IconPathConsts.researchesIcon}
+                                color = {color}
+                                name = {"Researches tools"}
                                 focused = {focused}/>
                             )
                         }

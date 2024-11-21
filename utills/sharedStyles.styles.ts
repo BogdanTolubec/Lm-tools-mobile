@@ -34,6 +34,15 @@ const shared_styles = StyleSheet.create({
     stats_text: {
         letterSpacing: 1.5,
         fontWeight: "700",
+    },
+
+    background_img: {
+        flex: 1,
+        width: "100%" ,
+        height: "100%",
+
+        justifyContent: "center",
+        alignItems: "center",
     }
 })
 

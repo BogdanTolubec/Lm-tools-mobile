@@ -1,5 +1,4 @@
 import React from "react";
-import { Dimensions } from "react-native";
 
 export enum ScreensEnum {
     home = "HomeScreen",
@@ -94,7 +93,7 @@ export enum IconPathConsts{
     questionMarkIcon = rootAssetsconsPath + "/question_mark.png",
     closeIcon = rootAssetsconsPath + "/close.png",
 
-    homeIcon = rootAssetsconsPath + "/home.png",
+    researchesIcon = rootAssetsconsPath + "/researches.png",
     speedUpIcon = rootAssetsconsPath + "/speed_up.png",
     calculatorIcon = rootAssetsconsPath + "/calculator.png",
     gearIcon = rootAssetsconsPath + "/gear.png",

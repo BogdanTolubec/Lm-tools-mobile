@@ -20,7 +20,7 @@ function TabIcon ({ icon, color, name, focused}: Props): React.JSX.Element {
           style = {tab_icon.img}
         />
         <Text
-          style={{ color: color }}
+          style={{ color: color, textAlign: "center" }}
         >
           {name}
         </Text>

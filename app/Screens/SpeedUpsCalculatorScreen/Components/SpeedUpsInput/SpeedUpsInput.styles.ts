@@ -19,8 +19,8 @@ const speed_ups_input = StyleSheet.create({
         borderColor: "grey",
     },
 
-    input_styles: {
-        height: "30%",
+    input: {
+        height: "25%",
         width: "95%",
 
         padding: 1,
@@ -31,10 +31,25 @@ const speed_ups_input = StyleSheet.create({
         borderColor: "black",
     },
 
-    icon_styles: {
-        height: "70%",
-        width: "95%"
-    }
+    icon_wrapper: {
+        height: "75%",
+        width: "100%"
+    },
+
+    speed_up_icon: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'contain',
+
+        justifyContent: "flex-end"
+    },
+
+    text: {
+        color: "black",
+        fontWeight: "700",
+        alignSelf: "flex-end",
+    },
 })
 
 export default speed_ups_input

@@ -69,8 +69,6 @@ function PieceInfo({pieceType, gearSetSelected, isOuterModalVisible, setInnerMod
                 {rareness: rareness.legendary, iconPath: IconPathConsts.legendaryChooseLableIcon}]
             ) // rareness for choose labels
 
-            console.log("id: " + jewelInPieceId)
-
             setCurrentItemType("jewel")
             onChooseRarenessLabelPress("jewel", jewel?.rareness || rareness.common, pieceToChange, jewelInPieceId, undefined, jewel) // undefined in the end is important :)
             setIsItemSelectorModalActive(!isItemSelectorModalActive)

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Text, View } from "react-native";
-import calculation_data_output_form_styles from "./CalculationDataOutputForm.styles";
-import { userFriendlyBigNumbersVisualisation } from "../../../../../utills/functions/userFriendlyVisualisation.functions";
+import calculation_data_output_form from "./CalculationDataOutputForm.styles";
+import { firstLetterCapitalizer, timeConverterToStringInDaysHoursMinutesFormat, userFriendlyBigNumbersVisualisation } from "../../../../../utills/functions/userFriendlyVisualisation.functions";
 
 type Props = {
     calculationResults: Record<string, number>
@@ -9,55 +9,34 @@ type Props = {
 
 function CalculationDataOutputForm( {calculationResults}: Props ): React.JSX.Element {
 
-    const[foodCount, setFoodCount] = useState(0)
-    const[stoneCount, setStoneCount] = useState(0)
-    const[woodCount, setWoodCount] = useState(0)
-    const[oreCount, setOreCount] = useState(0)
-    const[goldCount, setGoldCount] = useState(0)
-    const[trainingTime, setTrainingTime] = useState(0)
+    let keyOfCalculationResults: keyof typeof calculationResults
 
-    useEffect(() => { //setting values when result changes
-        if(calculationResults != undefined) {
-            setFoodCount(calculationResults.foodCount)
-            setStoneCount(calculationResults.stoneCount)
-            setWoodCount(calculationResults.woodCount)
-            setOreCount(calculationResults.oreCount)
-            setGoldCount(calculationResults.goldCount)
-            setTrainingTime(calculationResults.trainingTime)
+    const calculatedMaterialsOutput = (): React.JSX.Element[] => {
+        const resultsArray: React.JSX.Element[] = []
+
+        for(keyOfCalculationResults in calculationResults){
+            resultsArray.push(
+                <View key = {keyOfCalculationResults} style = {calculation_data_output_form.rss_output}>
+                    <Text style = {calculation_data_output_form.text}> 
+                        {firstLetterCapitalizer(keyOfCalculationResults)}: 
+                        
+                        {
+                            keyOfCalculationResults === "trainingTime" ? 
+                            timeConverterToStringInDaysHoursMinutesFormat(calculationResults[keyOfCalculationResults])
+                            : 
+                            userFriendlyBigNumbersVisualisation(calculationResults[keyOfCalculationResults])
+                        }
+                    </Text>
+                </View>
+            )
         }
-    }, [calculationResults])
+
+        return resultsArray
+    }
 
     return(
-        <View style = {calculation_data_output_form_styles.wrapper}>
-            <View style = {calculation_data_output_form_styles.rss_output_segment}>
-                <View style = {calculation_data_output_form_styles.rss_output}>
-                    <Text> Food: {userFriendlyBigNumbersVisualisation(foodCount)} </Text>
-                </View>
-
-                <View style = {calculation_data_output_form_styles.rss_output}>
-                    <Text> Stone: {userFriendlyBigNumbersVisualisation(stoneCount)} </Text>
-                </View>
-
-                <View style = {calculation_data_output_form_styles.rss_output}>
-                    <Text> Wood: {userFriendlyBigNumbersVisualisation(woodCount)} </Text>
-                </View>
-            </View>
-
-            <View style = {calculation_data_output_form_styles.rss_output_segment}>
-                <View style = {calculation_data_output_form_styles.rss_output}>
-                    <Text> Ore: {userFriendlyBigNumbersVisualisation(oreCount)} </Text>
-                </View>
-
-                <View style = {calculation_data_output_form_styles.rss_output}>
-                    <Text> Gold: {userFriendlyBigNumbersVisualisation(goldCount)} </Text>
-                </View>
-
-                <View style = {calculation_data_output_form_styles.rss_output}>
-                    <Text> Speed ups: { Math.floor(trainingTime/3600/24) }d {" "}
-                        { Math.floor(trainingTime/3600) % 24}h {" "}
-                        { Math.floor(trainingTime/60) % 60}m {" "}</Text>
-                </View>
-            </View>
+        <View style = {calculation_data_output_form.wrapper}>
+            {calculatedMaterialsOutput()}
         </View>
     );
 }

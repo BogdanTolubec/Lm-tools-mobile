@@ -24,12 +24,6 @@ const training_calculator_styles = StyleSheet.create(
             height: "100%",
             width:"100%",
         },
-        
-        background_img: {
-            flex: 1,
-            width: "100%" ,
-            height: "100%",
-        },
     }
 );
 

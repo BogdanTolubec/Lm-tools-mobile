@@ -48,19 +48,19 @@ export const calculationDataT4: calculationData = {
 }
 
 //speed ups calculator const__________
-export const speedUpsIconValueArray: Array<{imagePath: string, speedUpValueInMinutes: number}> = [
-    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 1}, // 1 min speed ups
-    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 3}, // 3 min speed ups
-    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 5}, // 5 min speed ups
-    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 10}, // 10 min speed ups
-    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 15}, // 15 min speed ups
-    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 30}, // 30 min speed ups
-    {imagePath: ImgPathConsts.speedUpGreenImage, speedUpValueInMinutes: 60}, //1 hour speed ups
-    {imagePath: ImgPathConsts.speedUpBlueImage, speedUpValueInMinutes: 180}, //3 hours speed ups
-    {imagePath: ImgPathConsts.speedUpBlueImage, speedUpValueInMinutes: 480}, //8 hours speed ups
-    {imagePath: ImgPathConsts.speedUpBlueImage, speedUpValueInMinutes: 900}, //15 hours speed ups
-    {imagePath: ImgPathConsts.speedUpBlueImage, speedUpValueInMinutes: 1440}, //1 day speed ups
-    {imagePath: ImgPathConsts.speedUpRedImage, speedUpValueInMinutes: 4320}, //3 days speed ups
+export const speedUpsValuesArray: Array<number> = [
+    1, // 1 min speed ups
+    3, // 3 min speed ups
+    5, // 5 min speed ups
+    10, // 10 min speed ups
+    15, // 15 min speed ups
+    30, // 30 min speed ups
+    60, //1 hour speed ups
+    180, //3 hours speed ups
+    480, //8 hours speed ups
+    900, //15 hours speed ups
+    1440, //1 day speed ups
+    4320, //3 days speed ups
 ]
 
 //default objects__________

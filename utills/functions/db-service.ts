@@ -162,8 +162,6 @@ export const getALLGearSets = async (db: SQLiteDatabase): Promise<gearSet[]> => 
         const allGearSets: [ResultSet] = await db.executeSql(sqlQueryGetGearSets)
         const allJewelsSets: [ResultSet] = await db.executeSql(sqlQueryGetJewelsSets)
         const allTempernessSets: [ResultSet] = await db.executeSql(sqlQueryGetTempernessLevels)
-
-        console.log()
             
             for (let i = 0; i < allGearSets[0].rows.length; i++) {
 
@@ -284,10 +282,6 @@ export const updateGearSet = async (db: SQLiteDatabase, gearSet: gearSet, title:
             accessory3_temperness_level = ${gearSet.accessory3 ? gearSet.accessory3.tempernessLevel : 0}
             WHERE ${tableNames.temperness_levels_set}.temperness_levels_set_id = (SELECT temperness_levels_set_id
             FROM ${tableNames.gear_sets} WHERE gear_sets_id = ${gearSet.id})`
-
-        console.log(
-            (await db.executeSql(`SELECT * FROM ${tableNames.temperness_levels_set} WHERE (SELECT temperness_levels_set_id FROM Gear_sets WHERE Gear_sets.gear_sets_id = ${gearSet.id})`))[0].rows.raw()
-        )
 
         await db.executeSql(sqlQueryUpdateTempernessLevelsSet)
         await db.executeSql(sqlQueryUpdateGearSetRareness)
