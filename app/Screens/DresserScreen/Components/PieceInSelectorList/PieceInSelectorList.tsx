@@ -7,6 +7,7 @@ import { firstLetterCapitalizer } from "../../../../../utills/functions/userFrie
 import { setGearImageBackgroundByRareness } from "../../../../../utills/functions/images.functions";
 import ImageInWrapper from "../../../../../Components/ImageInWrapper/ImageInWrapper";
 import piece_in_selector_list from "./PieceInSelectorList.styles";
+import shared_styles from "../../../../../utills/sharedStyles.styles";
 
 type Props = {
     piece: Piece | undefined,
@@ -52,7 +53,7 @@ function PieceInList({piece, pieceType, gearSet, onPress, setGearSet}: Props): R
                     </ImageBackground>
                 </View>
 
-                <Text> {firstLetterCapitalizer(piece?.name || "")} </Text>
+                <Text style = {shared_styles.stats_text}> {firstLetterCapitalizer(piece?.name || "")} </Text>
             </TouchableOpacity>
 
             <StatsList statsToShow = {piece?.stats}/>

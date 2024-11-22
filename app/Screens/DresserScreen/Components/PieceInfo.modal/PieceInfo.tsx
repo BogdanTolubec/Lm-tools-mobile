@@ -114,7 +114,7 @@ function PieceInfo({pieceType, gearSetSelected, isOuterModalVisible, setInnerMod
         }
     }
 
-    async function getJewelsList(currentRarenessSelected: rareness): Promise<jewel[]> {
+    async function getJewelsList(currentRarenessSelected: rareness, jewelSelected: jewel | undefined): Promise<jewel[]> {
         try{
             const db = await getDBConnection()
 
@@ -124,7 +124,8 @@ function PieceInfo({pieceType, gearSetSelected, isOuterModalVisible, setInnerMod
             pieceToChange?.jewels[1]?.jewel_id, pieceToChange?.jewels[2]?.jewel_id]
 
             for (let i = 0; i < allJewelsList.length; i++) {
-                if(!pieceJewelsId.includes(allJewelsList[i].jewel_id)) {
+                console.log(jewelSelected?.jewel_id)
+                if(!pieceJewelsId.includes(allJewelsList[i].jewel_id) || allJewelsList[i].jewel_id === jewelSelected?.jewel_id){
                     jewelsFiltredList.push(allJewelsList[i])
                 }
             }
@@ -155,12 +156,12 @@ function PieceInfo({pieceType, gearSetSelected, isOuterModalVisible, setInnerMod
 
         if(itemType === "jewel" && selectedJewelInPieceId !== undefined){
             try{
-                const jewelsByTypeAndRareness = await getJewelsList(currentRareness)
+                const jewelsByTypeAndRareness = await getJewelsList(currentRareness, jewelSelected)
     
                 setItemsList(
                     jewelsByTypeAndRareness.map((listJewel, index) => 
                         <JewelInList key = {index} selectedJewelInPieceId = {selectedJewelInPieceId} piece = {pieceSelected} 
-                            selectedJewelInPiece = {jewelSelected} listJewel = {listJewel} setGearSet = {setGearSet}
+                            listJewel = {listJewel} setGearSet = {setGearSet} setJewelSelected = {setJewelSelected}
                             gearSet = {gearSetSelected}/>
                     )
                 )
