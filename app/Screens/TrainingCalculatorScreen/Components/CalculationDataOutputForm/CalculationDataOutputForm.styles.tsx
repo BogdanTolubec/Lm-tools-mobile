@@ -10,10 +10,6 @@ const calculation_data_output_form = StyleSheet.create(
 
             flexWrap: "wrap",
 
-            borderWidth: 2,
-            borderStyle: "solid",
-            borderColor: "rgb(0, 0, 0)",
-
             backgroundColor: "rgba(0, 0, 0, 0.6)",
         },
 
@@ -24,6 +20,7 @@ const calculation_data_output_form = StyleSheet.create(
 
             borderStyle: "solid",
             borderWidth: 1,
+            borderColor: "black",
 
             justifyContent: "center",
             padding: 2,
@@ -31,6 +28,7 @@ const calculation_data_output_form = StyleSheet.create(
 
         text :{
             fontWeight: "700",
+            color: "white",
         },
 
         img: {

@@ -25,12 +25,15 @@ const gear_set_stats_list = StyleSheet.create({
         fontWeight: "900",
 
         alignSelf: "center",
-        marginBottom: 10
+        marginBottom: 10,
+
+        color: "white"
     },
 
     text: {
         letterSpacing: 1.5,
         fontWeight: "700",
+        color: "white"
     }
 })
 

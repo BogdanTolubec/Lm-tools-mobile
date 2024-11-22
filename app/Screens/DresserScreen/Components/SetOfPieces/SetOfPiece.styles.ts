@@ -29,7 +29,7 @@ const set_of_pieces = StyleSheet.create({
         letterSpacing: 3,
         fontSize: 18,
         fontFamily: "josefin sans, sans-serif",
-        color: "#222",
+        color: "white",
         fontWeight: "700",
 
         textShadowColor: "#c9c9c9",

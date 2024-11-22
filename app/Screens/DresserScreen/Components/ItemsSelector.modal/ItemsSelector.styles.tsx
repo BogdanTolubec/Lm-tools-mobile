@@ -3,8 +3,7 @@ import { StyleSheet } from "react-native";
 
 const piece_selector = StyleSheet.create({
     wrapper:{
-        display: "flex",
-        flexDirection: "column",
+        flex: 1,
         
         height: "90%",
         width: "90%",
@@ -12,7 +11,7 @@ const piece_selector = StyleSheet.create({
         top: "5%",
         left: "5%",
 
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#141414",
         borderColor: "black",
         borderWidth: 2,
         borderStyle: "solid",
@@ -31,18 +30,21 @@ const piece_selector = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
 
-        top: "93%",
-        position: "absolute",
-
+        alignSelf: "flex-end",
         justifyContent: "space-between",
 
-        height: "7%",
-        width: "100%"
+        height: "8%",
+        width: "100%",
+
+        borderWidth: 0.5,
+        borderStyle: "solid",
+        borderTopColor: "grey",
     },
 
     choose_label_rareness_wrapper: {
         height: "100%",
         width: "15%",
+
         justifyContent: "space-between",
     },
 })

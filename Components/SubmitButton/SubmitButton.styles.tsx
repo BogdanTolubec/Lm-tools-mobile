@@ -6,7 +6,7 @@ const submit_button = StyleSheet.create({
         height: "100%",
         width: "100%",
         borderColor: "rgb(0,0,0)",
-        borderWidth: 3,
+        borderWidth: 2,
         borderRadius: 5,
     },
 
@@ -22,6 +22,7 @@ const submit_button = StyleSheet.create({
         fontSize: 14,
         textAlign: "center",
         letterSpacing: 2,
+        color: "white",
     }
 })
 

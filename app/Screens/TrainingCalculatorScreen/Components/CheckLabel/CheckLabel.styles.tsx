@@ -23,6 +23,7 @@ const check_label = StyleSheet.create({
         textAlignVertical: "center",
 
         fontWeight: "bold",
+        color: "white",
     }
 })
 

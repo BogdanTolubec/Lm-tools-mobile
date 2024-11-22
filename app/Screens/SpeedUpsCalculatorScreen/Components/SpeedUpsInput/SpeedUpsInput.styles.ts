@@ -46,7 +46,7 @@ const speed_ups_input = StyleSheet.create({
     },
 
     text: {
-        color: "black",
+        color: "white",
         fontWeight: "700",
         alignSelf: "flex-end",
     },

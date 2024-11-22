@@ -117,7 +117,19 @@ function PieceInfo({pieceType, gearSetSelected, isOuterModalVisible, setInnerMod
     async function getJewelsList(currentRarenessSelected: rareness): Promise<jewel[]> {
         try{
             const db = await getDBConnection()
-            return await getAllJewelsByRareness(db, currentRarenessSelected)
+
+            const allJewelsList: jewel[] = await getAllJewelsByRareness(db, currentRarenessSelected)
+            let jewelsFiltredList: jewel[] = []
+            const pieceJewelsId: Array<number | undefined> = [pieceToChange?.jewels[0]?.jewel_id, 
+            pieceToChange?.jewels[1]?.jewel_id, pieceToChange?.jewels[2]?.jewel_id]
+
+            for (let i = 0; i < allJewelsList.length; i++) {
+                if(!pieceJewelsId.includes(allJewelsList[i].jewel_id)) {
+                    jewelsFiltredList.push(allJewelsList[i])
+                }
+            }
+
+            return jewelsFiltredList
 
         } catch(e){
             console.log("On jewel in PieceInfo selection error: " + JSON.stringify(e))

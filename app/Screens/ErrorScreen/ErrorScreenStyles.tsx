@@ -29,7 +29,7 @@ const error_page = StyleSheet.create({
     
     text_404: {
         fontFamily: "josefin sans, sans-serif",
-        color: "#222",
+        color: "white",
         fontSize: 70,
         margin: 0,
         fontWeight: "700",

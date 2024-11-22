@@ -46,11 +46,12 @@ const speed_ups_calculator_screen = StyleSheet.create({
     },
 
     result_text: {
-        color: "black",
+        color: "white",
         fontWeight: "700",
         fontSize: 25,
 
-        letterSpacing: 2, textAlign: "center"
+        letterSpacing: 2, 
+        textAlign: "center"
     },
 })
 

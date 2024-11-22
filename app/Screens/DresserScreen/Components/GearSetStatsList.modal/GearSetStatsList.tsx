@@ -27,7 +27,7 @@ function GearSetStatsList({gearSet}: Props): React.JSX.Element {
                 statsList.map((item, index) =>
                     <View key = {index} style = {gear_set_stats_list.stat_wrapper}>
                         <Text style = {gear_set_stats_list.text}> {item.text} : </Text> 
-                        <Text>{item.stat}% </Text>
+                        <Text style = {gear_set_stats_list.text}>{item.stat}% </Text>
                     </View>
                 )
             }

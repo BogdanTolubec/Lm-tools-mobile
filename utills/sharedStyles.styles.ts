@@ -22,7 +22,7 @@ const shared_styles = StyleSheet.create({
         height: "80%",
         width: "80%",
 
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#222121",
         borderColor: "black",
         borderWidth: 2,
         borderStyle: "solid",
@@ -34,6 +34,7 @@ const shared_styles = StyleSheet.create({
     stats_text: {
         letterSpacing: 1.5,
         fontWeight: "700",
+        color: "white"
     },
 
     background_img: {

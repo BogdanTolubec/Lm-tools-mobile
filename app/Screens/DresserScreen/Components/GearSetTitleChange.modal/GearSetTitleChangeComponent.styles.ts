@@ -15,7 +15,7 @@ const gear_set_title_change_component = StyleSheet.create({
         height: "40%",
         width: "80%",
 
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#141414",
         borderColor: "black",
         borderWidth: 2,
         borderStyle: "solid",
@@ -38,6 +38,7 @@ const gear_set_title_change_component = StyleSheet.create({
         fontSize: 18,
         fontWeight: "700",
         letterSpacing: 2,
+        color: "white"
     },
 
     button_wrapper: {

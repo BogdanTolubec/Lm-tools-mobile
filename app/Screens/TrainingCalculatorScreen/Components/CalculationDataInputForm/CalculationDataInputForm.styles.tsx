@@ -43,7 +43,7 @@ const calculation_data_input_form = StyleSheet.create({
     },
 
     text_input: {
-        borderColor: "rgb(100, 100, 100)",
+        borderColor: "white",
         borderWidth: 2,
         borderStyle: "solid",
     },

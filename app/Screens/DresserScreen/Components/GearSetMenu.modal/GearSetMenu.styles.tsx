@@ -14,7 +14,7 @@ const gear_set_menu = StyleSheet.create({
         height: "80%",
         width: "80%",
 
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#141414",
         borderColor: "black",
         borderWidth: 2,
         borderStyle: "solid",

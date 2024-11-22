@@ -15,7 +15,7 @@ const piece_info = StyleSheet.create(
             height: "60%",
             width: "95%",
     
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "#2b2b2b",
             borderColor: "black",
             borderWidth: 2,
             borderStyle: "solid",
