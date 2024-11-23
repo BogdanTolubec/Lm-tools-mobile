@@ -124,7 +124,6 @@ function PieceInfo({pieceType, gearSetSelected, isOuterModalVisible, setInnerMod
             pieceToChange?.jewels[1]?.jewel_id, pieceToChange?.jewels[2]?.jewel_id]
 
             for (let i = 0; i < allJewelsList.length; i++) {
-                console.log(jewelSelected?.jewel_id)
                 if(!pieceJewelsId.includes(allJewelsList[i].jewel_id) || allJewelsList[i].jewel_id === jewelSelected?.jewel_id){
                     jewelsFiltredList.push(allJewelsList[i])
                 }

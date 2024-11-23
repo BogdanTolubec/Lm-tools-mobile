@@ -32,6 +32,7 @@ function PieceInList({piece, pieceType, gearSet, onPress, setGearSet}: Props): R
 
             for(keyOfUpdatedGearSet in updatedGearSet){
                 if(pieceType === keyOfUpdatedGearSet){
+                    piece.jewels = updatedGearSet[keyOfUpdatedGearSet]?.jewels || [undefined, undefined, undefined] // not null operator because of check before
                     updatedGearSet[keyOfUpdatedGearSet] = piece
                     setGearSet(updatedGearSet)
                 }

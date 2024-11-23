@@ -55,7 +55,7 @@ const set_of_pieces = StyleSheet.create({
     },
 
     start_of_set: {
-        height: "25%",
+        height: "22%",
         width: "100%",
         gap: 15,
 
@@ -67,7 +67,7 @@ const set_of_pieces = StyleSheet.create({
     },
 
     center_of_set_wrapper: {
-        height: "50%",
+        height: "45%",
         width: "100%",
         display: "flex",
         flexDirection: "column",
@@ -78,7 +78,7 @@ const set_of_pieces = StyleSheet.create({
     },
 
     center_of_set:{
-        height: "25%",
+        height: "30%",
         width: "100%",
         display: "flex",
 
@@ -88,7 +88,7 @@ const set_of_pieces = StyleSheet.create({
     },
 
     end_of_set: {
-        height: "25%",
+        height: "22%",
         width: "100%",
         gap: 15,
 
@@ -103,6 +103,11 @@ const set_of_pieces = StyleSheet.create({
         borderColor: "black",
         backgroundColor: "white"
     },
+
+    button_wrapper: {
+        height: "7%",
+        width: "60%",
+    }
 })
 
 export default set_of_pieces

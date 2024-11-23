@@ -103,7 +103,7 @@ function DresserScreen(): React.JSX.Element{
 
                     <ModalComponent visible = {isChangeTitleModalVisible} setVisible = {setIsChangeTitleModalVisible} 
                         children = {
-                            <GearSetTitleChangeComponent gearSet = {currentGearSet}/>
+                            <GearSetTitleChangeComponent gearSet = {currentGearSet} setGearSet = {setCurrentGearSet}/>
                     }/>
 
                     <ModalComponent visible = {isGearSetStatsListModalActive} setVisible = {setIsGearSetStatsListModalActive}

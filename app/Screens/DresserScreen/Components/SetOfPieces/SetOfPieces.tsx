@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Alert, Image, Text, View } from "react-native";
 import set_of_pieces from "./SetOfPiece.styles";
 import { gearSet, Piece} from "../../../../../utills/types";
 import { IconPathConsts, ImgPathConsts, pieceTypes } from "../../../../../utills/enums";
@@ -8,6 +8,8 @@ import { gearSetPlaceHolder } from "../../../../../utills/consts";
 import PieceOfSet from "../Piece/Piece";
 import ImageInWrapper from "../../../../../Components/ImageInWrapper/ImageInWrapper";
 import JewelsInPiece from "../JewelsInPiece/JewelsInPiece";
+import SubmitButton from "../../../../../Components/SubmitButton/SubmitButton";
+import { getDBConnection, updateGearSet } from "../../../../../utills/functions/db-service";
 
 type Props = {
     title: string | null,
@@ -20,7 +22,21 @@ type Props = {
 
 function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleClicked, onQuestionMarkClicked}: Props): React.JSX.Element {
 
-    if(gearSet === undefined)  gearSet = gearSetPlaceHolder 
+    if(gearSet === undefined)  gearSet = gearSetPlaceHolder
+
+    const onSaveChanges = async (): Promise<void> => {
+        try{
+            const db = await getDBConnection() 
+            const result = await updateGearSet(db, gearSet, title)
+
+            if(!result){
+                Alert.alert("Oops! An error occured!")
+            }
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
     
     return(
         <View style = {set_of_pieces.wrapper}>
@@ -96,6 +112,11 @@ function SetOfPieces ({gearSet, title, onPieceSelected, onMenuClicked, onTitleCl
                             jewels = {<JewelsInPiece jewels = {gearSet?.accessory3?.jewels}/>}/>
                         </View>
                     </View>
+
+                    <View style = {set_of_pieces.button_wrapper}>
+                        <SubmitButton title = "Save changes" onPress = {() => {onSaveChanges()}}/>
+                    </View>
+
                 </View>
             </View>
     );

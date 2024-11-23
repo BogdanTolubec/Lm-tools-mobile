@@ -7,14 +7,21 @@ import { validateInputStringBySymbols } from "../../../../../utills/functions/va
 
 type Props = {
     gearSet: gearSet,
+    setGearSet: React.Dispatch<React.SetStateAction<gearSet>>
 }
 
-function GearSetTitleChangeComponent({gearSet}: Props): React.JSX.Element {
+function GearSetTitleChangeComponent({gearSet, setGearSet}: Props): React.JSX.Element {
 
     const [newTitle, setNewTitle] = useState<string>("")
 
     const onChangeTitle = (newTitle: string): void => {
-        gearSet.title = newTitle
+        let updatedGearSet: gearSet = {
+            ...gearSet,
+            title: newTitle,
+        }
+
+        setGearSet(updatedGearSet)
+        setNewTitle("")
     }
 
     return(
