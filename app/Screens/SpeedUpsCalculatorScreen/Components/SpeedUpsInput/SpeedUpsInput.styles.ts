@@ -29,6 +29,9 @@ const speed_ups_input = StyleSheet.create({
         borderWidth: 2,
         borderStyle: "solid",
         borderColor: "black",
+
+        color: "white",
+        fontWeight: "500",
     },
 
     icon_wrapper: {

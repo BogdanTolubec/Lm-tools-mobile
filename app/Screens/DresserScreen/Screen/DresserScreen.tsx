@@ -97,7 +97,7 @@ function DresserScreen(): React.JSX.Element{
 
 
                     <ModalComponent visible = {isMenuModalActive} setVisible = {setIsMenuModalActive} children={
-                        <GearSetMenu gearSet = {currentGearSet} title = {currentGearSet?.title} 
+                        <GearSetMenu gearSet = {currentGearSet} allGearSets = {allGearSets}
                             changeGearSetsCount = {onGearSetCreate}/>
                     }/>
 

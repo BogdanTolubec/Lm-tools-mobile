@@ -6,12 +6,12 @@ import gear_set_menu from "./GearSetMenu.styles";
 import { gearSet} from "../../../../../utills/types";
 
 type Props = {
-    title: string | null,
     gearSet: gearSet,
+    allGearSets: gearSet[],
     changeGearSetsCount: () => void,
 }
 
-function GearSetMenu({gearSet, title, changeGearSetsCount}: Props): React.JSX.Element {
+function GearSetMenu({gearSet, allGearSets, changeGearSetsCount}: Props): React.JSX.Element {
 
     const onCreateGearSet = async (): Promise<void> => {
         try{
@@ -31,14 +31,18 @@ function GearSetMenu({gearSet, title, changeGearSetsCount}: Props): React.JSX.El
 
     const onDeleteGearSet = async (): Promise<void> => {
         try{
-            const db = await getDBConnection() 
-            const result = await deleteGearSetById(db, gearSet.id)
-
-            changeGearSetsCount()
-
-            if(!result){
-                Alert.alert("Cannot delete gear set...")
+            if(allGearSets.length > 1){
+                const db = await getDBConnection() 
+                const result = await deleteGearSetById(db, gearSet.id)
+    
+                changeGearSetsCount()
+            
+                if(!result){
+                    Alert.alert("Cannot delete gear set...")
+                }
             }
+
+            else Alert.alert("At least one gear set should be avialble")
         }
         catch(e){
             console.log(e)
